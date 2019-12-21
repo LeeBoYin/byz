@@ -1,29 +1,36 @@
 <template>
 	<div>
-		<h1>Board!</h1>
-		<div>board ID: {{ id }}</div>
-		<div>board name: {{ boardName }}</div>
-		<hr>
-		<div>
-			<h1>Set board name</h1>
-			<input type="text" v-model="newName">
-			<button :disabled="!newName.length" @click="renameBoard(newName)">rename</button>
+		<div class="loading-msg" v-if="!isInitialized">
+			Loading board...
 		</div>
-		<hr>
-		<FormPost />
-		<hr>
-		<NewPosts />
+		<UserForm v-else-if="!currentUser" />
+		<template v-else>
+			<h1>Board!</h1>
+			<div>board ID: {{ id }}</div>
+			<div>board name: {{ boardName }}</div>
+			<hr>
+			<div>
+				<h1>Set board name</h1>
+				<input type="text" v-model="newName" @keypress.enter="renameBoard(newName)">
+				<a class="btn" :disabled="!newName.length" @click="renameBoard(newName)">rename</a>
+			</div>
+			<hr>
+			<PostForm />
+			<hr>
+			<PostList />
+		</template>
 	</div>
 </template>
 
 <script>
-import FormPost from '../components/FormPost';
-import NewPosts from '../components/NewPosts';
+import UserForm from '../components/UserForm';
+import PostForm from '../components/PostForm';
+import PostList from '../components/PostList';
 export default {
-	name: 'Board',
 	components: {
-		FormPost,
-		NewPosts,
+		UserForm,
+		PostForm,
+		PostList,
 	},
 	data() {
 		return {
@@ -34,8 +41,12 @@ export default {
 		id() {
 			return this.$route.params.id;
 		},
+		...mapState('board', [
+			'isInitialized',
+		]),
 		...mapGetters('board', [
 			'boardName',
+			'currentUser',
 		]),
 	},
 	mounted() {
@@ -47,7 +58,7 @@ export default {
 			'renameBoard',
 		]),
 	},
-}
+};
 </script>
 
 <style scoped>

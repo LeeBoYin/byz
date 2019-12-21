@@ -16,9 +16,6 @@ const actions = {
 		commit('setDB', firebase.firestore());
 		console.log('init');
 	},
-	createUser({ dispatch }, payload) {
-		console.log('createUser');
-	},
 };
 
 export default {

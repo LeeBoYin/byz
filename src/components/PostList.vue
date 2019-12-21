@@ -8,7 +8,6 @@
 <script>
 import Post from './Post';
 export default {
-	name: 'NewPosts',
 	components: {
 		Post,
 	},
@@ -22,7 +21,7 @@ export default {
 			'posts',
 		]),
 	}
-}
+};
 </script>
 
 <style scoped>

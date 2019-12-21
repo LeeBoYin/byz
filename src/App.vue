@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import FormPost from './components/FormPost';
+import FormPost from './components/PostForm';
 export default {
 	components: {
 		FormPost

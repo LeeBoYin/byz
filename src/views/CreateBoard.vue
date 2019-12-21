@@ -3,33 +3,26 @@
 		<h1>Create a Board</h1>
 		<div>
 			Board Name:
-			<input v-model="boardName" type="text">
+			<input v-model="boardName" type="text" @keypress.enter="submit">
 		</div>
-		<div>
-			Your Name:
-			<input v-model="userName" type="text">
-		</div>
-		<button @click="onClickCreate">Create</button>
+		<a class="btn" @click="submit">Create</a>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'CreateBoard.vue',
 	data() {
 		return {
 			boardName: '',
-			userName: '',
 		};
 	},
 	methods: {
-		async onClickCreate() {
-			if(_.isEmpty(this.boardName )|| _.isEmpty(this.userName)) {
+		async submit() {
+			if(_.isEmpty(this.boardName )) {
 				return;
 			}
 			const docRef = await this.createBoard({
 				boardName: this.boardName,
-				userName: this.userName,
 			});
 			this.$router.push(`board/${ docRef.id }`);
 		},
@@ -37,7 +30,7 @@ export default {
 			'createBoard',
 		]),
 	},
-}
+};
 </script>
 
 <style scoped>

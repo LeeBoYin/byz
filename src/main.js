@@ -1,3 +1,5 @@
+import './custom.css';
+
 // firebase
 import 'firebase/auth';
 import 'firebase/firestore';

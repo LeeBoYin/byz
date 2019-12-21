@@ -1,14 +1,12 @@
 <template>
 	<div>
 		<h1>Home</h1>
-		<button @click="$router.push('create')">Create a Board</button>
+		<a class="btn" @click="$router.push('create')">Create a Board</a>
 	</div>
 </template>
 
 <script>
-export default {
-	name: 'Home',
-}
+export default {};
 </script>
 
 <style scoped>
