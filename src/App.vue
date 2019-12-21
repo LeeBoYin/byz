@@ -29,9 +29,7 @@
 </template>
 
 <script>
-import * as firebase from "firebase/app";
-import FormPost from './components/FormPost.vue';
-import { mapState } from 'vuex';
+import FormPost from './components/FormPost';
 export default {
 	components: {
 		FormPost

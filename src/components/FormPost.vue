@@ -1,30 +1,22 @@
 <template>
 	<div class="form-post">
+		<h2>Create New Post</h2>
 		<label>
 			Type Something:
-			{{ _.get({ a: 1}, 'a') }}
-			<input type="text" v-model="content">
+			<input ref="input" type="text" v-model="content" @keydown.enter="submit">
 		</label>
 		<button :disabled="!isSubmittable" @click="submit">Post</button>
 		<div v-if="isLoading">Posting...</div>
-		<ul>
-			<li v-for="post in posts">{{ post.content }}</li>
-		</ul>
-		<button @click="readPosts">Read</button>
 	</div>
 </template>
 
 <script>
-import _ from 'lodash';
-import * as firebase from "firebase/app";
 export default {
 	name: 'FormPost',
 	data() {
 		return {
 			content: '',
-			db: null,
 			isLoading: false,
-			posts: [],
 		};
 	},
 	computed: {
@@ -32,38 +24,25 @@ export default {
 			return this.content.length > 0;
 		},
 	},
-	mounted() {
-		this.db = firebase.firestore();
-	},
 	methods: {
-		submit() {
+		async submit() {
 			if(!this.isSubmittable) {
 				return;
 			}
-			this.isLoading = true;
-			this.db.collection("post").add({
+			const post = {
 				content: this.content,
-				createTime: firebase.firestore.Timestamp.fromDate(new Date()),
-			})
-			.then((docRef) => {
-				console.log("Document written with ID: ", docRef.id);
-				this.content = '';
-			})
-			.catch((error) => {
-				console.error("Error adding document: ", error);
-			})
-			.finally(() => {
-				this.isLoading = false;
-			});
+				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+			};
+			this.content = '';
+			this.$refs.input.focus();
+			this.isLoading = true;
+			await this.createPost(post);
+			this.isLoading = false;
+
 		},
-		readPosts() {
-			this.db.collection("post").get().then((querySnapshot) => {
-				console.log(querySnapshot);
-				this.posts = _.map(querySnapshot.docs, (doc) => {
-					return doc.data();
-				});
-			});
-		},
+		...mapActions('board', [
+			'createPost',
+		]),
 	},
 }
 </script>
