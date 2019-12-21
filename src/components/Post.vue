@@ -1,6 +1,7 @@
 <template>
 	<div class="post">
 		<p>{{ post.content }}</p>
+		<small class="timestamp">{{ postTime }}</small>
 	</div>
 </template>
 
@@ -11,9 +12,12 @@ export default {
 		post: Object,
 	},
 	computed: {
-		// postTime() {
-		// 	return moment(this.post.timestamp.toDate()).format();
-		// },
+		postTime() {
+			if(!this.post.timestamp) {
+				return 'posting...';
+			}
+			return moment(this.post.timestamp.toDate()).format();
+		},
 	},
 }
 </script>
