@@ -23,8 +23,10 @@ module.exports = {
 		]
 	},
 	devServer: {
-		open: true,
+		open: false,
 		hot: true,
+		host: '0.0.0.0',
+		port: 3000,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -32,5 +34,14 @@ module.exports = {
 		}),
 		new VueLoaderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
+		new webpack.ProvidePlugin({
+			_: 'lodash',
+			moment: 'moment',
+			firebase: 'firebase/app',
+			mapState: ['vuex', 'mapState'],
+			mapGetters: ['vuex', 'mapGetters'],
+			mapMutations: ['vuex', 'mapMutations'],
+			mapActions: ['vuex', 'mapActions'],
+		}),
 	],
 };

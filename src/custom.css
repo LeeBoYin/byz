@@ -1,0 +1,66 @@
+body {
+	background-color: #fff4d6;
+	font-family: 'Futura', sans-serif;
+	letter-spacing: 0.5px;
+	margin: 0;
+}
+
+input {
+	border-radius: 50px;
+	border: 2px solid transparent;
+	color: #333;
+	font-size: 16px;
+	outline: none;
+	padding: 18px 30px;
+	transition: .2s;
+	width: 100%;
+}
+
+.btn {
+	background-color: #ffa100;
+	border-radius: 50px;
+	border: 2px solid #ffa100;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 500;
+	font-size: 16px;
+	letter-spacing: 1px;
+	padding: 18px 40px;
+	text-transform: uppercase;
+	transition: .2s;
+	user-select: none;
+}
+
+.btn:active,
+.btn.active {
+	background-color: #d88a04;
+	border-color: #d88a04;
+}
+
+hr {
+	border: 0 solid #d88a04;
+	border-top-width: 1px;
+	margin: 30px 0;
+}
+
+.loading-msg {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: loading infinite both;
+	animation-duration: 1s;
+	animation-direction: alternate;
+}
+
+@keyframes loading {
+	from {
+		letter-spacing: 8px;
+	}
+
+	to {
+		letter-spacing: 2px;
+	}
+}
