@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	background-color: #fff4d6;
 	font-family: 'Futura', sans-serif;
@@ -14,6 +18,7 @@ input {
 	padding: 18px 30px;
 	transition: .2s;
 	width: 100%;
+	min-width: auto;
 }
 
 .btn {
@@ -44,23 +49,31 @@ hr {
 	margin: 30px 0;
 }
 
-.loading-msg {
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	animation: loading infinite both;
-	animation-duration: 1s;
-	animation-direction: alternate;
+.sortable-ghost {
+	> * {
+		visibility: hidden;
+	}
+	opacity: .5;
+}
+.sortable-drag {
+	box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1)
+}
+.sortable-drag.in-trash-can {
+	transform: scale(0.1);
+	opacity: 0.5;
 }
 
-@keyframes loading {
-	from {
-		letter-spacing: 8px;
+#trash-can > * {
+	display: none;
+}
+
+@media 	(max-width: 768px) {
+	input {
+		padding: 15px 25px;
 	}
 
-	to {
-		letter-spacing: 2px;
+	.btn {
+		padding: 15px 30px;
 	}
+
 }

@@ -47,17 +47,17 @@ export default {
 .post-form {
 	position: fixed;
 	left: 0;
+	right: 0;
 	bottom: 0;
 	display: flex;
 	justify-content: space-between;
-	width: 100vw;
-	max-width: 800px;
+	max-width: 768px;
 	padding: 20px;
 	z-index: 99;
 }
 
 .post-form input,
-.post-form button {
+.post-form .btn {
 	box-shadow: 0 2px 20px 2px rgba(0, 0, 0, 0.15);
 	outline: none;
 }
@@ -81,4 +81,28 @@ export default {
 .post-form .btn {
 	margin-left: 10px;
 }
+
+@media 	(max-width: 991px) {
+	.post-form {
+		padding: 10px;
+		background: rgba(255, 244, 214, 0.7);
+		border-top: 1px solid rgba(10, 10, 10, 0.04);
+		-webkit-backdrop-filter: blur(7px);
+	}
+
+	.post-form input,
+	.post-form .btn {
+		/* input 在手機設陰影沒有用 */
+		box-shadow: none;
+	}
+
+	.post-form input:hover {
+		border-color: transparent;
+	}
+
+	.post-form .btn {
+		margin-left: 5px;
+	}
+}
+
 </style>
