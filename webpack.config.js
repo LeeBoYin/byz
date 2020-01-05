@@ -19,7 +19,32 @@ module.exports = {
 		rules: [
 			{ test: /\.js$/, use: 'babel-loader' },
 			{ test: /\.vue$/, use: 'vue-loader' },
-			{ test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
+			{
+				test: /\.s[ac]ss$/i,
+				use: [
+					// Creates `style` nodes from JS strings
+					'style-loader',
+					// Translates CSS into CommonJS
+					'css-loader',
+					// Compiles Sass to CSS
+					'sass-loader',
+				],
+			},
+			{
+				test: /\.css$/,
+				use: [
+					'style-loader',
+					{ loader: 'css-loader', options: { importLoaders: 1 } },
+					'postcss-loader'
+				]
+			},
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: [
+					'file-loader',
+				],
+			},
+			// { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
 		]
 	},
 	devServer: {
@@ -37,6 +62,7 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			_: 'lodash',
 			moment: 'moment',
+			Vue: ['vue/dist/vue.esm.js', 'default'],
 			firebase: 'firebase/app',
 			mapState: ['vuex', 'mapState'],
 			mapGetters: ['vuex', 'mapGetters'],
