@@ -1,0 +1,45 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #fff4d6;
+	font-family: 'Futura', sans-serif;
+	letter-spacing: 0.5px;
+	margin: 0;
+}
+
+input {
+	border-radius: 50px;
+	border: 2px solid transparent;
+	background-color: #FFFFFF;
+	color: #333;
+	font-size: 16px;
+	outline: none;
+	padding: 18px 30px;
+	transition: .2s;
+	&:hover,
+	&:focus {
+		border-color: $c-primary;
+	}
+	@media 	(max-width: 768px) {
+		padding: 15px 25px;
+	}
+}
+label {
+	margin: 0;
+}
+
+a {
+	text-decoration: none !important;
+}
+
+button {
+	outline: none;
+}
+
+hr {
+	border: 0 solid $c-primary-dark;
+	border-top-width: 1px;
+	margin: 30px 0;
+}

@@ -11,7 +11,11 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			'vue$': 'vue/dist/vue.esm.js'
+			'vue$': 'vue/dist/vue.esm.js',
+			'@': path.resolve(__dirname, 'src'),
+			'@components': path.resolve(__dirname, 'src/components'),
+			'@style': path.resolve(__dirname, 'src/style'),
+			'@assets': path.resolve(__dirname, 'src/assets'),
 		},
 		extensions: ['*', '.js', '.vue', '.json']
 	},
@@ -22,6 +26,7 @@ module.exports = {
 			{
 				test: /\.s[ac]ss$/i,
 				use: [
+					'vue-style-loader',
 					// Creates `style` nodes from JS strings
 					'style-loader',
 					// Translates CSS into CommonJS
@@ -30,28 +35,28 @@ module.exports = {
 					'sass-loader',
 				],
 			},
-			{
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					{ loader: 'css-loader', options: { importLoaders: 1 } },
-					'postcss-loader'
-				]
-			},
+			// { // for tailwind
+			// 	test: /\.css$/,
+			// 	use: [
+			// 		'style-loader',
+			// 		{ loader: 'css-loader', options: { importLoaders: 1 } },
+			// 		'postcss-loader'
+			// 	]
+			// },
 			{
 				test: /\.(png|svg|jpg|gif)$/,
 				use: [
 					'file-loader',
 				],
 			},
-			// { test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
+			{ test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
 		]
 	},
 	devServer: {
 		open: false,
 		hot: true,
 		host: '0.0.0.0',
-		port: 3000,
+		port: 8000,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

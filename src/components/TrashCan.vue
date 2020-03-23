@@ -1,35 +1,59 @@
 <template>
-	<div id="trash-can"></div>
+	<i
+		id="trash-can"
+		:class="{ 'drag-over': dragOver }"
+		class="las la-trash"
+		@dragenter="onDragEnter"
+		@dragleave="onDragLeave"
+		@dragover="onDragOver"
+		@drop="onDrop"></i>
 </template>
 
 <script>
-import Sortable from 'sortablejs';
 export default {
 	data() {
 		return {
-			sortable: null,
+			dragOver: false,
 		};
 	},
-	mounted() {
-		const trashCan = this;
-		this.sortable = Sortable.create(this.$el, {
-			group: {
-				name: null,
-				pull: false,
-				put: true,
-			},
-			ghostClass: 'in-trash-can',
-			onAdd(e) {
-				if(e.item.getAttribute('data-post-id')) {
-					trashCan.deletePost(e.item.getAttribute('data-post-id'));
-				}
-				if(e.item.getAttribute('data-group-id')) {
-					trashCan.deleteGroup(e.item.getAttribute('data-group-id'));
-				}
-			},
-		});
+	computed: {
+		...mapState('board', [
+			'draggedItem',
+		]),
 	},
 	methods: {
+		onDragEnter(e) {
+			this.dragOver = true;
+			console.log('onDragEnter');
+			console.log(e);
+		},
+		onDragLeave(e) {
+			this.dragOver = false;
+			console.log('onDragLeave');
+			console.log(e);
+		},
+		onDragOver(e) {
+			// prevent default to allow drop
+			e.preventDefault();
+		},
+		onDrop() {
+			this.dragOver = false;
+			if(!this.draggedItem) {
+				return;
+			}
+console.log('onDrop');
+			if(this.draggedItem.getAttribute('data-post-id')) {
+				this.deletePost(this.draggedItem.getAttribute('data-post-id'));
+			}
+			if(this.draggedItem.getAttribute('data-group-id')) {
+				this.deleteGroup(this.draggedItem.getAttribute('data-group-id'));
+			}
+			this.updateDraggedItem(null);
+
+		},
+		...mapMutations('board', [
+			'updateDraggedItem',
+		]),
 		...mapActions('board', [
 			'deleteGroup',
 			'deletePost',
@@ -38,18 +62,28 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~@style/custom';
+$c-trash: #AAA;
+$c-trash-hover: #333;
 #trash-can {
 	position: fixed;
-	width: 80px;
-	height: 80px;
-	background-image: url('../assets/img/trashcan.png');
-	background-size: cover;
-	bottom: 10px;
+	font-size: 40px;
+	color: $c-primary;
+	border: 3px solid $c-primary;
+	border-radius: 50%;
+	bottom: 20px;
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 6px;
 	left: 800px;
 	transition: .2s ease-out;
-}
-#trash-can:not(:empty) {
-	transform: scale(1.5);
+	&.drag-over {
+		transform: scale(1.5);
+		color: $c-primary-dark;
+		border-color: $c-primary-dark;
+	}
+	> * {
+		display: none;
+	}
 }
 </style>

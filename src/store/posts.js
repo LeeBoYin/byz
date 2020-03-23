@@ -20,9 +20,9 @@ const getters = {
 		const newPosts = _.filter(state.posts, (post) => {
 			return !_.includes(groupedPostsId, post.id);
 		});
-		return _.reverse(_.sortBy(newPosts, (post) => {
+		return _.sortBy(newPosts, (post) => {
 			return _.get(post, ['timestamp', 'seconds'], moment().unix() + 60);
-		}));
+		});
 	},
 	// posts: state => state.posts,
 };
@@ -77,18 +77,19 @@ const actions = {
 			// fail
 		});
 	},
-	deletePost({ state, getters, dispatch }, postId) {
+	async deletePost({ state, getters, dispatch }, postId) {
 		const groupId = getters.getPostGroupId(postId);
 		if(groupId) {
 			// remove post from group before delete post
-			dispatch('updateGroup', {
+			await dispatch('updateGroup', {
 				groupId,
 				updateObj: {
 					postIdList: firebase.firestore.FieldValue.arrayRemove(postId),
 				},
 			});
 		}
-		state.posts[postId].ref.delete().then(() => {
+console.log('deletePost');
+		await state.posts[postId].ref.delete().then(() => {
 			// success
 		}).catch(() => {
 			// fail

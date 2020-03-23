@@ -6,6 +6,7 @@ import usersStore from './users';
 const state = {
 	board: null,
 	boardRef: null,
+	draggedItem: null,
 	isInitialized: false,
 };
 const getters = {
@@ -22,6 +23,9 @@ const mutations = {
 	},
 	updateBoard(state, board) {
 		state.board = board;
+	},
+	updateDraggedItem(state, item) {
+		state.draggedItem = item;
 	},
 };
 const actions = {
@@ -58,8 +62,8 @@ const actions = {
 			console.log('Error getting board:', error);
 		});
 	},
-	updateBoard({ state }, updateObj) {
-		state.boardRef.update(updateObj).then(() => {
+	async updateBoard({ state }, updateObj) {
+		await state.boardRef.update(updateObj).then(() => {
 			// success
 		}).catch(() => {
 			// fail
