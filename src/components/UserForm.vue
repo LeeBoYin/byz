@@ -1,8 +1,14 @@
 <template>
-	<div>
-		<h1>Create a user</h1>
-		<input type="text" v-model="userName" @keypress.enter="submit">
-		<a class="btn" :disabled="!userName.length" @click="submit">join</a>
+	<div class="frow centered-column">
+		<h1 class="mb-5">Create an User</h1>
+		<div class="mb-25">to join {{ boardName }}</div>
+		<input ref="input" type="text" v-model="userName" class="mb-20" :disabled="isLoading" placeholder="Your name" @keypress.enter="submit">
+		<button class="btn" :disabled="isLoading" @click="submit">
+			<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
+			<template v-else>
+				Join
+			</template>
+		</button>
 	</div>
 </template>
 
@@ -10,17 +16,32 @@
 export default {
 	data() {
 		return {
+			isLoading: false,
 			userName: '',
 		};
 	},
+	computed: {
+		...mapGetters('board', [
+			'boardName',
+		]),
+	},
+	mounted() {
+		this.$refs.input.focus();
+	},
 	methods: {
-		submit() {
+		async submit() {
 			if(!this.userName.length) {
+				this.$refs.input.focus();
 				return;
 			}
-			this.createUser({
+			if(this.isLoading) {
+				return;
+			}
+			this.isLoading = true;
+			await this.createUser({
 				name: this.userName,
 			});
+			this.isLoading = false;
 		},
 		...mapActions('board', [
 			'createUser'
@@ -29,6 +50,8 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+	input, button {
+		width: 300px;
+	}
 </style>

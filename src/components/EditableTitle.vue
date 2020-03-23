@@ -1,21 +1,21 @@
 <template>
-	<div>
-		<component
+	<component :is="element" class="title">
+		<span
 			v-show="!isEditing"
-			:is="tag"
 			ref="title"
 			@click="onEdit">
 			{{ title }}
-		</component>
+		</span>
 		<input
 			v-show="isEditing"
 			ref="input"
 			type="text"
 			v-model.trim="newTitle"
+			placeholder="Group name"
 			@click.stop
 			@keypress.prevent.stop.enter="endEdit"
 			@keydown.prevent.stop.esc="cancelEdit">
-	</div>
+	</component>
 </template>
 
 <script>
@@ -27,8 +27,11 @@ export default {
 		};
 	},
 	props: {
-		tag: String,
 		title: String,
+		element: {
+			type: String,
+			default: 'div',
+		},
 	},
 	watch: {
 		title() {
@@ -49,11 +52,13 @@ export default {
 				}
 				if(this.isEditing) {
 					this.endEdit();
-					this.cancelEdit();
 				}
 			});
 		},
 		cancelEdit() {
+			if(!this.title.length) {
+				return;
+			}
 			this.isEditing = false;
 		},
 		endEdit() {
@@ -61,7 +66,7 @@ export default {
 				return;
 			}
 			if(this.newTitle === this.title) {
-				this.isEditing = false;
+				this.cancelEdit();
 				return;
 			}
 			this.$emit('update', this.newTitle);
@@ -77,6 +82,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+span {
+	cursor: pointer;
+}
 </style>

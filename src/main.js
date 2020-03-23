@@ -1,5 +1,4 @@
-// import './style.css';
-import './custom.scss';
+import './style/custom.scss';
 
 // firebase
 import 'firebase/auth';

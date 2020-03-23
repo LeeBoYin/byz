@@ -1,7 +1,13 @@
 <template>
 	<div class="group-list">
 		<Group v-for="group in orderedGroups" :key="group.id" :group="group"
-		/><button class="btn" @click="createGroup">+ Group</button>
+		/>
+		<button class="btn" @click="onClickCreate">
+			<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
+			<template v-else>
+				+
+			</template>
+		</button>
 	</div>
 </template>
 
@@ -14,6 +20,7 @@ export default {
 	},
 	data() {
 		return {
+			isLoading: false,
 			sortable: null,
 		};
 	},
@@ -36,12 +43,19 @@ export default {
 			animation: 300,
 			easing: "cubic-bezier(1, 0, 0, 1)",
 			draggable: ".group",
+			handle: '.title',
 			dataIdAttr: 'data-group-id',
 			ghostClass: "sortable-ghost",
 			chosenClass: "sortable-chosen",
 			dragClass: "sortable-drag",
 			direction: 'horizontal',
 			emptyInsertThreshold: 20,
+			onStart(e) {
+				// groupList.updateDraggedItem(e.item);
+			},
+			onEnd() {
+				// groupList.updateDraggedItem(null);
+			},
 			onSort() {
 				groupList.updateBoard({
 					groupIdList: groupList.sortable.toArray(),
@@ -50,6 +64,17 @@ export default {
 		});
 	},
 	methods: {
+		async onClickCreate() {
+			if(this.isLoading) {
+				return;
+			}
+			this.isLoading = true;
+			await this.createGroup();
+			this.isLoading = false;
+		},
+		...mapMutations('board', [
+			'updateDraggedItem',
+		]),
 		...mapActions('board', [
 			'createGroup',
 			'updateBoard',

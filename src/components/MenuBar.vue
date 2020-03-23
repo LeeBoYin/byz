@@ -1,6 +1,6 @@
 <template>
 	<div class="menu-bar">
-		<EditableTitle tag="h1" :title="boardName" @update="updateBoardName" />
+		<EditableTitle :title="boardName" element="h1" @update="updateBoardName" />
 	</div>
 </template>
 
@@ -30,10 +30,10 @@ export default {
 
 <style scoped>
 .menu-bar {
-	display: flex;
-	align-items: center;
+
 }
-h1 {
-	margin: 0;
+.title {
+	font-size: 2rem;
+	text-align: center;
 }
 </style>

@@ -24,11 +24,11 @@ const mutations = {
 	},
 };
 const actions = {
-	createGroup({ state, dispatch }) {
+	async createGroup({ state, dispatch }) {
 		const newGroup = {
-			name: 'new group ' + _.uniqueId(),
+			name: '',
 		};
-		state.groupsRef.add(newGroup).then((groupRef) => {
+		await state.groupsRef.add(newGroup).then((groupRef) => {
 			console.log("Group written with ID: ", groupRef.id);
 			dispatch('updateBoard', {
 				groupIdList: firebase.firestore.FieldValue.arrayUnion(groupRef.id),
@@ -55,27 +55,27 @@ const actions = {
 			});
 		});
 	},
-	updateGroup({ state }, { groupId, updateObj }) {
+	async updateGroup({ state }, { groupId, updateObj }) {
 		const group = state.groups[groupId];
-		group.ref.update(updateObj).then(() => {
+		await group.ref.update(updateObj).then(() => {
 			console.log('update group ' + groupId + ' success');
 			// success
 		}).catch(() => {
 			// fail
 		});
 	},
-	deleteGroup({ state, getters, dispatch }, groupId) {
+	async deleteGroup({ state, getters, dispatch }, groupId) {
 		const group = state.groups[groupId];
 		// delete posts in the group before delete group
 		_.forEach(group.postIdList, (postId) => {
 			dispatch('deletePost', postId);
 		});
 		// remove groupId from board
-		dispatch('updateBoard', {
+		await dispatch('updateBoard', {
 			groupIdList: firebase.firestore.FieldValue.arrayRemove(groupId),
 		});
 		// delete board
-		group.ref.delete().then(() => {
+		await group.ref.delete().then(() => {
 			// success
 		}).catch(() => {
 			// fail

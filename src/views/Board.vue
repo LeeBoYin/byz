@@ -1,36 +1,33 @@
 <template>
-	<div id="board">
+	<div>
 		<LoadingMsg v-if="!isInitialized" />
 		<UserForm v-else-if="!currentUser" />
-		<template v-else>
+		<div v-else id="board">
 			<MenuBar id="menu-bar" />
 			<GroupList id="group-list" />
-			<PostList id="new-post-list" :posts="newPosts" />
-			<PostForm />
-			<TrashCan />
-		</template>
+			<NewPostArea />
+<!--			<TrashCan />-->
+		</div>
 	</div>
 </template>
 
 <script>
-import Group from '../components/Group';
-import GroupList from '../components/GroupList';
-import LoadingMsg from '../components/LoadingMsg';
-import MenuBar from '../components/MenuBar';
-import PostForm from '../components/PostForm';
-import PostList from '../components/PostList';
-import TrashCan from '../components/TrashCan';
-import UserForm from '../components/UserForm';
+import Group from '@components/Group';
+import GroupList from '@components/GroupList';
+import LoadingMsg from '@components/LoadingMsg';
+import MenuBar from '@components/MenuBar';
+import TrashCan from '@components/TrashCan';
+import UserForm from '@components/UserForm';
+import NewPostArea from '@components/NewPostArea';
 export default {
 	components: {
 		Group,
 		GroupList,
 		LoadingMsg,
 		MenuBar,
-		PostForm,
-		PostList,
 		TrashCan,
 		UserForm,
+		NewPostArea,
 	},
 	data() {
 		return {
@@ -46,7 +43,6 @@ export default {
 		]),
 		...mapGetters('board', [
 			'currentUser',
-			'newPosts',
 		]),
 	},
 	mounted() {
@@ -61,26 +57,27 @@ export default {
 };
 </script>
 
-<style scoped>
-	#board {
-		display: grid;
-		grid-template-columns: 1fr 300px;
-		grid-template-rows: 60px 1fr;
-		grid-template-areas:
-				"menuBar	menuBar"
-				"groupList	newGroup"
-		;
-		grid-gap: 20px;
-		margin: 0 auto;
-		padding: 20px 15px;
-	}
-	#menu-bar {
-		grid-area: menuBar;
-	}
-	#new-post-list {
-		grid-area: newGroup;
-	}
-	#group-list {
-		grid-area: groupList;
-	}
+<style lang="scss">
+#board {
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr 300px;
+	grid-template-rows: 40px 1fr;
+	grid-template-areas:
+			"menuBar	menuBar"
+			"groupList	newPostArea"
+	;
+	grid-gap: 20px;
+	margin: 0 auto;
+	padding: 20px 15px;
+}
+#menu-bar {
+	grid-area: menuBar;
+}
+#group-list {
+	grid-area: groupList;
+}
+#new-post-area {
+	grid-area: newPostArea;
+}
 </style>

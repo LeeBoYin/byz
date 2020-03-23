@@ -1,0 +1,40 @@
+
+.btn {
+	background-color: $c-primary;
+	border-radius: 50px;
+	border: 2px solid $c-primary;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 500;
+	font-size: 16px;
+	letter-spacing: 1px;
+	padding: 18px 40px;
+	text-transform: uppercase;
+	transition: .2s;
+	user-select: none;
+	@media 	(max-width: 768px) {
+		padding: 15px 30px;
+	}
+}
+
+.btn:active,
+.btn.active {
+	background-color: $c-primary-dark;
+	border-color: $c-primary-dark;
+}
+
+
+.sortable-ghost {
+	> * {
+		visibility: hidden;
+	}
+	opacity: .5;
+}
+.sortable-drag {
+	box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
+}
+.sortable-drag.in-trash-can {
+	transform: scale(0.1);
+	opacity: 0.5;
+}

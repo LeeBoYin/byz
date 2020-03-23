@@ -1,7 +1,7 @@
 <template>
-	<div>
-		<h1>Home</h1>
-		<a class="btn" @click="$router.push('create')">Create a Board</a>
+	<div class="frow centered-column">
+		<h1 class="mb-25">Welcome to BYZ</h1>
+		<button class="btn" @click="$router.push('create')">Create a Board</button>
 	</div>
 </template>
 

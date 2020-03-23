@@ -1,12 +1,17 @@
 <template>
-	<ul class="post-list">
+	<div class="post-list">
 		<Post v-for="post in posts" :key="post.id" :post="post" />
-	</ul>
+	</div>
 </template>
 
 <script>
 import Post from './Post';
-import Sortable from 'sortablejs';
+// import Sortable from 'sortablejs';
+// import OnSpill from 'sortablejs';
+import { Sortable, OnSpill } from 'sortablejs/modular/sortable.core.esm';
+
+console.log(OnSpill);
+Sortable.mount(OnSpill);
 export default {
 	components: {
 		Post,
@@ -22,6 +27,8 @@ export default {
 	},
 	mounted() {
 		const postList = this;
+		console.log(this.$el);
+		// this.sortable = new Sortable(this.$el, {
 		this.sortable = Sortable.create(this.$el, {
 			group: {
 				name: 'post',
@@ -36,7 +43,7 @@ export default {
 			store: null,  // @see Store
 			animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
 			easing: "cubic-bezier(1, 0, 0, 1)", // Easing for animation. Defaults to null. See https://easings.net/ for examples.
-			// handle: ".my-handle",  // Drag handle selector within list items
+			handle: ".post__handle",  // Drag handle selector within list items
 			// filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
 			// preventOnFilter: true, // Call `event.preventDefault()` when triggered `filter`
 			draggable: ".post",  // Specifies which items inside the element should be draggable
@@ -64,60 +71,56 @@ export default {
 
 
 			setData(/** DataTransfer */dataTransfer, /** HTMLElement*/dragEl) {
-// console.log('setData');
+console.log('setData');
 				dataTransfer.setData('Text', dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
 			},
 
 			// Element is chosen
 			onChoose(e) {
-// console.log('onChoose');
+console.log('onChoose');
 				e.oldIndex;  // element index within parent
 			},
 
 			// Element is unchosen
 			onUnchoose(e) {
-// console.log('onUnchoose');
+console.log('onUnchoose');
 				// same properties as onEnd
 			},
 
 			// Element dragging started
 			onStart(e) {
-// console.log('onStart');
+console.log('onStart');
 				e.oldIndex;  // element index within parent
+				postList.updateDraggedItem(e.item);
 			},
 
 			// Element dragging ended
-			onEnd(e) {
-// console.log('onEnd');
-				const itemEl = e.item;  // dragged HTMLElement
-				e.to;    // target list
-				e.from;  // previous list
-				e.oldIndex;  // element's old index within old parent
-				e.newIndex;  // element's new index within new parent
-				e.oldDraggableIndex; // element's old index within old parent, only counting draggable elements
-				e.newDraggableIndex; // element's new index within new parent, only counting draggable elements
-				e.clone // the clone element
-				e.pullMode;  // when item is in another sortable: `"clone"` if cloning, `true` if moving
-				// const postId = e.item.getAttribute('data-post-id');
-				// const groupId = e.to.getAttribute('data-group-id');
-				// postList.updatePost({
-				// 	postId,
-				// 	updateObj: {
-				// 		groupId
-				// 	},
-				// });
+			onEnd() {
+console.log('onEnd');
+				postList.updateDraggedItem(null);
+				// const itemEl = e.item;  // dragged HTMLElement
+				// e.to;    // target list
+				// e.from;  // previous list
+				// e.oldIndex;  // element's old index within old parent
+				// e.newIndex;  // element's new index within new parent
+				// e.oldDraggableIndex; // element's old index within old parent, only counting draggable elements
+				// e.newDraggableIndex; // element's new index within new parent, only counting draggable elements
+				// e.clone // the clone element
+				// e.pullMode;  // when item is in another sortable: `"clone"` if cloning, `true` if moving
 			},
 
 			// Element is dropped into the list from another list
 			onAdd(e) {
 console.log('onAdd');
+console.log(e.item);
+console.log(postList.sortable.toArray());
 				// same properties as onEnd
 				postList.updateGroupPostList(e.to.getAttribute('data-group-id'), postList.sortable.toArray());
 			},
 
 			// Changed sorting within list
 			onUpdate(e) {
-// console.log('onUpdate');
+console.log('onUpdate');
 				// same properties as onEnd
 			},
 
@@ -132,14 +135,14 @@ console.log('onSort');
 
 			// Element is removed from the list into another list
 			onRemove(e) {
-// console.log('onRemove');
+console.log('onRemove');
 				// same properties as onEnd
 				postList.updateGroupPostList(e.from.getAttribute('data-group-id'), postList.sortable.toArray());
 			},
 
 			// Attempt to drag a filtered element
 			onFilter(e) {
-// console.log('onFilter');
+console.log('onFilter');
 				const itemEl = e.item;  // HTMLElement receiving the `mousedown|tapstart` event.
 			},
 
@@ -160,7 +163,7 @@ console.log('onMove in post list');
 
 			// Called when creating a clone of element
 			onClone(e) {
-// console.log('onClone');
+console.log('onClone');
 				const origEl = e.item;
 				const cloneEl = e.clone;
 			},
@@ -170,9 +173,16 @@ console.log('onMove in post list');
 console.log('onChange in post list');
 				e.newIndex // most likely why this event is used is to get the dragging element's current index
 				// same properties as onEnd
-			}
+			},
+			// revertOnSpill: true, // Enable plugin
+			// // Called when item is spilled
+			// onSpill: function(/**Event*/evt) {
+			// 	console.log('onSpill');
+			// 	console.log(evt);
+			// 	evt.item // The spilled item
+			// }
 		});
-// console.log(this.sortable);
+console.log(this.sortable);
 	},
 	methods: {
 		updateGroupPostList(groupId, postIdList) {
@@ -186,8 +196,10 @@ console.log('onChange in post list');
 				},
 			});
 		},
+		...mapMutations('board', [
+			'updateDraggedItem',
+		]),
 		...mapActions('board', [
-			'updatePost',
 			'updateGroup',
 		]),
 	},
@@ -209,8 +221,11 @@ console.log('onChange in post list');
 
 <style scoped>
 .post-list {
+	display: flex;
+	flex-direction: column;
 	padding: 0;
 	margin: 0;
 	min-height: 10px;
+	overflow: auto;
 }
 </style>
