@@ -2,11 +2,15 @@
 	<div>
 		<LoadingMsg v-if="!isInitialized" />
 		<UserForm v-else-if="!currentUser" />
-		<div v-else id="board">
-			<MenuBar id="menu-bar" />
-			<GroupList id="group-list" />
-			<NewPostArea />
-<!--			<TrashCan />-->
+		<div v-else class="board">
+			<div class="board__header">
+				<MenuBar />
+			</div>
+			<div :class="{ 'board__body--expand': isShowPostArea }" class="board__body">
+				<GroupList class="grow-1" />
+				<PostArea v-show="isShowPostArea" class="height-100 ml-20"/>
+			</div>
+			<PostAreaButton />
 		</div>
 	</div>
 </template>
@@ -18,7 +22,8 @@ import LoadingMsg from '@components/LoadingMsg';
 import MenuBar from '@components/MenuBar';
 import TrashCan from '@components/TrashCan';
 import UserForm from '@components/UserForm';
-import NewPostArea from '@components/NewPostArea';
+import PostArea from '@components/PostArea';
+import PostAreaButton from '@components/PostAreaButton';
 export default {
 	components: {
 		Group,
@@ -27,7 +32,8 @@ export default {
 		MenuBar,
 		TrashCan,
 		UserForm,
-		NewPostArea,
+		PostArea,
+		PostAreaButton,
 	},
 	data() {
 		return {
@@ -40,6 +46,7 @@ export default {
 		},
 		...mapState('board', [
 			'isInitialized',
+			'isShowPostArea',
 		]),
 		...mapGetters('board', [
 			'currentUser',
@@ -58,26 +65,22 @@ export default {
 </script>
 
 <style lang="scss">
-#board {
+.board {
 	height: 100vh;
-	display: grid;
-	grid-template-columns: 1fr 300px;
-	grid-template-rows: 40px 1fr;
-	grid-template-areas:
-			"menuBar	menuBar"
-			"groupList	newPostArea"
-	;
-	grid-gap: 20px;
+	display: flex;
+	flex-direction: column;
 	margin: 0 auto;
 	padding: 20px 15px;
-}
-#menu-bar {
-	grid-area: menuBar;
-}
-#group-list {
-	grid-area: groupList;
-}
-#new-post-area {
-	grid-area: newPostArea;
+	&__header {
+		margin-bottom: 20px;
+	}
+	&__body {
+		flex-grow: 1;
+		display: flex;
+		overflow: hidden;
+	}
+	&--expand {
+
+	}
 }
 </style>

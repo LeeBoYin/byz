@@ -4,7 +4,7 @@
 	</div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .loading-msg {
 	width: 100vw;
 	height: 100vh;

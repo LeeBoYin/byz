@@ -8,6 +8,7 @@ const state = {
 	boardRef: null,
 	draggedItem: null,
 	isInitialized: false,
+	isShowPostArea: false,
 };
 const getters = {
 	boardName(state) {
@@ -26,6 +27,9 @@ const mutations = {
 	},
 	updateDraggedItem(state, item) {
 		state.draggedItem = item;
+	},
+	updateIsShowPostArea(state, isShowPostArea) {
+		state.isShowPostArea = isShowPostArea;
 	},
 };
 const actions = {

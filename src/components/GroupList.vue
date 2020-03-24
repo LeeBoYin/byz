@@ -1,11 +1,10 @@
 <template>
 	<div class="group-list">
-		<Group v-for="group in orderedGroups" :key="group.id" :group="group"
-		/>
-		<button class="btn" @click="onClickCreate">
+		<Group v-for="group in orderedGroups" :key="group.id" :group="group" />
+		<button class="group-list__btn-add" @click="onClickCreate">
 			<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
 			<template v-else>
-				+
+				<i class="las la-plus"></i>
 			</template>
 		</button>
 	</div>
@@ -83,11 +82,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .group-list {
-	overflow-x: auto;
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: flex-start;
+	overflow-x: auto;
+	&__btn-add {
+		height: 100%;
+		width: 300px;
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 2px dashed #000;
+		color: #000000;
+		font-size: 30px;
+		opacity: 0.1;
+		transition: opacity .1s;
+		&:hover {
+			opacity: 0.3;
+		}
+	}
+	.group {
+		height: 100%;
+		margin-right: 15px;
+	}
 }
 </style>

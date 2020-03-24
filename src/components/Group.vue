@@ -3,7 +3,6 @@
 		<EditableTitle :title="group.name" element="h2" class="group__title" @update="updateGroupName" />
 		<PostList :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
 		<i v-if="!isDeleting" class="group__btn-delete las la-times" @click="onClickDelete"></i>
-		<i v-if="isDeleting" class="group__icon-deleting las la-circle-notch la-spin la"></i>
 	</div>
 </template>
 
@@ -33,8 +32,13 @@ export default {
 	},
 	methods: {
 		onClickDelete() {
+			this.$el.addEventListener('transitionend', () => {
+				this.deleteGroup(this.group.id);
+			});
 			this.isDeleting = true;
-			this.deleteGroup(this.group.id);
+			this.$nextTick(() => {
+				this.$el.style.marginRight = `-${ this.$el.offsetWidth }px`;
+			});
 		},
 		updateGroupName(newName) {
 			this.updateGroup({
@@ -57,15 +61,14 @@ export default {
 .group {
 	position: relative;
 	background-color: rgba(0, 0, 0, 0.03);
-	flex: 0 0 300px;
-	width: 300px;
 	display: flex;
 	flex-direction: column;
-	margin-right: 15px;
 	padding: 10px;
-	height: 100%;
+	transform-origin: top left;
 	&--deleting {
 		opacity: 0.5;
+		transition: .3s ease-out;
+		transform: scale(0);
 	}
 	&__title {
 		margin-bottom: 20px;
@@ -89,18 +92,6 @@ export default {
 		&:hover {
 			color: #999999;
 		}
-	}
-	&__icon-deleting {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		font-size: 2rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: auto;
 	}
 }
 </style>

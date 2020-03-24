@@ -73,6 +73,7 @@ const actions = {
 	updatePost({ state }, { postId, updateObj }) {
 		state.posts[postId].ref.update(updateObj).then(() => {
 			// success
+			console.log('updatePost success');
 		}).catch(() => {
 			// fail
 		});
@@ -81,7 +82,7 @@ const actions = {
 		const groupId = getters.getPostGroupId(postId);
 		if(groupId) {
 			// remove post from group before delete post
-			await dispatch('updateGroup', {
+			dispatch('updateGroup', {
 				groupId,
 				updateObj: {
 					postIdList: firebase.firestore.FieldValue.arrayRemove(postId),
@@ -89,7 +90,7 @@ const actions = {
 			});
 		}
 console.log('deletePost');
-		await state.posts[postId].ref.delete().then(() => {
+		state.posts[postId].ref.delete().then(() => {
 			// success
 		}).catch(() => {
 			// fail

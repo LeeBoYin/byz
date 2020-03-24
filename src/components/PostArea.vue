@@ -1,7 +1,12 @@
 <template>
-	<div id="new-post-area">
+	<div class="post-area">
+		<div class="mb-10 text-right">
+			<button class="post-area__btn-hide" @click="updateIsShowPostArea(false)">
+				<i class="las la-angle-down"></i>
+			</button>
+		</div>
 		<PostList :posts="newPosts" />
-		<PostForm />
+		<PostForm class="mt-10" />
 	</div>
 </template>
 
@@ -14,8 +19,16 @@ export default {
 		PostList,
 	},
 	computed: {
+		...mapState('board', [
+			'isShowPostArea',
+		]),
 		...mapGetters('board', [
 			'newPosts',
+		]),
+	},
+	methods: {
+		...mapMutations('board', [
+			'updateIsShowPostArea',
 		]),
 	},
 };
@@ -23,11 +36,15 @@ export default {
 
 <style lang="scss">
 @import '~@style/custom';
-#new-post-area {
+.post-area {
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
 	background-color: rgba(0, 0, 0, 0.05);
+	&__btn-hide {
+		font-size: 20px;
+		padding: 5px;
+	}
 	.post-list {
 		flex-grow: 1;
 		flex-direction: column-reverse;
@@ -41,13 +58,19 @@ export default {
 }
 
 @keyframes drop {
-	from {
+	0% {
 		bottom: 100vh;
 		opacity: 0;
 	}
-	to {
+	70% {
 		bottom: 0;
 		opacity: 1;
+	}
+	85% {
+		bottom: 20px;
+	}
+	100% {
+		bottom: 0;
 	}
 }
 </style>

@@ -219,13 +219,18 @@ console.log(this.sortable);
 // onEnd
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .post-list {
 	display: flex;
 	flex-direction: column;
 	padding: 0;
 	margin: 0;
 	min-height: 10px;
+	width: 300px;
 	overflow: auto;
+	.post {
+		margin-bottom: 15px;
+	}
 }
+
 </style>

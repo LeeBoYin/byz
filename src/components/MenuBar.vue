@@ -28,12 +28,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .menu-bar {
-
-}
-.title {
-	font-size: 2rem;
-	text-align: center;
+	.title {
+		font-size: 2rem;
+		text-align: center;
+	}
 }
 </style>
