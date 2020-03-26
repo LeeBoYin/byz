@@ -1,5 +1,5 @@
 <template>
-	<button v-show="!isShowPostArea" class="btn-post-area btn" @click="updateIsShowPostArea(true)">
+	<button class="btn-post-area btn" @click="updateIsShowPostArea(true)">
 		<i class="las la-comment-medical"></i>
 		<div v-if="newPosts.length" class="btn-post-area__new-post-num">
 			{{ newPosts.length }}
@@ -10,9 +10,6 @@
 <script>
 export default {
 	computed: {
-		...mapState('board', [
-			'isShowPostArea',
-		]),
 		...mapGetters('board', [
 			'newPosts',
 		]),

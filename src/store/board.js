@@ -8,7 +8,7 @@ const state = {
 	boardRef: null,
 	draggedItem: null,
 	isInitialized: false,
-	isShowPostArea: false,
+	isShowPostArea: true,
 };
 const getters = {
 	boardName(state) {

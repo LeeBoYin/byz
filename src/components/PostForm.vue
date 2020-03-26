@@ -3,7 +3,6 @@
 		<label>
 			<input ref="input" type="text" placeholder="Type something..." v-model="content" @keypress.enter="submit">
 		</label>
-<!--		<button class="btn" :disabled="!isSubmittable" @click="submit">Post</button>-->
 	</div>
 </template>
 
@@ -18,9 +17,20 @@ export default {
 		isSubmittable() {
 			return this.content.length > 0;
 		},
+		...mapState('board', [
+			'isShowPostArea',
+		]),
 		...mapGetters('board', [
 			'currentUser',
 		]),
+	},
+	watch: {
+		isShowPostArea() {
+			if(this.isShowPostArea) {
+				// auto focus input when open post area
+				this.$refs.input.focus();
+			}
+		},
 	},
 	methods: {
 		async submit() {

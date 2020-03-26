@@ -87,7 +87,6 @@ export default {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: flex-start;
-	overflow-x: auto;
 	&__btn-add {
 		height: 100%;
 		width: 300px;
