@@ -8,10 +8,10 @@
 			</div>
 			<div class="board__body">
 				<div class="board__group-list-container">
-					<GroupList class="height-100" />
+					<GroupList class="" />
 				</div>
 				<div ref="postAreaContainer" class="board__post-area-container">
-					<PostArea class="height-100 ml-20"/>
+					<PostArea class="ml-20"/>
 				</div>
 			</div>
 			<PostAreaButton class="board__btn-post-area" />
@@ -98,9 +98,11 @@ export default {
 	}
 	&__group-list-container {
 		flex-grow: 1;
-		overflow-x: auto;
+		display: flex;
+		overflow: auto;
 	}
 	&__post-area-container {
+		display: flex;
 		position: relative;
 		bottom: 0px;
 		right: 0px;

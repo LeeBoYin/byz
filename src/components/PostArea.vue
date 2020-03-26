@@ -1,6 +1,6 @@
 <template>
 	<div class="post-area">
-		<div class="mb-10 text-right">
+		<div class="post-area__header mb-10 text-right">
 			<button class="post-area__btn-hide" @click="updateIsShowPostArea(false)">
 				<i class="las la-angle-down"></i>
 			</button>
@@ -41,6 +41,9 @@ export default {
 	flex-direction: column;
 	padding: 10px;
 	background-color: rgba(0, 0, 0, 0.05);
+	&__header {
+		flex-shrink: 0;
+	}
 	&__btn-hide {
 		font-size: 20px;
 		padding: 5px;
@@ -54,6 +57,9 @@ export default {
 			animation-iteration-count: 1;
 			animation-fill-mode: backwards;
 		}
+	}
+	.post-form {
+		flex-shrink: 0;
 	}
 }
 

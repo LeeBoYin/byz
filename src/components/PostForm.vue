@@ -55,23 +55,11 @@ export default {
 
 <style lang="scss" scoped>
 .post-form {
-	display: flex;
-	justify-content: space-between;
-	/*max-width: 768px;*/
-	/*padding: 20px;*/
-
-	input,
-	.btn {
-		/*box-shadow: 0 2px 20px 2px rgba(0, 0, 0, 0.15);*/
-	}
 	input {
 		flex-grow: 1;
 		display: block;
 		width: 100%;
 		min-width: auto;
-	}
-	.btn {
-		margin-left: 10px;
 	}
 	label {
 		display: block;
@@ -89,17 +77,8 @@ export default {
 		background: rgba(255, 244, 214, 0.7);
 		border-top: 1px solid rgba(10, 10, 10, 0.04);
 		-webkit-backdrop-filter: blur(7px);
-
-		input,
-		.btn {
-			/* input 在手機設陰影沒有用 */
-			/*box-shadow: none;*/
-		}
 		input:hover {
 			border-color: transparent;
-		}
-		.btn {
-			margin-left: 5px;
 		}
 	}
 }

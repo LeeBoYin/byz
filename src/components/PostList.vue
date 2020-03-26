@@ -229,6 +229,7 @@ console.log(this.sortable);
 	width: 300px;
 	overflow: auto;
 	.post {
+		flex-shrink: 0;
 		margin-bottom: 15px;
 	}
 }

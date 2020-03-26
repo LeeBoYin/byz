@@ -86,9 +86,7 @@ export default {
 .group-list {
 	display: flex;
 	flex-wrap: nowrap;
-	align-items: flex-start;
 	&__btn-add {
-		height: 100%;
 		width: 300px;
 		flex-shrink: 0;
 		display: flex;
@@ -104,7 +102,6 @@ export default {
 		}
 	}
 	.group {
-		height: 100%;
 		margin-right: 15px;
 	}
 }
