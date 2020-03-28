@@ -30,5 +30,5 @@ export default new VueRouter({
 			component: NotFound,
 		},
 	],
-	mode: 'history',
+	// mode: 'history',
 });
