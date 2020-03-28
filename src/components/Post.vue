@@ -129,9 +129,9 @@ export default {
 		font-size: 0.7rem;
 	}
 	&__poster {
+		@extend %text-ellipsis;
 		flex-grow: 1;
 		color: #999;
-		@include text-ellipsis;
 	}
 	&__timestamp {
 		color: #999;
