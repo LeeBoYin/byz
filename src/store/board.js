@@ -16,6 +16,9 @@ const getters = {
 	boardName(state) {
 		return _.get(state.board, 'name');
 	},
+	localData: (state, getters) => (key) => {
+		return window.localStorage.getItem(`${ getters.boardId }:${ key }`);
+	},
 };
 const mutations = {
 	setBoardRef(state, boardRef) {
@@ -35,7 +38,7 @@ const mutations = {
 	},
 };
 const actions = {
-	async init({ dispatch, rootState, commit }, boardId) {
+	async init({ getters, dispatch, rootState, commit }, boardId) {
 		commit('setBoardRef', rootState.db.collection('board').doc(boardId));
 		commit('setGroupsRef', state.boardRef.collection('groups'));
 		commit('setPostsRef', state.boardRef.collection('posts'));
@@ -47,10 +50,10 @@ const actions = {
 			dispatch('getPosts'),
 			dispatch('getUsers'),
 		]);
-		commit('setCurrentUserId', window.localStorage.getItem(`${ boardId }:userId`) || null);
+		commit('setCurrentUserId', getters.localData('userId') || null);
 		commit('setInitialized', true);
 	},
-	async getBoard({ commit, state, rootState, dispatch }) {
+	async getBoard({ commit, state, dispatch }) {
 		await state.boardRef.get().then((boardSnapshot) => {
 			if (!boardSnapshot.exists) {
 				// doc.data() will be undefined in this case
@@ -77,6 +80,11 @@ const actions = {
 	},
 	goToInvalid() {
 		router.push('/');
+	},
+	setLocalData({ getters }, data) {
+		_.forEach(data, (value, key) => {
+			window.localStorage.setItem(`${ getters.boardId }:${ key }`, value);
+		});
 	},
 };
 
