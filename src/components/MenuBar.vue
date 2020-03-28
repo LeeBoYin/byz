@@ -1,14 +1,31 @@
 <template>
 	<div class="menu-bar">
-		<EditableTitle :title="boardName" element="h1" @update="updateBoardName" />
+		<EditableTitle :title="boardName" element="h1" class="menu-bar__title" @update="updateBoardName" />
+		<div class="menu-bar__tools">
+			<button class="menu-bar__tool" @click="isOpenModalShare = true">
+				<i class="las la-share"></i>
+			</button>
+			<button class="menu-bar__tool" @click="onClickFullscreen">
+				<i class="las la-expand"></i>
+			</button>
+		</div>
+		<ModalShare :is-open="isOpenModalShare" @close="isOpenModalShare = false" />
 	</div>
 </template>
 
 <script>
-import EditableTitle from './EditableTitle';
+import EditableTitle from '@components/EditableTitle';
+import ModalShare from '@components/ModalShare';
+
 export default {
 	components: {
 		EditableTitle,
+		ModalShare,
+	},
+	data() {
+		return {
+			isOpenModalShare: false,
+		};
 	},
 	computed: {
 		...mapGetters('board', [
@@ -16,6 +33,9 @@ export default {
 		]),
 	},
 	methods: {
+		onClickFullscreen() {
+
+		},
 		updateBoardName(newName) {
 			this.updateBoard({
 				name: newName,
@@ -30,9 +50,18 @@ export default {
 
 <style lang="scss" scoped>
 .menu-bar {
-	.title {
+	display: flex;
+	align-items: center;
+	&__title {
+		flex-grow: 1;
 		font-size: 2rem;
-		text-align: center;
+	}
+	&__tools {
+
+	}
+	&__tool {
+		font-size: 2rem;
+		margin-left: 10px;
 	}
 }
 </style>
