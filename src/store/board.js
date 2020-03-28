@@ -1,7 +1,7 @@
-import router from '../router';
-import groupsStore from './groups';
-import postsStore from './posts';
-import usersStore from './users';
+import router from '@/router';
+import groupsStore from '@store/groups';
+import postsStore from '@store/posts';
+import usersStore from '@store/users';
 const state = {
 	board: null,
 	boardRef: null,

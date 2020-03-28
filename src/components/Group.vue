@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import EditableTitle from './EditableTitle';
-import PostList from './PostList';
+import EditableTitle from '@components/EditableTitle';
+import PostList from '@components/PostList';
 export default {
 	components: {
 		EditableTitle,

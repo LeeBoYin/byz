@@ -8,8 +8,8 @@ const project = firebase.initializeApp(firebaseConfig);
 
 // vue
 import Vue from 'vue';
-import router from './router';
-import store from './store';
+import router from '@/router';
+import store from '@/store';
 
 // use _ in all of vue component template
 Object.defineProperty(Vue.prototype, '_', { value: _ });

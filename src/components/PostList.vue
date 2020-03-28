@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Post from './Post';
+import Post from '@components/Post';
 // import Sortable from 'sortablejs';
 // import OnSpill from 'sortablejs';
 import { Sortable, OnSpill } from 'sortablejs/modular/sortable.core.esm';

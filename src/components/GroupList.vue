@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Group from './Group';
+import Group from '@components/Group';
 import Sortable from 'sortablejs';
 export default {
 	components: {

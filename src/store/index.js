@@ -1,5 +1,5 @@
-import createStore from './create';
-import boardStore from './board';
+import createStore from '@store/create';
+import boardStore from '@store/board';
 const state = {
 	db: null,
 };
