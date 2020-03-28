@@ -27,14 +27,14 @@ const mutations = {
 	setInitialized(state, isInitialized) {
 		state.isInitialized = isInitialized;
 	},
+	setIsShowPostArea(state, isShowPostArea) {
+		state.isShowPostArea = isShowPostArea;
+	},
 	updateBoard(state, board) {
 		state.board = board;
 	},
 	updateDraggedItem(state, item) {
 		state.draggedItem = item;
-	},
-	updateIsShowPostArea(state, isShowPostArea) {
-		state.isShowPostArea = isShowPostArea;
 	},
 };
 const actions = {
@@ -84,6 +84,12 @@ const actions = {
 	setLocalData({ getters }, data) {
 		_.forEach(data, (value, key) => {
 			window.localStorage.setItem(`${ getters.boardId }:${ key }`, value);
+		});
+	},
+	setIsShowPostArea({ getters, dispatch, commit }, value) {
+		commit('setIsShowPostArea', value);
+		dispatch('setLocalData', {
+			isShowPostArea: value,
 		});
 	},
 };

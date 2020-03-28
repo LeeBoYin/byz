@@ -1,7 +1,7 @@
 <template>
 	<div class="post-area">
 		<div class="post-area__header mb-10 text-right">
-			<button class="post-area__btn-hide" @click="updateIsShowPostArea(false)">
+			<button class="post-area__btn-hide" @click="setIsShowPostArea(false)">
 				<i class="las la-angle-down"></i>
 			</button>
 		</div>
@@ -27,8 +27,8 @@ export default {
 		]),
 	},
 	methods: {
-		...mapMutations('board', [
-			'updateIsShowPostArea',
+		...mapActions('board', [
+			'setIsShowPostArea',
 		]),
 	},
 };

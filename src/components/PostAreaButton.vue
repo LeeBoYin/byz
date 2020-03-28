@@ -1,5 +1,5 @@
 <template>
-	<button class="btn-post-area btn" @click="updateIsShowPostArea(true)">
+	<button class="btn-post-area btn" @click="setIsShowPostArea(true)">
 		<i class="las la-comment-medical"></i>
 		<div v-if="newPosts.length" class="btn-post-area__new-post-num">
 			{{ newPosts.length }}
@@ -15,8 +15,8 @@ export default {
 		]),
 	},
 	methods: {
-		...mapMutations('board', [
-			'updateIsShowPostArea',
+		...mapActions('board', [
+			'setIsShowPostArea',
 		]),
 	},
 };
