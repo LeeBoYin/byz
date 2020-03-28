@@ -42,7 +42,7 @@ export default {
 			animation: 300,
 			easing: "cubic-bezier(1, 0, 0, 1)",
 			draggable: ".group",
-			handle: '.title',
+			handle: '.group__handle',
 			dataIdAttr: 'data-group-id',
 			ghostClass: "sortable-ghost",
 			chosenClass: "sortable-chosen",

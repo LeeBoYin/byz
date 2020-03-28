@@ -3,6 +3,7 @@
 		<EditableTitle :title="group.name" element="h2" class="group__title" @update="updateGroupName" />
 		<PostList :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
 		<i v-if="!isDeleting" class="group__btn-delete las la-times" @click="onClickDelete"></i>
+		<i class="group__handle las la-grip-lines-vertical"></i>
 	</div>
 </template>
 
@@ -58,6 +59,13 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@style/custom';
+%tool-group {
+	@extend %tool;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	padding: 10px 5px;
+}
 .group {
 	position: relative;
 	background-color: rgba(0, 0, 0, 0.03);
@@ -71,27 +79,20 @@ export default {
 		transform: scale(0);
 	}
 	&__title {
-		margin-bottom: 20px;
-		cursor: grab;
+		margin: 0 15px 20px;
 		text-align: center;
-		&:active {
-			cursor: grabbing;
-		}
 	}
 	&__post-list {
 		flex-grow: 1;
 	}
 	&__btn-delete {
-		position: absolute;
-		top: 0;
+		@extend %tool-group;
 		right: 0;
-		z-index: 1;
-		padding: 5px;
-		cursor: pointer;
-		color: #CCCCCC;
-		&:hover {
-			color: #999999;
-		}
+	}
+	&__handle {
+		@extend %tool-group;
+		@extend %handle;
+		left: 0;
 	}
 }
 </style>

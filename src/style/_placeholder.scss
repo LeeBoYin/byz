@@ -3,3 +3,18 @@
 	white-space: nowrap;
 	overflow: hidden;
 }
+
+%tool {
+	cursor: pointer;
+	color: #CCCCCC;
+	&:hover {
+		color: #999999;
+	}
+}
+
+%handle {
+	cursor: grab;
+	&:active {
+		cursor: grabbing;
+	}
+}

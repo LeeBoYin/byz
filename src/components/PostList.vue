@@ -6,12 +6,8 @@
 
 <script>
 import Post from '@components/Post';
-// import Sortable from 'sortablejs';
-// import OnSpill from 'sortablejs';
-import { Sortable, OnSpill } from 'sortablejs/modular/sortable.core.esm';
-
-console.log(OnSpill);
-Sortable.mount(OnSpill);
+import { Sortable, AutoScroll } from 'sortablejs/modular/sortable.core.esm';
+Sortable.mount(new AutoScroll());
 export default {
 	components: {
 		Post,
@@ -27,8 +23,6 @@ export default {
 	},
 	mounted() {
 		const postList = this;
-		console.log(this.$el);
-		// this.sortable = new Sortable(this.$el, {
 		this.sortable = Sortable.create(this.$el, {
 			group: {
 				name: 'post',

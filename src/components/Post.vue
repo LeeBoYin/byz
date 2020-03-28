@@ -108,6 +108,8 @@ export default {
 		transform: scale(0);
 	}
 	&__handle {
+		@extend %tool;
+		@extend %handle;
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -116,14 +118,6 @@ export default {
 		flex-direction: column;
 		justify-content: center;
 		padding: 0 4px;
-		color: #CCCCCC;
-		cursor: grab;
-		&:hover {
-			color: #999999;
-		}
-		&:active {
-			cursor: grabbing;
-		}
 	}
 	&__content {
 		color: #333;
@@ -153,12 +147,8 @@ export default {
 		flex-direction: column;
 	}
 	&__tool-item {
+		@extend %tool;
 		padding: 5px;
-		cursor: pointer;
-		color: #CCCCCC;
-		&:hover {
-			color: #999999;
-		}
 	}
 	&__btn-like {
 		font-size: 1rem;

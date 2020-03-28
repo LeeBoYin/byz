@@ -5,8 +5,9 @@
 			<button class="menu-bar__tool" @click="isOpenModalShare = true">
 				<i class="las la-share"></i>
 			</button>
-			<button class="menu-bar__tool" @click="onClickFullscreen">
-				<i class="las la-expand"></i>
+			<button v-if="isSupportFullscreen" class="menu-bar__tool" @click="onToggleFullscreen">
+				<i v-if="isFullScreen" class="las la-compress"></i>
+				<i v-else class="las la-expand"></i>
 			</button>
 		</div>
 		<ModalShare :is-open="isOpenModalShare" @close="isOpenModalShare = false" />
@@ -24,7 +25,9 @@ export default {
 	},
 	data() {
 		return {
+			isSupportFullscreen: document.fullscreenEnabled,
 			isOpenModalShare: false,
+			isFullScreen: false,
 		};
 	},
 	computed: {
@@ -32,9 +35,18 @@ export default {
 			'boardName',
 		]),
 	},
+	mounted() {
+		document.addEventListener('fullscreenchange', (e) => {
+			this.isFullScreen = !!document.fullscreenElement;
+		});
+	},
 	methods: {
-		onClickFullscreen() {
-
+		onToggleFullscreen() {
+			if(document.fullscreenElement) {
+				document.exitFullscreen();
+			} else {
+				document.getElementsByTagName('body')[0].requestFullscreen();
+			}
 		},
 		updateBoardName(newName) {
 			this.updateBoard({
