@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import router from '../router';
 import groupsStore from './groups';
 import postsStore from './posts';
@@ -11,6 +10,9 @@ const state = {
 	isShowPostArea: true,
 };
 const getters = {
+	boardId(state) {
+		return _.get(state.boardRef, 'id');
+	},
 	boardName(state) {
 		return _.get(state.board, 'name');
 	},
@@ -45,7 +47,7 @@ const actions = {
 			dispatch('getPosts'),
 			dispatch('getUsers'),
 		]);
-		commit('setCurrentUserId', window.localStorage.getItem('userId') || null);
+		commit('setCurrentUserId', window.localStorage.getItem(`${ boardId }:userId`) || null);
 		commit('setInitialized', true);
 	},
 	async getBoard({ commit, state, rootState, dispatch }) {

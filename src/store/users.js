@@ -20,14 +20,14 @@ const mutations = {
 	},
 };
 const actions = {
-	async createUser({ state, commit }, user) {
+	async createUser({ state, commit, rootGetters }, user) {
 		await state.usersRef.add(user).then((userRef) => {
 			console.log("User written with ID: ", userRef.id);
 			commit('setCurrentUserId', userRef.id);
-			window.localStorage.setItem('userId', state.currentUserId);
+			window.localStorage.setItem(`${ rootGetters['board/boardId'] }:userId`, state.currentUserId);
 			return userRef;
 		}).catch((error) => {
-			console.error("Error adding post: ", error);
+			console.error("Error adding user: ", error);
 		});
 	},
 	async getUsers({ commit }) {
