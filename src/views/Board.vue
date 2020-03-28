@@ -29,6 +29,11 @@ import UserForm from '@components/UserForm';
 import PostArea from '@components/PostArea';
 import PostAreaButton from '@components/PostAreaButton';
 export default {
+	props: {
+		id: { // $route.params.id
+			required: true,
+		},
+	},
 	components: {
 		Group,
 		GroupList,
@@ -45,9 +50,6 @@ export default {
 		};
 	},
 	computed: {
-		id() {
-			return this.$route.params.id;
-		},
 		...mapState('board', [
 			'isInitialized',
 			'isShowPostArea',

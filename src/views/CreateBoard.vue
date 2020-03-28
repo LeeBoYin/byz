@@ -32,7 +32,12 @@ export default {
 			const docRef = await this.createBoard({
 				boardName: this.boardName,
 			});
-			this.$router.push(`board/${ docRef.id }`);
+			this.$router.push({
+				name: 'Board',
+				params: {
+					id: docRef.id,
+				},
+			});
 		},
 		...mapActions('create', [
 			'createBoard',

@@ -7,10 +7,28 @@ import NotFound from './views/NotFound';
 Vue.use(VueRouter);
 export default new VueRouter({
 	routes: [
-		{ path: '/', component: Home },
-		{ path: '/create', component: CreateBoard },
-		{ path: '/board/:id', component: Board },
-		{ path: '*' , component: NotFound },
+		{
+			path: '/',
+			alias: '/home',
+			name: 'Home',
+			component: Home,
+		},
+		{
+			path: '/create',
+			name: 'CreateBoard',
+			component: CreateBoard,
+		},
+		{
+			path: '/board/:id',
+			name: 'Board',
+			component: Board,
+			props: true,
+		},
+		{
+			path: '*' ,
+			name: 'NotFound',
+			component: NotFound,
+		},
 	],
-	// mode: 'history',
+	mode: 'history',
 });

@@ -35,14 +35,6 @@ module.exports = {
 					'sass-loader',
 				],
 			},
-			// { // for tailwind
-			// 	test: /\.css$/,
-			// 	use: [
-			// 		'style-loader',
-			// 		{ loader: 'css-loader', options: { importLoaders: 1 } },
-			// 		'postcss-loader'
-			// 	]
-			// },
 			{
 				test: /\.(png|svg|jpg|gif)$/,
 				use: [
@@ -57,10 +49,12 @@ module.exports = {
 		hot: true,
 		host: '0.0.0.0',
 		port: 8000,
+		historyApiFallback: true,// for vue router mode history
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
+			inject: false,// for vue router mode history
 		}),
 		new VueLoaderPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
