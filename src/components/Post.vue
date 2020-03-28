@@ -15,11 +15,15 @@
 			<div class="post__timestamp">{{ postTime }}</div>
 		</div>
 		<i class="post__handle las la-grip-lines-vertical"></i>
-		<i v-if="!isDeleting" class="post__btn-delete las la-times" @click="onClickDelete"></i>
+		<div class="post__tools">
+			<i class="post__tool-item las la-times" @click="onClickDelete"></i>
+			<i class="post__tool-item las la-copy" @click="onClickCopy"></i>
+		</div>
 	</div>
 </template>
 
 <script>
+import setStringToClipBoard from 'set-string-to-clipboard';
 export default {
 	props: {
 		post: Object,
@@ -51,6 +55,9 @@ export default {
 		}, 1000);
 	},
 	methods: {
+		onClickCopy() {
+			setStringToClipBoard(this.post.content);
+		},
 		onClickDelete() {
 			this.$el.addEventListener('transitionend', () => {
 				this.deletePost(this.post.id);
@@ -137,11 +144,15 @@ export default {
 		color: #999;
 		white-space: nowrap;
 	}
-	&__btn-delete {
+	&__tools {
 		position: absolute;
 		top: 0;
 		right: 0;
 		z-index: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	&__tool-item {
 		padding: 5px;
 		cursor: pointer;
 		color: #CCCCCC;
