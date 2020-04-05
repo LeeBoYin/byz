@@ -71,7 +71,7 @@ export default {
 	background-color: rgba(0, 0, 0, 0.03);
 	display: flex;
 	flex-direction: column;
-	padding: 10px;
+	border-radius: $border-r-md;
 	transform-origin: top left;
 	&--deleting {
 		opacity: 0.5;
@@ -79,8 +79,7 @@ export default {
 		transform: scale(0);
 	}
 	&__title {
-		margin: 0 15px 20px;
-		text-align: center;
+		padding: 16px 24px;
 	}
 	&__post-list {
 		flex-grow: 1;

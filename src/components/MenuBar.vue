@@ -1,14 +1,22 @@
 <template>
 	<div class="menu-bar">
-		<EditableTitle :title="boardName" element="h1" class="menu-bar__title" @update="updateBoardName" />
-		<div class="menu-bar__tools">
-			<button class="menu-bar__tool" @click="isOpenModalShare = true">
-				<i class="las la-share"></i>
-			</button>
-			<button v-if="isSupportFullscreen" class="menu-bar__tool" @click="onToggleFullscreen">
-				<i v-if="isFullScreen" class="las la-compress"></i>
-				<i v-else class="las la-expand"></i>
-			</button>
+		<div class="frow row-between">
+			<div class="frow column-start">
+				<div class="frow mb-5">
+					<EditableTitle :title="boardName" element="h1" class="menu-bar__title" @update="updateBoardName" />
+					<div class="menu-bar__tools ml-5">
+						<button class="menu-bar__tool" @click="isOpenModalShare = true">
+							<i class="las la-share"></i>
+						</button>
+						<button v-if="isSupportFullscreen" class="menu-bar__tool" @click="onToggleFullscreen">
+							<i v-if="isFullScreen" class="las la-compress"></i>
+							<i v-else class="las la-expand"></i>
+						</button>
+					</div>
+				</div>
+				<div v-if="currentUser" class="menu-bar__user-name">Your name: {{ currentUser.name }}</div>
+			</div>
+			<AvatarList />
 		</div>
 		<ModalShare
 			:is-open="isOpenModalShare"
@@ -19,11 +27,13 @@
 </template>
 
 <script>
+import AvatarList from '@components/AvatarList';
 import EditableTitle from '@components/EditableTitle';
 import ModalShare from '@components/ModalShare';
 
 export default {
 	components: {
+		AvatarList,
 		EditableTitle,
 		ModalShare,
 	},
@@ -37,10 +47,11 @@ export default {
 	computed: {
 		...mapGetters('board', [
 			'boardName',
+			'currentUser',
 		]),
 	},
 	mounted() {
-		document.addEventListener('fullscreenchange', (e) => {
+		document.addEventListener('fullscreenchange', () => {
 			this.isFullScreen = !!document.fullscreenElement;
 		});
 	},
@@ -65,18 +76,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@style/custom';
 .menu-bar {
-	display: flex;
-	align-items: center;
 	&__title {
 		flex-grow: 1;
-		font-size: 2rem;
+		font-size: 16px;
+	}
+	&__user-name {
+		font-size: 12px;
+		color: $c-gray;
 	}
 	&__tools {
 
 	}
 	&__tool {
-		font-size: 2rem;
+		font-size: 16px;
 		margin-left: 10px;
 	}
 }

@@ -1,12 +1,13 @@
 <template>
 	<div class="post-area">
-		<div class="post-area__header mb-10 text-right">
+		<div class="post-area__header">
+			New Posts
 			<button class="post-area__btn-hide" @click="setIsShowPostArea(false)">
 				<i class="las la-angle-down"></i>
 			</button>
 		</div>
 		<PostList :posts="newPosts" />
-		<PostForm class="mt-10" />
+		<PostForm />
 	</div>
 </template>
 
@@ -39,14 +40,17 @@ export default {
 .post-area {
 	display: flex;
 	flex-direction: column;
-	padding: 10px;
-	background-color: rgba(0, 0, 0, 0.05);
+	border-radius: $border-r-md;
+	background-color: $c-background-dark;
 	&__header {
 		flex-shrink: 0;
+		font-size: 16px;
+		padding: 10px 24px;
+		background-color: rgba(0, 0, 0, 0.03);
 	}
 	&__btn-hide {
-		font-size: 20px;
-		padding: 5px;
+		font-size: 18px;
+		float: right;
 	}
 	.post-list {
 		flex-grow: 1;
@@ -60,6 +64,7 @@ export default {
 	}
 	.post-form {
 		flex-shrink: 0;
+		padding: 10px;
 	}
 }
 

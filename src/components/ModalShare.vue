@@ -1,7 +1,6 @@
 <template>
 	<Modal
 		:is-open="isOpen"
-		title="Share"
 		class="modal-share"
 		@close="$emit('close')">
 		<div slot="body" class="modal-share__body">

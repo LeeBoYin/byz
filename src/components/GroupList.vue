@@ -94,6 +94,7 @@ export default {
 		align-items: center;
 		justify-content: center;
 		border: 2px dashed $c-dark;
+		border-radius: $border-r-md;
 		color: $c-dark;
 		font-size: 30px;
 		opacity: 0.1;

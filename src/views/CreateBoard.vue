@@ -65,9 +65,8 @@ export default {
 @import '~@style/custom';
 .board-create {
 	@extend %board;
-	border-radius: $border-r-lg;
-	box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1);
+	@extend %board--float;
 	width: 100%;
-	max-width: 570px;
+	max-width: $block-md;
 }
 </style>

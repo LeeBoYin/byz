@@ -1,7 +1,11 @@
 <template>
 	<div :class="{ 'post--deleting': isDeleting }" class="post" :data-post-id="post.id">
 		<p class="post__content">{{ post.content }}</p>
-		<div class="frow justify-end">
+		<div class="post__footer">
+			<div class="frow direction-column grow-1 overflow-hidden">
+				<div v-if="post.posterName" class="post__poster">by {{ post.posterName }}</div>
+				<div class="post__timestamp">{{ postTime }}</div>
+			</div>
 			<button
 				:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
 				class="post__btn-like"
@@ -10,14 +14,9 @@
 				<template v-if="likes">{{ likes }}</template>
 			</button>
 		</div>
-		<div class="post__footer">
-			<div v-if="post.posterName" class="post__poster">by {{ post.posterName }}</div>
-			<div class="post__timestamp">{{ postTime }}</div>
-		</div>
 		<i class="post__handle las la-grip-lines-vertical"></i>
 		<div class="post__tools">
 			<i class="post__tool-item las la-times" @click="onClickDelete"></i>
-			<i class="post__tool-item las la-copy" @click="onClickCopy"></i>
 		</div>
 	</div>
 </template>
@@ -46,13 +45,8 @@ export default {
 		]),
 	},
 	created() {
-		setInterval(() => {
-			if(!this.post.timestamp) {
-				this.postTime = 'posting...';
-				return;
-			}
-			this.postTime = moment(this.post.timestamp.toDate()).fromNow();
-		}, 1000);
+		this.updatePostTime();
+		setInterval(this.updatePostTime, 1000);
 	},
 	methods: {
 		onClickCopy() {
@@ -77,6 +71,13 @@ export default {
 				},
 			});
 		},
+		updatePostTime() {
+			if(!this.post.timestamp) {
+				this.postTime = 'posting...';
+				return;
+			}
+			this.postTime = moment(this.post.timestamp.toDate()).fromNow();
+		},
 		...mapActions('board', [
 			'deletePost',
 			'updatePost',
@@ -95,7 +96,7 @@ export default {
 				inset 4px 0 0 #eeeeee;
 	display: flex;
 	flex-direction: column;
-	padding: 15px 25px;
+	padding: 8px 0 8px 25px;
 	word-break: break-all;
 	transform-origin: top center;
 	&:hover {
@@ -122,20 +123,23 @@ export default {
 	&__content {
 		font-size: 16px;
 		margin-top: 0;
+		margin-right: 24px;
 		flex-grow: 1;
 	}
 	&__footer {
 		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
 		font-size: 0.7rem;
 	}
 	&__poster {
 		@extend %text-ellipsis;
-		flex-grow: 1;
 		color: #999;
+		margin-bottom: 5px;
 	}
 	&__timestamp {
+		@extend %text-ellipsis;
 		color: #999;
-		white-space: nowrap;
 	}
 	&__tools {
 		position: absolute;
@@ -150,15 +154,19 @@ export default {
 		padding: 5px;
 	}
 	&__btn-like {
-		font-size: 1rem;
-		background-color: $c-bright;
-		border: 1px solid $c-gray-light;
-		border-radius: 30px;
-		padding: 3px 10px;
+		color: $c-gray;
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		padding: 0 14px;
+		i {
+			font-size: 24px;
+			margin-right: 2px;
+		}
 		&--liked {
-			color: #039be5;
+			color: $c-secondary;
 			i {
-				animation: .3s thumb-up ease-in-out;
+				animation: .2s thumb-up ease-in-out;
 				animation-iteration-count: 1;
 			}
 		}

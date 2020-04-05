@@ -108,8 +108,8 @@ export default {
 	&__post-area-container {
 		display: flex;
 		position: relative;
-		bottom: 0px;
-		right: 0px;
+		bottom: 0;
+		right: 0;
 		margin-left: 0;
 		border-radius: 0;
 		transform-origin: bottom right;

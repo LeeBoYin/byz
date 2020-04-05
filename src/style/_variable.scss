@@ -16,7 +16,8 @@ $c-gray: #999999;
 $c-gray-light: #CCCCCC;
 $c-gray-lighter: #F4F4F4;
 
-$c-background: #FFF4D6;
+$c-background: #FFF8E6;
+$c-background-dark: #FEEFC4;
 
 // border-radius
 $border-r-lg: 20px;
@@ -26,3 +27,8 @@ $border-r-sm: 5px;
 // z-index
 $z-index-modal-overlay: 1040;
 $z-index-modal: 1050;
+
+// width
+$block-lg: 720px;
+$block-md: 580px;
+$block-sm: 480px;

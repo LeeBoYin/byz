@@ -7,6 +7,9 @@ const getters = {
 	currentUser(state) {
 		return _.get(state.users, state.currentUserId, null);
 	},
+	users(state) {
+		return state.users;
+	},
 };
 const mutations = {
 	setCurrentUserId(state, id) {

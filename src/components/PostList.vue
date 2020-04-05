@@ -217,7 +217,7 @@ console.log(this.sortable);
 .post-list {
 	display: flex;
 	flex-direction: column;
-	padding: 0;
+	padding: 0px 16px;
 	margin: 0;
 	min-height: 10px;
 	width: 300px;

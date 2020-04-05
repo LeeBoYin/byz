@@ -22,4 +22,8 @@
 %board {
 	background-color: $c-bright;
 	padding: 50px;
+	&--float {
+		border-radius: $border-r-lg;
+		box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1);
+	}
 }

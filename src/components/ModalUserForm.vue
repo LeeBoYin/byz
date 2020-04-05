@@ -6,7 +6,12 @@
 	>
 		<div slot="body" class="user-form">
 			<div class="mb-30">
-				<label class="mb-15">Create an user to join {{ boardName }}</label>
+				<div class="frow justify-start row-center mb-25">
+					<Avatar
+						:name="userName"
+						:color="userColor" />
+					<ColorSelect v-model="userColor" />
+				</div>
 				<input
 					ref="input"
 					type="text"
@@ -21,6 +26,7 @@
 					<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
 					<template v-else>
 						Join
+						<i class="las la-arrow-right"></i>
 					</template>
 				</button>
 			</div>
@@ -30,9 +36,14 @@
 </template>
 
 <script>
+import constants from '@/constants';
+import Avatar from '@components/Avatar';
+import ColorSelect from '@components/ColorSelect';
 import Modal from '@components/Modal';
 export default {
 	components: {
+		Avatar,
+		ColorSelect,
 		Modal,
 	},
 	props: ['isOpen'],
@@ -40,6 +51,7 @@ export default {
 		return {
 			isLoading: false,
 			userName: '',
+			userColor: _.head(_.shuffle(constants.avatarColors)),
 		};
 	},
 	computed: {
@@ -62,6 +74,7 @@ export default {
 			this.isLoading = true;
 			await this.createUser({
 				name: this.userName,
+				color: this.userColor,
 			});
 			this.isLoading = false;
 		},

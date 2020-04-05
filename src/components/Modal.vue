@@ -101,15 +101,15 @@ $header-padding: 15px;
 	}
 	&--lg &__content {
 		width: 100%;
-		max-width: 960px;
+		max-width: $block-lg;
 	}
 	&--md &__content {
 		width: 100%;
-		max-width: 680px;
+		max-width: $block-md;
 	}
 	&--sm &__content {
 		width: 100%;
-		max-width: 480px;
+		max-width: $block-sm;
 	}
 	&--open &__content {
 		visibility: visible;
@@ -139,7 +139,7 @@ $header-padding: 15px;
 	}
 	&__close {
 		position: absolute;
-		top: 0px;
+		top: 0;
 		right: 0;
 		line-height: 0;
 		padding: $header-padding;
