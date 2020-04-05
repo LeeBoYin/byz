@@ -1,8 +1,7 @@
-
 .btn {
-	background-color: $c-primary;
-	border-radius: 50px;
-	border: 2px solid $c-primary;
+	border-radius: $border-r-md;
+	border: 0;
+	background-color: $c-gray-dark;
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
@@ -13,15 +12,18 @@
 	text-transform: uppercase;
 	transition: .2s;
 	user-select: none;
-	@media 	(max-width: 768px) {
-		padding: 15px 30px;
+	&:active {
+		background-color: $c-gray-darker;
 	}
-}
-
-.btn:active,
-.btn.active {
-	background-color: $c-primary-dark;
-	border-color: $c-primary-dark;
+	&--primary {
+		background-color: $c-primary;
+		&:active {
+			background-color: $c-primary-dark;
+		}
+	}
+	&--secondary {
+		background-color: $c-secondary;
+	}
 }
 
 

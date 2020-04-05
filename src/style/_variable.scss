@@ -1,4 +1,28 @@
+// font
+$font-size-base: 16px;
+
+// color
 $c-primary: #ffa100;
 $c-primary-dark: #d88a04;
-$z-index-modal: 1050;
+
+$c-secondary: #52CBD9;
+
+$c-dark: #46506A;
+$c-bright: #FFFFFF;
+
+$c-gray-darker: #333333;
+$c-gray-dark: #666666;
+$c-gray: #999999;
+$c-gray-light: #CCCCCC;
+$c-gray-lighter: #F4F4F4;
+
+$c-background: #FFF4D6;
+
+// border-radius
+$border-r-lg: 20px;
+$border-r-md: 10px;
+$border-r-sm: 5px;
+
+// z-index
 $z-index-modal-overlay: 1040;
+$z-index-modal: 1050;

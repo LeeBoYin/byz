@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@style/custom';
 .group-list {
 	display: flex;
 	flex-wrap: nowrap;
@@ -92,8 +93,8 @@ export default {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border: 2px dashed #000;
-		color: #000000;
+		border: 2px dashed $c-dark;
+		color: $c-dark;
 		font-size: 30px;
 		opacity: 0.1;
 		transition: opacity .1s;

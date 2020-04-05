@@ -6,7 +6,7 @@
 
 %tool {
 	cursor: pointer;
-	color: #CCCCCC;
+	color: $c-gray-light;
 	&:hover {
 		color: #999999;
 	}
@@ -17,4 +17,9 @@
 	&:active {
 		cursor: grabbing;
 	}
+}
+
+%board {
+	background-color: $c-bright;
+	padding: 50px;
 }

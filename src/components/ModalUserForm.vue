@@ -1,14 +1,18 @@
 <template>
-	<div class="frow centered-column">
-		<div class="board-create">
+	<Modal
+		:is-open="isOpen"
+		class="modal-share modal--sm"
+		@close="$emit('close')"
+	>
+		<div slot="body" class="user-form">
 			<div class="mb-30">
-				<label class="mb-15">Board Name</label>
+				<label class="mb-15">Create an user to join {{ boardName }}</label>
 				<input
 					ref="input"
-					v-model="boardName"
 					type="text"
+					v-model="userName"
 					:disabled="isLoading"
-					placeholder="Board name"
+					placeholder="Your name"
 					@keypress.enter="submit"
 				>
 			</div>
@@ -16,46 +20,53 @@
 				<button class="btn btn--primary" :disabled="isLoading" @click="submit">
 					<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
 					<template v-else>
-						Create
-						<i class="las la-arrow-right"></i>
+						Join
 					</template>
 				</button>
 			</div>
 		</div>
 
-	</div>
+	</Modal>
 </template>
 
 <script>
+import Modal from '@components/Modal';
 export default {
+	components: {
+		Modal,
+	},
+	props: ['isOpen'],
 	data() {
 		return {
-			boardName: '',
 			isLoading: false,
+			userName: '',
 		};
+	},
+	computed: {
+		...mapGetters('board', [
+			'boardName',
+		]),
 	},
 	mounted() {
 		this.$refs.input.focus();
 	},
 	methods: {
 		async submit() {
-			if(_.isEmpty(this.boardName)) {
+			if(!this.userName.length) {
 				this.$refs.input.focus();
 				return;
 			}
+			if(this.isLoading) {
+				return;
+			}
 			this.isLoading = true;
-			const docRef = await this.createBoard({
-				boardName: this.boardName,
+			await this.createUser({
+				name: this.userName,
 			});
-			await this.$router.push( {
-				name: 'Board',
-				params: {
-					id: docRef.id,
-				},
-			} );
+			this.isLoading = false;
 		},
-		...mapActions('create', [
-			'createBoard',
+		...mapActions('board', [
+			'createUser'
 		]),
 	},
 };
@@ -63,11 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@style/custom';
-.board-create {
+.user-form {
 	@extend %board;
-	border-radius: $border-r-lg;
-	box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1);
-	width: 100%;
-	max-width: 570px;
 }
 </style>

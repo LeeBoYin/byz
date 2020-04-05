@@ -1,21 +1,23 @@
 <template>
 	<div>
 		<LoadingMsg v-if="!isInitialized" />
-		<UserForm v-else-if="!currentUser" />
-		<div v-else :class="{ 'board--expand': !isShowPostArea }" class="board">
-			<div class="board__header">
-				<MenuBar />
-			</div>
-			<div class="board__body">
-				<div class="board__group-list-container">
-					<GroupList class="" />
+		<template v-else>
+			<div :class="{ 'board--expand': !isShowPostArea }" class="board">
+				<div class="board__header">
+					<MenuBar />
 				</div>
-				<div ref="postAreaContainer" class="board__post-area-container">
-					<PostArea class="ml-20"/>
+				<div class="board__body">
+					<div class="board__group-list-container">
+						<GroupList class="" />
+					</div>
+					<div ref="postAreaContainer" class="board__post-area-container">
+						<PostArea class="ml-20"/>
+					</div>
 				</div>
+				<PostAreaButton class="board__btn-post-area" />
 			</div>
-			<PostAreaButton class="board__btn-post-area" />
-		</div>
+			<ModalUserForm :is-open="!currentUser" />
+		</template>
 	</div>
 </template>
 
@@ -25,7 +27,7 @@ import GroupList from '@components/GroupList';
 import LoadingMsg from '@components/LoadingMsg';
 import MenuBar from '@components/MenuBar';
 import TrashCan from '@components/TrashCan';
-import UserForm from '@components/UserForm';
+import ModalUserForm from '@components/ModalUserForm';
 import PostArea from '@components/PostArea';
 import PostAreaButton from '@components/PostAreaButton';
 export default {
@@ -39,10 +41,10 @@ export default {
 		GroupList,
 		LoadingMsg,
 		MenuBar,
-		TrashCan,
-		UserForm,
+		ModalUserForm,
 		PostArea,
 		PostAreaButton,
+		TrashCan,
 	},
 	data() {
 		return {

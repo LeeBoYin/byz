@@ -1,8 +1,13 @@
 <template>
 	<div class="post-form">
-		<label>
-			<input ref="input" type="text" placeholder="Type something..." v-model="content" @keypress.enter="submit">
-		</label>
+		<input
+			ref="input"
+			v-model="content"
+			type="text"
+			class="post-form__input"
+			placeholder="Type something..."
+			@keypress.enter="submit"
+		>
 	</div>
 </template>
 
@@ -54,33 +59,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@style/custom';
 .post-form {
-	input {
-		flex-grow: 1;
-		display: block;
-		width: 100%;
-		min-width: auto;
-	}
-	label {
-		display: block;
-		width: 100%;
-	}
-}
-@media 	(max-width: 991px) {
-	.post-form {
-		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 99;
-		padding: 10px;
-		background: rgba(255, 244, 214, 0.7);
-		border-top: 1px solid rgba(10, 10, 10, 0.04);
-		-webkit-backdrop-filter: blur(7px);
-		input:hover {
-			border-color: transparent;
+	&__input {
+		border-radius: 50px;
+		background-color: $c-bright;
+		&:hover,
+		&:focus {
+			border-color: $c-primary;
 		}
 	}
 }
-
 </style>

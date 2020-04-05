@@ -1,5 +1,5 @@
 <template>
-	<button class="btn-post-area btn" @click="setIsShowPostArea(true)">
+	<button class="btn-post-area" @click="setIsShowPostArea(true)">
 		<i class="las la-comment-medical"></i>
 		<div v-if="newPosts.length" class="btn-post-area__new-post-num">
 			{{ newPosts.length }}
@@ -23,12 +23,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@style/custom';
 .btn-post-area {
+	@extend .btn;
+	@extend .btn--primary;
 	position: fixed;
 	bottom: 30px;
 	right: 30px;
 	font-size: 30px;
 	padding: 15px;
+	border-radius: 50%;
 	box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
 	&__new-post-num {
 		position: absolute;

@@ -90,7 +90,7 @@ export default {
 .post {
 	position: relative;
 	background-color: #FFF;
-	border-radius: 10px;
+	border-radius: $border-r-md;
 	box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
 				inset 4px 0 0 #eeeeee;
 	display: flex;
@@ -120,7 +120,6 @@ export default {
 		padding: 0 4px;
 	}
 	&__content {
-		color: #333;
 		font-size: 16px;
 		margin-top: 0;
 		flex-grow: 1;
@@ -152,8 +151,8 @@ export default {
 	}
 	&__btn-like {
 		font-size: 1rem;
-		background-color: #FFFFFF;
-		border: 1px solid #CCCCCC;
+		background-color: $c-bright;
+		border: 1px solid $c-gray-light;
 		border-radius: 30px;
 		padding: 3px 10px;
 		&--liked {

@@ -6,7 +6,7 @@
 		@close="$emit('close')">
 		<div slot="body" class="modal-share__body">
 			<input :value="shareLink" type="text" class="modal-share__input" disabled>
-			<button class="modal-share__btn btn" @click="onClickCopy">
+			<button class="modal-share__btn" @click="onClickCopy">
 				<span v-if="isCopied">Copied!</span>
 				<i v-else class="post__tool-item las la-copy"></i>
 			</button>
@@ -48,6 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@style/custom';
 .modal-share {
 	&__body {
 		padding: 15px;
@@ -56,6 +57,10 @@ export default {
 	&__input {
 		flex-grow: 1;
 		margin-right: 15px;
+	}
+	&__btn {
+		@extend .btn;
+		@extend .btn--primary;
 	}
 }
 </style>

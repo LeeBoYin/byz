@@ -10,7 +10,11 @@
 				<i v-else class="las la-expand"></i>
 			</button>
 		</div>
-		<ModalShare :is-open="isOpenModalShare" @close="isOpenModalShare = false" />
+		<ModalShare
+			:is-open="isOpenModalShare"
+			class="modal-sm"
+			@close="isOpenModalShare = false"
+		/>
 	</div>
 </template>
 

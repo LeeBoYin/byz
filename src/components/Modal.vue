@@ -91,11 +91,25 @@ $header-padding: 15px;
 		right: 0;
 		width: 50%;
 		margin: auto;
-		background-color: #ffffff;
+		border-radius: $border-r-lg;
+		overflow: hidden;
+		background-color: $c-bright;
 		z-index: $z-index-modal;
 		visibility: hidden;
 		opacity: 0;
 		transition: top .3s, opacity .3s, visibility 0s .3s;
+	}
+	&--lg &__content {
+		width: 100%;
+		max-width: 960px;
+	}
+	&--md &__content {
+		width: 100%;
+		max-width: 680px;
+	}
+	&--sm &__content {
+		width: 100%;
+		max-width: 480px;
 	}
 	&--open &__content {
 		visibility: visible;

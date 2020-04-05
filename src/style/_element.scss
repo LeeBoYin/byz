@@ -3,33 +3,30 @@
 }
 
 html, body {
-	background-color: #fff4d6;
+	background-color: $c-background;
 }
 
 body {
 	font-family: 'Futura', sans-serif;
+	font-size: $font-size-base;
 	letter-spacing: 0.5px;
 	margin: 0;
+	color: $c-dark;
 }
 
 input {
-	border-radius: 50px;
-	border: 2px solid transparent;
-	background-color: #FFFFFF;
-	color: #333;
-	font-size: 16px;
-	outline: none;
+	display: block;
+	width: 100%;
+	font-size: $font-size-base;
 	padding: 18px 30px;
+	background-color: $c-gray-lighter;
+	border: 2px solid transparent;
+	border-radius: $border-r-md;
+	outline: none;
 	transition: .2s;
-	&:hover,
-	&:focus {
-		border-color: $c-primary;
-	}
-	@media 	(max-width: 768px) {
-		padding: 15px 25px;
-	}
 }
 label {
+	display: block;
 	margin: 0;
 }
 
