@@ -214,14 +214,17 @@ console.log(this.sortable);
 </script>
 
 <style lang="scss" scoped>
+@import '~@style/custom';
 .post-list {
+	@include custom-scrollbar(#dcd6c9);
 	display: flex;
 	flex-direction: column;
-	padding: 0px 16px;
-	margin: 0;
+	padding: 0 16px;
+	margin: 0 6px;
 	min-height: 10px;
 	width: 300px;
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 	.post {
 		flex-shrink: 0;
 		margin-bottom: 15px;

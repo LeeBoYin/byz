@@ -2,8 +2,14 @@
 	<div class="menu-bar">
 		<div class="frow row-between">
 			<div class="frow column-start">
-				<div class="frow mb-5">
-					<EditableTitle :title="boardName" element="h1" class="menu-bar__title" @update="updateBoardName" />
+				<div class="frow row-center mb-5">
+					<EditableTitle
+						:title="boardName"
+						element="h1"
+						placeholder="Board Name"
+						class="menu-bar__title"
+						@update="updateBoardName"
+					/>
 					<div class="menu-bar__tools ml-5">
 						<button class="menu-bar__tool" @click="isOpenModalShare = true">
 							<i class="las la-share"></i>
@@ -75,7 +81,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@style/custom';
 .menu-bar {
 	&__title {

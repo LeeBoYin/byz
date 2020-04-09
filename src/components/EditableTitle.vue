@@ -1,17 +1,19 @@
 <template>
-	<component :is="element" class="title">
-		<span
+	<component :is="element" class="editable-title">
+		<div
 			v-show="!isEditing"
 			ref="title"
+			class="editable-title__span"
 			@click="onEdit">
 			{{ title }}
-		</span>
+		</div>
 		<input
 			v-show="isEditing"
 			ref="input"
 			type="text"
 			v-model.trim="newTitle"
-			placeholder="Group name"
+			:placeholder="placeholder"
+			class="editable-title__input"
 			@click.stop
 			@keypress.prevent.stop.enter="endEdit"
 			@keydown.prevent.stop.esc="cancelEdit">
@@ -28,6 +30,7 @@ export default {
 	},
 	props: {
 		title: String,
+		placeholder: String,
 		element: {
 			type: String,
 			default: 'div',
@@ -83,7 +86,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-span {
-	cursor: pointer;
+@import '~@style/custom';
+.editable-title {
+	* {
+		line-height: 1.5;
+		letter-spacing: 1px;
+	}
+	&__span {
+		cursor: pointer;
+	}
+	&__input {
+		background-color: transparent;
+		border-radius: 0;
+		border: 0;
+		box-shadow: 0 1px 0 0 $c-gray-light;
+		padding: 0px;
+		font-size: inherit;
+	}
 }
+
 </style>

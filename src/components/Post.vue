@@ -38,7 +38,7 @@ export default {
 			return _.get(this.post, 'likedUsers', []).length;
 		},
 		isLikedByCurrentUser() {
-			return _.includes(this.post.likedUsers, this.currentUser.name);
+			return _.includes(this.post.likedUsers, _.get(this.currentUser, 'name'));
 		},
 		...mapGetters('board', [
 			'currentUser',

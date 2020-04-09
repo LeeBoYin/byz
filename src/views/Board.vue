@@ -101,9 +101,12 @@ export default {
 		overflow: hidden;
 	}
 	&__group-list-container {
+		@include custom-scrollbar(#dcd6c9, true);
 		flex-grow: 1;
 		display: flex;
-		overflow: auto;
+		overflow-x: auto;
+		overflow-y: hidden;
+		padding-bottom: 10px;
 	}
 	&__post-area-container {
 		display: flex;

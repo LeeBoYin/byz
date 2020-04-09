@@ -1,6 +1,12 @@
 <template>
 	<div :class="{ 'group--deleting': isDeleting }" class="group" :data-group-id="group.id">
-		<EditableTitle :title="group.name" element="h2" class="group__title" @update="updateGroupName" />
+		<EditableTitle
+			:title="group.name"
+			element="h2"
+			placeholder="Group Name"
+			class="group__title"
+			@update="updateGroupName"
+		/>
 		<PostList :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
 		<i v-if="!isDeleting" class="group__btn-delete las la-times" @click="onClickDelete"></i>
 		<i class="group__handle las la-grip-lines-vertical"></i>
@@ -64,13 +70,14 @@ export default {
 	position: absolute;
 	top: 0;
 	z-index: 1;
-	padding: 10px 5px;
+	padding: 24px 2px;
 }
 .group {
 	position: relative;
 	background-color: rgba(0, 0, 0, 0.03);
 	display: flex;
 	flex-direction: column;
+	padding-bottom: 6px;
 	border-radius: $border-r-md;
 	transform-origin: top left;
 	&--deleting {

@@ -53,6 +53,7 @@ export default {
 		float: right;
 	}
 	.post-list {
+		@include custom-scrollbar(#F7E0A4);
 		flex-grow: 1;
 		flex-direction: column-reverse;
 		.post {
