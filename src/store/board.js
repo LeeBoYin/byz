@@ -32,6 +32,7 @@ const mutations = {
 	},
 	updateBoard(state, board) {
 		state.board = board;
+		document.title = _.get(state.board, 'name') + ' - BYZ';
 	},
 	updateDraggedItem(state, item) {
 		state.draggedItem = item;
@@ -43,7 +44,6 @@ const actions = {
 		commit('setGroupsRef', state.boardRef.collection('groups'));
 		commit('setPostsRef', state.boardRef.collection('posts'));
 		commit('setUsersRef', state.boardRef.collection('users'));
-		// TODO await all
 		await Promise.all([
 			dispatch('getBoard'),
 			dispatch('getGroups'),

@@ -222,7 +222,7 @@ export default {
 	&__options {
 		@extend %tool;
 		font-size: 18px;
-		padding: 6px 4px;
+		padding: 6px 3px;
 	}
 	&--editing &__options {
 		visibility: hidden;

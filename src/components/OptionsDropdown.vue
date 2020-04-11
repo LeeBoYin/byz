@@ -1,5 +1,5 @@
 <template>
-	<span
+	<div
 		:class="{ 'options-dropdown--open': isOpen }"
 		class="options-dropdown"
 		:data-uid="_.uniqueId()"
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</div>
-	</span>
+	</div>
 </template>
 
 <script>
