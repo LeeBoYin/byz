@@ -17,7 +17,8 @@
 					:class="{ 'options-dropdown__option--danger': option.isDanger }"
 					class="options-dropdown__option"
 					:style="getOptionStyle(idx)"
-					@click="option.onClick"
+					@mousedown.stop
+					@click="onOptionClick(option.onClick)"
 				>
 					<i :class="option.iconClass"></i>
 				</div>
@@ -146,6 +147,10 @@ export default {
 			}
 			return style;
 		},
+		onOptionClick(onClick) {
+			onClick();
+			this.isOpen = false;
+		},
 		toggleOptions(e) {
 			if(!(e.target.isEqualNode(this.$el) || e.target.isEqualNode(this.$refs.toggle))) {
 				// 允許點擊最外層 element 或 toggle icon
@@ -201,6 +206,9 @@ export default {
 			transform: scale(1.1);
 			color: $c-gray-darker;
 
+		}
+		&:active {
+			transform: scale(0.9);
 		}
 		&--danger:hover {
 			color: $c-danger;

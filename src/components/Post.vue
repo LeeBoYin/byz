@@ -1,21 +1,43 @@
 <template>
-	<div :class="{ 'post--deleting': isDeleting }" class="post" :data-post-id="post.id">
-		<p class="post__content" v-html="formattedContent"></p>
-		<div class="post__footer">
-			<div class="frow direction-column grow-1 overflow-hidden">
-				<div v-if="post.posterName" class="post__poster">by {{ post.posterName }}</div>
-				<div class="post__timestamp">{{ postTime }}</div>
+	<div :class="{ 'post--editing': isEditing, 'post--deleting': isDeleting }" class="post" :data-post-id="post.id">
+		<div class="frow nowrap">
+			<i class="post__handle las la-grip-lines-vertical"></i>
+			<div class="grow-1">
+				<div class="frow nowrap items-start">
+					<div class="grow-1 my-10">
+						<textarea
+							v-if="isEditing"
+							v-model="editedContent"
+							class="post__textarea"
+							rows="1"
+							v-auto-focus
+							v-auto-height
+							:disabled="isSaving"
+							@keypress.enter="save"
+							@keydown.prevent.stop.esc="cancelEdit"
+						></textarea>
+						<p v-if="!isEditing" class="post__content">
+							<span v-html="formattedContent"></span>
+							<span v-if="isEdited" class="post__edited-hint">(edited)</span>
+						</p>
+					</div>
+					<OptionsDropdown :options="options" direction="left" class="post__options" />
+				</div>
+				<div class="post__footer my-10">
+					<div class="frow direction-column grow-1 overflow-hidden">
+						<div v-if="post.posterName" class="post__poster">by {{ post.posterName }}</div>
+						<div class="post__timestamp">{{ postTime }}</div>
+					</div>
+					<button
+						:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
+						class="post__btn-like"
+						@click="toggleLike">
+						<i class="las la-thumbs-up"></i>
+						<template v-if="likes">{{ likes }}</template>
+					</button>
+				</div>
 			</div>
-			<button
-				:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
-				class="post__btn-like"
-				@click="toggleLike">
-				<i class="las la-thumbs-up"></i>
-				<template v-if="likes">{{ likes }}</template>
-			</button>
 		</div>
-		<i class="post__handle las la-grip-lines-vertical"></i>
-		<OptionsDropdown :options="options" direction="left" class="post__options" />
 	</div>
 </template>
 
@@ -31,7 +53,10 @@ export default {
 	},
 	data() {
 		return {
+			editedContent: null,
 			isDeleting: false,
+			isEditing: false,
+			isSaving: false,
 			postTime: null,
 		};
 	},
@@ -47,6 +72,9 @@ export default {
 		},
 		isLikedByCurrentUser() {
 			return _.includes(this.post.likedUsers, _.get(this.currentUser, 'name'));
+		},
+		isEdited() {
+			return !_.isNil(this.post.lastEditTimestamp);
 		},
 		options() {
 			const options = [
@@ -75,6 +103,9 @@ export default {
 		setInterval(this.updatePostTime, 1000);
 	},
 	methods: {
+		cancelEdit() {
+			this.isEditing = false;
+		},
 		onClickCopy() {
 			setStringToClipBoard(this.post.content);
 		},
@@ -88,7 +119,25 @@ export default {
 			});
 		},
 		onClickEdit() {
-			console.log('edit');
+			this.editedContent = this.post.content;
+			this.isEditing = true;
+		},
+		async save(e) {
+			if(e.ctrlKey || e.shiftKey || e.altKey) {
+				// 換行
+				return;
+			}
+			e.preventDefault();
+			this.isSaving = true;
+			await this.updatePost({
+				postId: this.post.id,
+				updateObj: {
+					content: this.editedContent,
+					lastEditTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+				},
+			});
+			this.isSaving = false;
+			this.isEditing = false;
 		},
 		toggleLike() {
 			this.updatePost({
@@ -125,7 +174,6 @@ export default {
 				inset 4px 0 0 #eeeeee;
 	display: flex;
 	flex-direction: column;
-	padding: 8px 0 8px 25px;
 	word-break: break-all;
 	transform-origin: top center;
 	&:hover {
@@ -140,20 +188,21 @@ export default {
 	&__handle {
 		@extend %tool;
 		@extend %handle;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		padding: 0 4px;
 	}
+	&--editing &__handle {
+		visibility: hidden;
+	}
 	&__content {
 		font-size: 16px;
-		margin-top: 0;
-		margin-right: 24px;
+		margin: 0;
 		flex-grow: 1;
+	}
+	&__textarea {
+		padding: 9px 15px;
 	}
 	&__footer {
 		display: flex;
@@ -172,12 +221,11 @@ export default {
 	}
 	&__options {
 		@extend %tool;
-		position: absolute;
-		top: 0;
-		right: 0;
-		z-index: 1;
 		font-size: 18px;
-		padding: 4px;
+		padding: 6px 4px;
+	}
+	&--editing &__options {
+		visibility: hidden;
 	}
 	&__btn-like {
 		color: $c-gray;
@@ -196,6 +244,12 @@ export default {
 				animation-iteration-count: 1;
 			}
 		}
+	}
+	&__edited-hint {
+		color: $c-gray;
+		font-size: 12px;
+		display: inline-block;
+		margin-left: 5px;
 	}
 }
 @keyframes thumb-up {
