@@ -16,6 +16,7 @@
 					ref="input"
 					type="text"
 					v-model="userName"
+					v-auto-focus
 					:disabled="isLoading"
 					placeholder="Your name"
 					@keypress.enter="submit"
@@ -58,9 +59,6 @@ export default {
 		...mapGetters('board', [
 			'boardName',
 		]),
-	},
-	mounted() {
-		this.$refs.input.focus();
 	},
 	methods: {
 		async submit() {

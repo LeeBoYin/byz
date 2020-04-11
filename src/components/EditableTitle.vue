@@ -12,10 +12,11 @@
 			<i class="editable-title__icon-edit las la-pencil-alt"></i>
 		</div>
 		<input
-			v-show="isEditing"
+			v-if="isEditing"
 			ref="input"
 			type="text"
 			v-model.trim="newTitle"
+			v-auto-focus
 			:placeholder="placeholder"
 			class="editable-title__input"
 			@click.stop
@@ -81,9 +82,6 @@ export default {
 		onEdit() {
 			this.newTitle = this.title;
 			this.isEditing = true;
-			this.$nextTick(() => {
-				this.$refs.input.focus();
-			});
 		},
 	},
 }

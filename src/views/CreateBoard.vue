@@ -6,6 +6,7 @@
 				<input
 					ref="input"
 					v-model="boardName"
+					v-auto-focus
 					type="text"
 					:disabled="isLoading"
 					placeholder="Board name"
@@ -33,9 +34,6 @@ export default {
 			boardName: '',
 			isLoading: false,
 		};
-	},
-	mounted() {
-		this.$refs.input.focus();
 	},
 	methods: {
 		async submit() {

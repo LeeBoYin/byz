@@ -14,6 +14,10 @@ import store from '@/store';
 // use _ in all of vue component template
 Object.defineProperty(Vue.prototype, '_', { value: _ });
 
+// directives
+import autoFocus from '@directives/autoFocus';
+Vue.directive('auto-focus', autoFocus);
+
 new Vue({
 	el: '#app',
 	store,
