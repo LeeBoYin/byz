@@ -4,10 +4,15 @@
 			<i class="post__handle las la-grip-lines-vertical"></i>
 			<div class="grow-1">
 				<div class="frow nowrap items-start">
-					<div class="grow-1 my-10">
+					<div class="post__content-container grow-1 my-10">
+						<p v-if="!isEditing" class="post__content">
+							<span v-html="formattedContent"></span>
+							<span v-if="isEdited" class="post__edited-hint">(edited)</span>
+						</p>
 						<textarea
 							v-if="isEditing"
 							v-model="editedContent"
+							:class="{ 'post__textarea--saving': isSaving }"
 							class="post__textarea"
 							rows="1"
 							v-auto-focus
@@ -16,10 +21,9 @@
 							@keypress.enter="save"
 							@keydown.prevent.stop.esc="cancelEdit"
 						></textarea>
-						<p v-if="!isEditing" class="post__content">
-							<span v-html="formattedContent"></span>
-							<span v-if="isEdited" class="post__edited-hint">(edited)</span>
-						</p>
+						<div v-if="isSaving" class="post__icon-saving">
+							<i class="las la-circle-notch la-spin la"></i>
+						</div>
 					</div>
 					<OptionsDropdown :options="options" direction="left" class="post__options" />
 				</div>
@@ -203,6 +207,9 @@ export default {
 	}
 	&__textarea {
 		padding: 9px 15px;
+		&--saving {
+			opacity: 0.6;
+		}
 	}
 	&__footer {
 		display: flex;
@@ -250,6 +257,12 @@ export default {
 		font-size: 12px;
 		display: inline-block;
 		margin-left: 5px;
+	}
+	&__content-container {
+		position: relative;
+	}
+	&__icon-saving {
+		@extend %absolute-center;
 	}
 }
 @keyframes thumb-up {

@@ -82,7 +82,15 @@ export default {
 			}, 10);
 		},
 		onClickSortPosts() {
-			console.log('sortPosts');
+			const sortedPostIdList = _.map(_.sortBy(this.posts, (post) => {
+				return _.get(post, 'likedUsers', []).length;
+			}), 'id').reverse();
+			this.updateGroup({
+				groupId: this.group.id,
+				updateObj: {
+					postIdList: sortedPostIdList,
+				},
+			});
 		},
 		updateGroupName(newName) {
 			this.updateGroup({

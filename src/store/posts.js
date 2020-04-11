@@ -70,8 +70,8 @@ const actions = {
 			});
 		});
 	},
-	updatePost({ state }, { postId, updateObj }) {
-		state.posts[postId].ref.update(updateObj).then(() => {
+	async updatePost({ state }, { postId, updateObj }) {
+		await state.posts[postId].ref.update(updateObj).then(() => {
 			// success
 			console.log('updatePost success');
 		}).catch(() => {
