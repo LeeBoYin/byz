@@ -42,6 +42,7 @@ export default {
 	flex-direction: column;
 	border-radius: $border-r-md;
 	background-color: $c-background-dark;
+	width: $w-group;
 	&__header {
 		flex-shrink: 0;
 		font-size: 16px;

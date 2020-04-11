@@ -6,9 +6,9 @@
 
 %tool {
 	cursor: pointer;
-	color: $c-gray-light;
+	color: $c-gray;
 	&:hover {
-		color: #999999;
+		color: $gray-darker;
 	}
 }
 

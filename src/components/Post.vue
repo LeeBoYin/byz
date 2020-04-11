@@ -15,15 +15,17 @@
 			</button>
 		</div>
 		<i class="post__handle las la-grip-lines-vertical"></i>
-		<div class="post__tools">
-			<i class="post__tool-item las la-times" @click="onClickDelete"></i>
-		</div>
+		<OptionsDropdown :options="options" direction="left" class="post__options" />
 	</div>
 </template>
 
 <script>
 import setStringToClipBoard from 'set-string-to-clipboard';
+import OptionsDropdown from '@components/OptionsDropdown';
 export default {
+	components: {
+		OptionsDropdown,
+	},
 	props: {
 		post: Object,
 	},
@@ -39,6 +41,24 @@ export default {
 		},
 		isLikedByCurrentUser() {
 			return _.includes(this.post.likedUsers, _.get(this.currentUser, 'name'));
+		},
+		options() {
+			const options = [
+				{
+					title: 'Edit',
+					iconClass: 'las la-pencil-alt',
+					onClick: this.onClickEdit,
+					isShow: true,
+				},
+				{
+					title: 'Delete',
+					iconClass: 'las la-trash-alt',
+					onClick: this.onClickDelete,
+					isDanger: true,
+					isShow: true,
+				},
+			];
+			return _.filter(options, 'isShow');
 		},
 		...mapGetters('board', [
 			'currentUser',
@@ -60,6 +80,9 @@ export default {
 			this.$nextTick(() => {
 				this.$el.style.marginBottom = `-${ this.$el.offsetHeight }px`;
 			});
+		},
+		onClickEdit() {
+			console.log('edit');
 		},
 		toggleLike() {
 			this.updatePost({
@@ -141,17 +164,14 @@ export default {
 		@extend %text-ellipsis;
 		color: #999;
 	}
-	&__tools {
+	&__options {
+		@extend %tool;
 		position: absolute;
 		top: 0;
 		right: 0;
 		z-index: 1;
-		display: flex;
-		flex-direction: column;
-	}
-	&__tool-item {
-		@extend %tool;
-		padding: 5px;
+		font-size: 18px;
+		padding: 4px;
 	}
 	&__btn-like {
 		color: $c-gray;

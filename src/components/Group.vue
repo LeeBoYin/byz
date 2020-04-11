@@ -1,24 +1,29 @@
 <template>
 	<div :class="{ 'group--deleting': isDeleting }" class="group" :data-group-id="group.id">
-		<EditableTitle
-			:title="group.name"
-			element="h2"
-			placeholder="Group Name"
-			class="group__title"
-			@update="updateGroupName"
-		/>
+		<div class="frow nowrap">
+			<i class="group__handle las la-grip-lines-vertical"></i>
+			<EditableTitle
+				ref="editableTitle"
+				:title="group.name"
+				element="h2"
+				placeholder="Group Name"
+				class="group__title grow-1"
+				@update="updateGroupName"
+			/>
+			<OptionsDropdown :options="options" direction="bottom" class="group__options" />
+		</div>
 		<PostList :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
-		<i v-if="!isDeleting" class="group__btn-delete las la-times" @click="onClickDelete"></i>
-		<i class="group__handle las la-grip-lines-vertical"></i>
 	</div>
 </template>
 
 <script>
 import EditableTitle from '@components/EditableTitle';
+import OptionsDropdown from '@components/OptionsDropdown';
 import PostList from '@components/PostList';
 export default {
 	components: {
 		EditableTitle,
+		OptionsDropdown,
 		PostList,
 	},
 	props: {
@@ -30,6 +35,30 @@ export default {
 		};
 	},
 	computed: {
+		options() {
+			const options = [
+				{
+					title: 'Sort',
+					iconClass: 'las la-sort-amount-up',
+					onClick: this.onClickSortPosts,
+					isShow: this.posts.length > 1,
+				},
+				{
+					title: 'Edit Title',
+					iconClass: 'las la-pencil-alt',
+					onClick: this.onClickEditTitle,
+					isShow: false,
+				},
+				{
+					title: 'Delete Group',
+					iconClass: 'las la-trash-alt',
+					onClick: this.onClickDelete,
+					isDanger: true,
+					isShow: true,
+				},
+			];
+			return _.filter(options, 'isShow');
+		},
 		posts() {
 			return this.getPostsByGroupId(this.group.id);
 		},
@@ -46,6 +75,14 @@ export default {
 			this.$nextTick(() => {
 				this.$el.style.marginRight = `-${ this.$el.offsetWidth }px`;
 			});
+		},
+		onClickEditTitle() {
+			setTimeout(() => {
+				this.$refs.editableTitle.onEdit();
+			}, 10);
+		},
+		onClickSortPosts() {
+			console.log('sortPosts');
 		},
 		updateGroupName(newName) {
 			this.updateGroup({
@@ -66,11 +103,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@style/custom';
 %tool-group {
-	@extend %tool;
-	position: absolute;
-	top: 0;
-	z-index: 1;
-	padding: 24px 2px;
+	font-size: 24px;
+	padding: 22px 0px;
 }
 .group {
 	position: relative;
@@ -79,6 +113,7 @@ export default {
 	flex-direction: column;
 	padding-bottom: 6px;
 	border-radius: $border-r-md;
+	width: $w-group;
 	transform-origin: top left;
 	&--deleting {
 		opacity: 0.5;
@@ -86,16 +121,19 @@ export default {
 		transform: scale(0);
 	}
 	&__title {
-		padding: 16px 24px;
+		padding: 16px 0px;
+		overflow: hidden;
 	}
 	&__post-list {
 		flex-grow: 1;
 	}
-	&__btn-delete {
+	&__options {
+		@extend %tool;
 		@extend %tool-group;
 		right: 0;
 	}
 	&__handle {
+		@extend %tool;
 		@extend %tool-group;
 		@extend %handle;
 		left: 0;

@@ -41,7 +41,7 @@ export default {
 		padding: 6px 8px;
 		min-width: 24px;
 		border-radius: 12px;
-		background-color: #ff4c4c;
+		background-color: $c-danger;
 		font-size: 12px;
 		line-height: 1;
 		animation: notification-appear .2s ease-out;

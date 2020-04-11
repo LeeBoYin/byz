@@ -3,9 +3,13 @@
 		<div
 			v-show="!isEditing"
 			ref="title"
-			class="editable-title__span"
+			:data-uid="_.uniqueId()"
+			class="editable-title__display"
 			@click="onEdit">
-			{{ title }}
+			<div class="editable-title__text">
+				{{ title }}
+			</div>
+			<i class="editable-title__icon-edit las la-pencil-alt"></i>
 		</div>
 		<input
 			v-show="isEditing"
@@ -49,8 +53,8 @@ export default {
 	},
 	methods: {
 		bindEvents() {
-			document.addEventListener('click', (e) => {
-				if(e.target === this.$refs.title){
+			document.addEventListener('mousedown', (e) => {
+				if(e.target.isEqualNode(this.$refs.title)){
 					return;
 				}
 				if(this.isEditing) {
@@ -92,8 +96,25 @@ export default {
 		line-height: 1.5;
 		letter-spacing: 1px;
 	}
-	&__span {
+	&__display {
 		cursor: pointer;
+		display: flex;
+		align-items: center;
+		* {
+			pointer-events: none;
+		}
+	}
+	&__text {
+		@extend %text-ellipsis;
+	}
+	&__icon-edit {
+		margin-left: 5px;
+		font-size: 0.8em;
+		color: $c-gray;
+		display: none;
+	}
+	&__display:hover &__icon-edit {
+		display: block;
 	}
 	&__input {
 		background-color: transparent;
