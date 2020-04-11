@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 }
 
-input {
+input, textarea {
 	display: block;
 	color: $c-dark;
 	width: 100%;
@@ -28,8 +28,14 @@ input {
 	border: 2px solid transparent;
 	border-radius: $border-r-md;
 	outline: none;
-	transition: .2s;
+	transition-property: color, border, background-color;
+	transition-duration: .2s;
 }
+
+textarea {
+	resize: none;
+}
+
 label {
 	display: block;
 	margin: 0;

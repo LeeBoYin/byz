@@ -1,6 +1,6 @@
 <template>
 	<div :class="{ 'post--deleting': isDeleting }" class="post" :data-post-id="post.id">
-		<p class="post__content">{{ post.content }}</p>
+		<p class="post__content" v-html="formattedContent"></p>
 		<div class="post__footer">
 			<div class="frow direction-column grow-1 overflow-hidden">
 				<div v-if="post.posterName" class="post__poster">by {{ post.posterName }}</div>
@@ -36,6 +36,12 @@ export default {
 		};
 	},
 	computed: {
+		formattedContent() {
+			let formattedContent = this.post.content;
+			// line break
+			formattedContent = formattedContent.replace(/\n/g, '<br>');
+			return formattedContent;
+		},
 		likes() {
 			return _.get(this.post, 'likedUsers', []).length;
 		},

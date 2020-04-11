@@ -16,7 +16,9 @@ Object.defineProperty(Vue.prototype, '_', { value: _ });
 
 // directives
 import autoFocus from '@directives/autoFocus';
+import autoHeight from '@directives/autoHeight';
 Vue.directive('auto-focus', autoFocus);
+Vue.directive('auto-height', autoHeight);
 
 new Vue({
 	el: '#app',

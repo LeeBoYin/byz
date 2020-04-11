@@ -1,13 +1,15 @@
 <template>
 	<div class="post-form">
-		<input
+		<textarea
 			ref="input"
-			v-model="content"
-			type="text"
+			v-model.trim="content"
+			v-auto-height
+			rows="1"
 			class="post-form__input"
 			placeholder="Type something..."
 			@keypress.enter="submit"
 		>
+		</textarea>
 	</div>
 </template>
 
@@ -38,18 +40,23 @@ export default {
 		},
 	},
 	methods: {
-		async submit() {
+		async submit(e) {
+			if(e.ctrlKey || e.shiftKey || e.altKey) {
+				// 換行
+				return;
+			}
+			e.preventDefault();
 			if(!this.isSubmittable) {
 				return;
 			}
-			const post = {
+			this.createPost({
 				content: this.content,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				posterName: this.currentUser.name,
-			};
+			});
 			this.content = '';
+			this.$refs.input.style.height = 'auto';
 			this.$refs.input.focus();
-			this.createPost(post);
 		},
 		...mapActions('board', [
 			'createPost',
@@ -62,8 +69,9 @@ export default {
 @import '~@style/custom';
 .post-form {
 	&__input {
-		border-radius: 50px;
+		border-radius: 15px;
 		background-color: $c-bright;
+		max-height: 150px;
 		&:hover,
 		&:focus {
 			border-color: $c-primary;
