@@ -87,7 +87,7 @@ export default {
 		},
 		onClickSortPosts() {
 			const sortedPostIdList = _.map(_.sortBy(this.posts, (post) => {
-				return _.get(post, 'likedUsers', []).length;
+				return _.get(post, 'likedUsersId', []).length;
 			}), 'id').reverse();
 			this.updateGroup({
 				groupId: this.group.id,

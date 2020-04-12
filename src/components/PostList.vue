@@ -227,7 +227,7 @@ console.log(this.sortable);
 	.post {
 		flex-shrink: 0;
 		margin-top: 8px;
-		margin-bottom: 15px;
+		margin-bottom: 8px;
 	}
 }
 

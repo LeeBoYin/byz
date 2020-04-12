@@ -2,7 +2,7 @@
 	border-radius: $border-r-md;
 	border: 0;
 	background-color: $c-gray-dark;
-	color: #fff;
+	color: $c-bright;
 	cursor: pointer;
 	display: inline-block;
 	font-weight: 500;
@@ -59,7 +59,7 @@
 	animation: none !important;
 }
 .sortable-drag {
-	box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
 }
 .sortable-drag.in-trash-can {
 	transform: scale(0.1);

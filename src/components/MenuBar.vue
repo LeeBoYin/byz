@@ -27,7 +27,7 @@
 					<i class="las la-mask"></i>
 				</a>
 			</div>
-			<AvatarList />
+			<AvatarList :users="users" size="md"/>
 		</div>
 		<ModalShare
 			:is-open="isOpenModalShare"
@@ -62,6 +62,7 @@ export default {
 		...mapGetters('board', [
 			'boardName',
 			'currentUser',
+			'users',
 		]),
 	},
 	mounted() {
@@ -90,7 +91,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~@style/custom';
 .menu-bar {
 	&__title {

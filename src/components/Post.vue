@@ -27,18 +27,25 @@
 					</div>
 					<OptionsDropdown :options="options" direction="left" class="post__options" />
 				</div>
-				<div class="post__footer my-10">
+				<div class="post__footer my-10 mr-10">
 					<div class="frow direction-column grow-1 overflow-hidden">
-						<div v-if="post.posterName" class="post__poster">by {{ post.posterName }}</div>
-						<div class="post__timestamp">{{ postTime }}</div>
+						<div v-if="post.posterName" class="post__poster">
+							- {{ post.posterName }}
+						</div>
 					</div>
-					<button
-						:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
-						class="post__btn-like"
-						@click="toggleLike">
-						<i class="las la-thumbs-up"></i>
-						<template v-if="likes">{{ likes }}</template>
-					</button>
+					<div class="frow row-center shrink-0">
+						<AvatarList
+							:users="getUsersById(post.likedUsersId)"
+							size="sm"
+						/>
+						<button
+							v-if="!isGuestMode"
+							:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
+							class="post__btn-like shrink-0 ml-10"
+							@click="toggleLike">
+							<i class="las la-heart"></i>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -47,9 +54,11 @@
 
 <script>
 import setStringToClipBoard from 'set-string-to-clipboard';
+import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
 export default {
 	components: {
+		AvatarList,
 		OptionsDropdown,
 	},
 	props: {
@@ -61,7 +70,6 @@ export default {
 			isDeleting: false,
 			isEditing: false,
 			isSaving: false,
-			postTime: null,
 		};
 	},
 	computed: {
@@ -71,11 +79,8 @@ export default {
 			formattedContent = formattedContent.replace(/\n/g, '<br>');
 			return formattedContent;
 		},
-		likes() {
-			return _.get(this.post, 'likedUsers', []).length;
-		},
 		isLikedByCurrentUser() {
-			return _.includes(this.post.likedUsers, _.get(this.currentUser, 'name'));
+			return _.includes(this.post.likedUsersId, _.get(this.currentUser, 'id'));
 		},
 		isEdited() {
 			return !_.isNil(this.post.lastEditTimestamp);
@@ -103,11 +108,9 @@ export default {
 		]),
 		...mapGetters('board', [
 			'currentUser',
+			'getUsersById',
+			'users',
 		]),
-	},
-	created() {
-		this.updatePostTime();
-		setInterval(this.updatePostTime, 1000);
 	},
 	methods: {
 		cancelEdit() {
@@ -153,18 +156,11 @@ export default {
 			this.updatePost({
 				postId: this.post.id,
 				updateObj: {
-					likedUsers: this.isLikedByCurrentUser
-						? firebase.firestore.FieldValue.arrayRemove(this.currentUser.name)
-						: firebase.firestore.FieldValue.arrayUnion(this.currentUser.name),
+					likedUsersId: this.isLikedByCurrentUser
+						? firebase.firestore.FieldValue.arrayRemove(this.currentUser.id)
+						: firebase.firestore.FieldValue.arrayUnion(this.currentUser.id),
 				},
 			});
-		},
-		updatePostTime() {
-			if(!this.post.timestamp) {
-				this.postTime = 'posting...';
-				return;
-			}
-			this.postTime = moment(this.post.timestamp.toDate()).fromNow();
 		},
 		...mapActions('board', [
 			'deletePost',
@@ -178,7 +174,7 @@ export default {
 @import '~@style/custom';
 .post {
 	position: relative;
-	background-color: #FFF;
+	background-color: $c-bright;
 	border-radius: $border-r-md;
 	box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
 				inset 4px 0 0 #eeeeee;
@@ -225,12 +221,7 @@ export default {
 	}
 	&__poster {
 		@extend %text-ellipsis;
-		color: #999;
-		margin-bottom: 5px;
-	}
-	&__timestamp {
-		@extend %text-ellipsis;
-		color: #999;
+		color: $c-gray;
 	}
 	&__options {
 		@extend %tool;
@@ -241,20 +232,19 @@ export default {
 		visibility: hidden;
 	}
 	&__btn-like {
-		color: $c-gray;
 		display: flex;
 		align-items: center;
-		font-size: 14px;
-		padding: 0 14px;
 		i {
-			font-size: 24px;
-			margin-right: 2px;
+			font-size: 16px;
+			color: $c-bright;
+			text-shadow: 0 0 1px $c-dark, 0 0 1px $c-dark, 0 0 1px $c-dark, 0 0 1px $c-dark;
 		}
 		&--liked {
-			color: $c-secondary;
 			i {
-				animation: .2s thumb-up ease-in-out;
+				animation: .2s like ease-in-out;
 				animation-iteration-count: 1;
+				color: $c-danger;
+				text-shadow: none;
 			}
 		}
 	}
@@ -279,15 +269,15 @@ export default {
 		visibility: hidden;
 	}
 }
-@keyframes thumb-up {
+@keyframes like {
 	0% {
-		transform: rotate(0deg);
+		transform: scale(1);
 	}
 	50% {
-		transform: rotate(-30deg);
+		transform: scale(1.25);
 	}
 	100% {
-		transform: rotate(0deg);
+		transform: scale(1);
 	}
 }
 </style>

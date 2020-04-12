@@ -10,13 +10,19 @@ const getters = {
 	users(state) {
 		return state.users;
 	},
+	getUsersById: (state, getters) => (usersId = []) => {
+		return _.map(usersId, userId => getters.users[userId]);
+	},
 };
 const mutations = {
 	setCurrentUserId(state, id) {
 		state.currentUserId = id;
 	},
 	setUser(state, { id, user }) {
-		Vue.set(state.users, id, user);
+		Vue.set(state.users, id, {
+			id,
+			...user
+		});
 	},
 	setUsersRef(state, usersRef) {
 		state.usersRef = usersRef;
@@ -38,6 +44,7 @@ const actions = {
 	async getUsers({ commit }) {
 		await state.usersRef.get().then((usersSnapshot) => {
 			usersSnapshot.forEach((userDoc) => {
+				console.log(userDoc);
 				commit('setUser', {
 					id: userDoc.id,
 					user: userDoc.data(),

@@ -190,7 +190,7 @@ export default {
 	&__option {
 		position: relative;
 		cursor: pointer;
-		color: $c-gray;
+		color: $c-gray-dark;
 		background-color: $c-bright;
 		padding: 8px;
 		border-radius: 50%;

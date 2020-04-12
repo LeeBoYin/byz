@@ -1,4 +1,4 @@
-@mixin custom-scrollbar($foreground-color: #FFF, $axis-x: false) {
+@mixin custom-scrollbar($foreground-color: $c-gray, $axis-x: false) {
 	$size: 8px;
 	$background-color: rgba(0, 0, 0, 0.03);
 	&::-webkit-scrollbar {
@@ -29,7 +29,6 @@
 			$background-color 70%,
 			rgba(0,0,0,0) 70%
 		);
-		//background: #FFFFFF;
 		border-radius: 5px;
 	}
 
