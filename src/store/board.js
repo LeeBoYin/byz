@@ -85,6 +85,9 @@ const actions = {
 	goToInvalid() {
 		router.push('/');
 	},
+	leaveGuestMode({ commit }) {
+		commit('setIsGuestMode', false);
+	},
 	setLocalData({ getters }, data) {
 		_.forEach(data, (value, key) => {
 			window.localStorage.setItem(`${ getters.boardId }:${ key }`, value);

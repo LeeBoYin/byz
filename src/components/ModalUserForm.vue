@@ -15,7 +15,7 @@
 				<input
 					ref="input"
 					type="text"
-					v-model="userName"
+					v-model.trim="userName"
 					v-auto-focus
 					:disabled="isLoading"
 					placeholder="Your name"
@@ -33,7 +33,6 @@
 				</button>
 			</div>
 		</div>
-
 	</Modal>
 </template>
 
@@ -61,6 +60,15 @@ export default {
 		...mapGetters('board', [
 			'boardName',
 		]),
+	},
+	watch: {
+		isOpen() {
+			if(this.isOpen) {
+				this.$nextTick(() => {
+					this.$refs.input.focus();
+				});
+			}
+		}
 	},
 	methods: {
 		async submit() {

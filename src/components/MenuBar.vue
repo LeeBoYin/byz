@@ -22,6 +22,10 @@
 					</div>
 				</div>
 				<div v-if="currentUser" class="menu-bar__user-name">Your name: {{ currentUser.name }}</div>
+				<a v-if="isGuestMode" class="menu-bar__user-name" @click="leaveGuestMode">
+					Guest Mode
+					<i class="las la-mask"></i>
+				</a>
 			</div>
 			<AvatarList />
 		</div>
@@ -79,7 +83,8 @@ export default {
 			});
 		},
 		...mapActions('board', [
-			'updateBoard'
+			'leaveGuestMode',
+			'updateBoard',
 		]),
 	},
 };
