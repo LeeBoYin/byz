@@ -116,7 +116,7 @@ export default {
 @import '~@style/custom';
 %tool-group {
 	font-size: 24px;
-	padding: 22px 0px;
+	padding: 22px 0;
 }
 .group {
 	position: relative;
@@ -133,7 +133,7 @@ export default {
 		transform: scale(0);
 	}
 	&__title {
-		padding: 16px 0px;
+		padding: 16px 0;
 		overflow: hidden;
 	}
 	&__post-list {

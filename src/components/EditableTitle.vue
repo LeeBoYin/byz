@@ -59,7 +59,7 @@ export default {
 	methods: {
 		bindEvents() {
 			document.addEventListener('mousedown', (e) => {
-				if(e.target.isEqualNode(this.$refs.title)){
+				if(e.target.isEqualNode(this.$refs.title) || e.target.isEqualNode(this.$refs.input)){
 					return;
 				}
 				if(this.isEditing) {
@@ -75,7 +75,13 @@ export default {
 		},
 		endEdit() {
 			if(!this.newTitle.length) {
-				return;
+				if(this.title) {
+					// revert
+					this.newTitle = this.title
+				} else {
+					// set default
+					this.newTitle = 'untitled';
+				}
 			}
 			if(this.newTitle === this.title) {
 				this.cancelEdit();
@@ -126,7 +132,7 @@ export default {
 		border-radius: 0;
 		border: 0;
 		box-shadow: 0 1px 0 0 $c-gray-light;
-		padding: 0px;
+		padding: 0;
 		font-size: inherit;
 	}
 	// disabled style

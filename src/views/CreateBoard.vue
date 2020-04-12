@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { errorShake } from '@libs/uiUtils';
 export default {
 	data() {
 		return {
@@ -38,6 +39,7 @@ export default {
 	methods: {
 		async submit() {
 			if(_.isEmpty(this.boardName)) {
+				errorShake(this.$refs.input);
 				this.$refs.input.focus();
 				return;
 			}

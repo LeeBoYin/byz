@@ -42,6 +42,7 @@ import constants from '@/constants';
 import Avatar from '@components/Avatar';
 import ColorSelect from '@components/ColorSelect';
 import Modal from '@components/Modal';
+import { errorShake } from '@libs/uiUtils';
 export default {
 	components: {
 		Avatar,
@@ -64,6 +65,7 @@ export default {
 	methods: {
 		async submit() {
 			if(!this.userName.length) {
+				errorShake(this.$refs.input);
 				this.$refs.input.focus();
 				return;
 			}
