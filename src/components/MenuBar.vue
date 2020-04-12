@@ -5,6 +5,7 @@
 				<div class="frow row-center mb-5">
 					<EditableTitle
 						:title="boardName"
+						:disabled="isGuestMode"
 						element="h1"
 						placeholder="Board Name"
 						class="menu-bar__title"
@@ -51,6 +52,9 @@ export default {
 		};
 	},
 	computed: {
+		...mapState('board', [
+			'isGuestMode',
+		]),
 		...mapGetters('board', [
 			'boardName',
 			'currentUser',

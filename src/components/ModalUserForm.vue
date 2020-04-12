@@ -22,7 +22,8 @@
 					@keypress.enter="submit"
 				>
 			</div>
-			<div class="text-right">
+			<div class="frow row-between">
+				<a class="hint text-underline" @click="viewAsGuest">view as a guest</a>
 				<button class="btn btn--primary" :disabled="isLoading" @click="submit">
 					<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
 					<template v-else>
@@ -77,7 +78,8 @@ export default {
 			this.isLoading = false;
 		},
 		...mapActions('board', [
-			'createUser'
+			'createUser',
+			'viewAsGuest',
 		]),
 	},
 };

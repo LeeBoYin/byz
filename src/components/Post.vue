@@ -1,5 +1,5 @@
 <template>
-	<div :class="{ 'post--editing': isEditing, 'post--deleting': isDeleting }" class="post" :data-post-id="post.id">
+	<div :class="{ 'post--editing': isEditing, 'post--deleting': isDeleting, 'post--guest': isGuestMode }" class="post" :data-post-id="post.id">
 		<div class="frow nowrap">
 			<i class="post__handle las la-grip-lines-vertical"></i>
 			<div class="grow-1">
@@ -98,6 +98,9 @@ export default {
 			];
 			return _.filter(options, 'isShow');
 		},
+		...mapState('board', [
+			'isGuestMode',
+		]),
 		...mapGetters('board', [
 			'currentUser',
 		]),
@@ -144,6 +147,9 @@ export default {
 			this.isEditing = false;
 		},
 		toggleLike() {
+			if(this.isGuestMode) {
+				return;
+			}
 			this.updatePost({
 				postId: this.post.id,
 				updateObj: {
@@ -263,6 +269,14 @@ export default {
 	}
 	&__icon-saving {
 		@extend %absolute-center;
+	}
+	// guest mode style
+	&--guest &__btn-like {
+		cursor: default;
+	}
+	&--guest &__options,
+	&--guest &__handle {
+		visibility: hidden;
 	}
 }
 @keyframes thumb-up {

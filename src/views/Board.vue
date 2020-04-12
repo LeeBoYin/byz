@@ -16,7 +16,7 @@
 				</div>
 				<PostAreaButton class="board__btn-post-area" />
 			</div>
-			<ModalUserForm :is-open="!currentUser" />
+			<ModalUserForm :is-open="!currentUser && !isGuestMode" />
 		</template>
 	</div>
 </template>
@@ -54,6 +54,7 @@ export default {
 	computed: {
 		...mapState('board', [
 			'isInitialized',
+			'isGuestMode',
 			'isShowPostArea',
 		]),
 		...mapGetters('board', [

@@ -3,6 +3,7 @@
 		<textarea
 			ref="input"
 			v-model.trim="content"
+			v-auto-focus
 			v-auto-height
 			rows="1"
 			class="post-form__input"
@@ -69,12 +70,15 @@ export default {
 @import '~@style/custom';
 .post-form {
 	&__input {
-		border-radius: 15px;
+		border-radius: 30px;
 		background-color: $c-bright;
 		max-height: 150px;
 		&:hover,
 		&:focus {
 			border-color: $c-primary;
+		}
+		&::-webkit-scrollbar {
+			width: 0;
 		}
 	}
 }

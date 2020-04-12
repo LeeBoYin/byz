@@ -7,7 +7,7 @@
 			</button>
 		</div>
 		<PostList :posts="newPosts" />
-		<PostForm />
+		<PostForm v-if="currentUser" />
 	</div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
 			'isShowPostArea',
 		]),
 		...mapGetters('board', [
+			'currentUser',
 			'newPosts',
 		]),
 	},

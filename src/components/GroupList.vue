@@ -1,7 +1,7 @@
 <template>
 	<div class="group-list">
 		<Group v-for="group in orderedGroups" :key="group.id" :group="group" />
-		<button class="group-list__btn-add" @click="onClickCreate">
+		<button v-if="!isGuestMode" class="group-list__btn-add" @click="onClickCreate">
 			<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
 			<template v-else>
 				<i class="las la-plus"></i>
@@ -24,6 +24,9 @@ export default {
 		};
 	},
 	computed: {
+		...mapState('board', [
+			'isGuestMode',
+		]),
 		...mapGetters('board', [
 			'orderedGroups',
 		]),

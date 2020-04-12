@@ -8,6 +8,7 @@ const state = {
 	draggedItem: null,
 	isInitialized: false,
 	isShowPostArea: true,
+	isGuestMode: false,
 };
 const getters = {
 	boardId(state) {
@@ -26,6 +27,9 @@ const mutations = {
 	},
 	setInitialized(state, isInitialized) {
 		state.isInitialized = isInitialized;
+	},
+	setIsGuestMode(state, isGuestMode) {
+		state.isGuestMode = isGuestMode;
 	},
 	setIsShowPostArea(state, isShowPostArea) {
 		state.isShowPostArea = isShowPostArea;
@@ -91,6 +95,9 @@ const actions = {
 		dispatch('setLocalData', {
 			isShowPostArea: value,
 		});
+	},
+	viewAsGuest({ commit }) {
+		commit('setIsGuestMode', true);
 	},
 };
 

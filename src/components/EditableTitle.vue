@@ -1,5 +1,5 @@
 <template>
-	<component :is="element" class="editable-title">
+	<component :is="element" :class="{ 'editable-title--disabled': disabled }" class="editable-title">
 		<div
 			v-show="!isEditing"
 			ref="title"
@@ -9,7 +9,7 @@
 			<div class="editable-title__text">
 				{{ title }}
 			</div>
-			<i class="editable-title__icon-edit las la-pencil-alt"></i>
+			<i v-if="!disabled" class="editable-title__icon-edit las la-pencil-alt"></i>
 		</div>
 		<input
 			v-if="isEditing"
@@ -40,6 +40,10 @@ export default {
 			type: String,
 			default: 'div',
 		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		}
 	},
 	watch: {
 		title() {
@@ -80,6 +84,9 @@ export default {
 			this.$emit('update', this.newTitle);
 		},
 		onEdit() {
+			if(this.disabled) {
+				return;
+			}
 			this.newTitle = this.title;
 			this.isEditing = true;
 		},
@@ -121,6 +128,10 @@ export default {
 		box-shadow: 0 1px 0 0 $c-gray-light;
 		padding: 0px;
 		font-size: inherit;
+	}
+	// disabled style
+	&--disabled &__display {
+		cursor: default;
 	}
 }
 

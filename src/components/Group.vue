@@ -1,10 +1,11 @@
 <template>
-	<div :class="{ 'group--deleting': isDeleting }" class="group" :data-group-id="group.id">
+	<div :class="{ 'group--deleting': isDeleting, 'group--guest': isGuestMode }" class="group" :data-group-id="group.id">
 		<div class="frow nowrap">
 			<i class="group__handle las la-grip-lines-vertical"></i>
 			<EditableTitle
 				ref="editableTitle"
 				:title="group.name"
+				:disabled="isGuestMode"
 				element="h2"
 				placeholder="Group Name"
 				class="group__title grow-1"
@@ -62,6 +63,9 @@ export default {
 		posts() {
 			return this.getPostsByGroupId(this.group.id);
 		},
+		...mapState('board', [
+			'isGuestMode',
+		]),
 		...mapGetters('board', [
 			'getPostsByGroupId',
 		]),
@@ -145,6 +149,11 @@ export default {
 		@extend %tool-group;
 		@extend %handle;
 		left: 0;
+	}
+	// guest mode style
+	&--guest &__options,
+	&--guest &__handle {
+		visibility: hidden;
 	}
 }
 </style>
