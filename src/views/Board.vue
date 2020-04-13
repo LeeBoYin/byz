@@ -11,7 +11,7 @@
 						<GroupList class="" />
 					</div>
 					<div ref="postAreaContainer" class="board__post-area-container">
-						<PostArea class="ml-20"/>
+						<PostArea class="ml-15"/>
 					</div>
 				</div>
 				<PostAreaButton class="board__btn-post-area" />

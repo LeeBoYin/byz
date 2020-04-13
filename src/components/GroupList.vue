@@ -91,7 +91,7 @@ export default {
 	display: flex;
 	flex-wrap: nowrap;
 	&__btn-add {
-		width: 300px;
+		width: $w-group;
 		flex-shrink: 0;
 		display: flex;
 		align-items: center;

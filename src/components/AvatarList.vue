@@ -76,7 +76,18 @@ $shrink-lg: 15px;
 .menu-bar .avatar-list .avatar {
 	border-color: $c-background;
 }
-.post .avatar-list .avatar {
-	border-color: $c-bright;
+.post {
+	.avatar-list .avatar {
+		border-color: $c-bright;
+	}
+	&--red .avatar-list .avatar {
+		border-color: $c-post-red;
+	}
+	&--green .avatar-list .avatar {
+		border-color: $c-post-green;
+	}
+	&--blue .avatar-list .avatar {
+		border-color: $c-post-blue;
+	}
 }
 </style>

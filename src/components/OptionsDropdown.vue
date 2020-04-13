@@ -28,7 +28,7 @@
 </template>
 
 <script>
-const ANIMATION_INTERVAL = 0.08;
+const ANIMATION_DURATION = 0.2;
 export default {
 	props: {
 		options: {
@@ -46,11 +46,17 @@ export default {
 		};
 	},
 	computed: {
+		animationCloseInterval() {
+			return this.animationOpenInterval / 2;
+		},
+		animationOpenInterval() {
+			return this.options.length ? (ANIMATION_DURATION / this.options.length) : ANIMATION_DURATION;
+		},
 		dropDownStyle() {
 			const style = {};
 			if(!this.isOpen) {
 				_.assign(style, {
-					'transition-delay': this.options.length * ANIMATION_INTERVAL + 's',
+					'transition-delay': this.options.length * this.animationCloseInterval + 's',
 				});
 			}
 
@@ -107,18 +113,18 @@ export default {
 			const style = {};
 			if(this.isOpen) {
 				_.assign(style, {
-					'transition-duration': ANIMATION_INTERVAL + 's',
-					'transition-delay': ANIMATION_INTERVAL * idx + 's',
+					'transition-duration': this.animationOpenInterval + 's',
+					'transition-delay': this.animationOpenInterval * idx + 's',
 				});
 			} else {
 				_.assign(style, {
-					'transition-duration': ANIMATION_INTERVAL + 's',
-					'transition-delay': ANIMATION_INTERVAL * (this.options.length - (idx + 1)) + 's',
+					'transition-duration': this.animationCloseInterval + 's',
+					'transition-delay': this.animationCloseInterval * (this.options.length - (idx + 1)) + 's',
 				});
 			}
 
 			const margin = '10px';
-			const translate = '50px';
+			const translate = '1em';
 			switch (this.direction) {
 				case 'top':
 					_.assign(style, {

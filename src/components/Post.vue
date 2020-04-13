@@ -1,5 +1,5 @@
 <template>
-	<div :class="{ 'post--editing': isEditing, 'post--deleting': isDeleting, 'post--guest': isGuestMode }" class="post" :data-post-id="post.id">
+	<div :class="[{ 'post--editing': isEditing, 'post--deleting': isDeleting, 'post--guest': isGuestMode }, colorClass]" class="post" :data-post-id="post.id">
 		<div class="frow nowrap">
 			<i class="post__handle las la-grip-lines-vertical"></i>
 			<div class="grow-1">
@@ -73,6 +73,13 @@ export default {
 		};
 	},
 	computed: {
+		colorClass() {
+			const color = _.get(this.post, 'color', null);
+			if(!color) {
+				return null;
+			}
+			return `post--${ color }`;
+		},
 		formattedContent() {
 			let formattedContent = this.post.content;
 			// line break
@@ -91,6 +98,30 @@ export default {
 					title: 'Edit',
 					iconClass: 'las la-pencil-alt',
 					onClick: this.onClickEdit,
+					isShow: true,
+				},
+				{
+					title: 'White',
+					iconClass: 'icon-color icon-color--white',
+					onClick: this.onClickColor(null),
+					isShow: true,
+				},
+				{
+					title: 'Red',
+					iconClass: 'icon-color icon-color--red',
+					onClick: this.onClickColor('red'),
+					isShow: true,
+				},
+				{
+					title: 'Green',
+					iconClass: 'icon-color icon-color--green',
+					onClick: this.onClickColor('green'),
+					isShow: true,
+				},
+				{
+					title: 'Blue',
+					iconClass: 'icon-color icon-color--blue',
+					onClick: this.onClickColor('blue'),
 					isShow: true,
 				},
 				{
@@ -116,6 +147,17 @@ export default {
 		cancelEdit() {
 			this.isEditing = false;
 		},
+		onClickColor(color) {
+			const self = this;
+			return () => {
+				self.updatePost({
+					postId: this.post.id,
+					updateObj: {
+						color: color,
+					}
+				});
+			};
+		},
 		onClickCopy() {
 			setStringToClipBoard(this.post.content);
 		},
@@ -138,6 +180,10 @@ export default {
 				return;
 			}
 			e.preventDefault();
+			if(this.post.content === this.editedContent) {
+				this.isEditing = false;
+				return;
+			}
 			this.isSaving = true;
 			await this.updatePost({
 				postId: this.post.id,
@@ -170,7 +216,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~@style/custom';
 .post {
 	position: relative;
@@ -181,10 +227,20 @@ export default {
 	display: flex;
 	flex-direction: column;
 	word-break: break-all;
+	transition: background-color .2s ease-out;
 	transform-origin: top center;
 	&:hover {
 		box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
 		inset 4px 0 0 #ffeec0;
+	}
+	&--red {
+		background-color: $c-post-red;
+	}
+	&--green {
+		background-color: $c-post-green;
+	}
+	&--blue {
+		background-color: $c-post-blue;
 	}
 	&--deleting {
 		opacity: 0.5;
@@ -267,6 +323,25 @@ export default {
 	&--guest &__options,
 	&--guest &__handle {
 		visibility: hidden;
+	}
+}
+.icon-color {
+	display: block;
+	height: 1em;
+	width: 1em;
+	border: 1px solid $c-gray-light;
+	border-radius: 50%;
+	&--white {
+		background-color: white;
+	}
+	&--red {
+		background-color: $c-post-red;
+	}
+	&--green {
+		background-color: $c-post-green;
+	}
+	&--blue {
+		background-color: $c-post-blue;
 	}
 }
 @keyframes like {
