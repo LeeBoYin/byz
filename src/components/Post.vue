@@ -54,8 +54,10 @@
 
 <script>
 import setStringToClipBoard from 'set-string-to-clipboard';
+import showdown from 'showdown';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
+const converter = new showdown.Converter();
 export default {
 	components: {
 		AvatarList,
@@ -81,10 +83,7 @@ export default {
 			return `post--${ color }`;
 		},
 		formattedContent() {
-			let formattedContent = this.post.content;
-			// line break
-			formattedContent = formattedContent.replace(/\n/g, '<br>');
-			return formattedContent;
+			return converter.makeHtml(this.post.content);
 		},
 		isLikedByCurrentUser() {
 			return _.includes(this.post.likedUsersId, _.get(this.currentUser, 'id'));

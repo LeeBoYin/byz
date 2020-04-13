@@ -36,6 +36,7 @@
 		"lodash": "^4.17.15",
 		"moment": "^2.24.0",
 		"set-string-to-clipboard": "^1.0.1",
+		"showdown": "^1.9.1",
 		"sortablejs": "^1.10.2"
 	},
 	"description": ""
