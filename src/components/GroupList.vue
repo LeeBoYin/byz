@@ -1,25 +1,35 @@
 <template>
 	<div class="group-list">
-		<Group v-for="group in orderedGroups" :key="group.id" :group="group" />
-		<button v-if="!isGuestMode" class="group-list__btn-add" @click="onClickCreate">
-			<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
-			<template v-else>
-				<i class="las la-plus"></i>
-			</template>
+		<Group
+			v-for="group in orderedGroups"
+			:key="group.id"
+			:group="group"
+			class="mr-15"
+		/>
+		<GroupForm
+			v-if="isCreating"
+			class="mr-15"
+			@cancel="isCreating = false"
+			@created="isCreating = false"
+		/>
+		<button v-if="!isGuestMode && !isCreating" class="group-list__btn-add" @click="onClickCreate">
+			<i class="las la-plus"></i>
 		</button>
 	</div>
 </template>
 
 <script>
 import Group from '@components/Group';
+import GroupForm from '@components/GroupForm';
 import Sortable from 'sortablejs';
 export default {
 	components: {
 		Group,
+		GroupForm,
 	},
 	data() {
 		return {
-			isLoading: false,
+			isCreating: false,
 			sortable: null,
 		};
 	},
@@ -67,12 +77,10 @@ export default {
 	},
 	methods: {
 		async onClickCreate() {
-			if(this.isLoading) {
+			if(this.isCreating) {
 				return;
 			}
-			this.isLoading = true;
-			await this.createGroup();
-			this.isLoading = false;
+			this.isCreating = true;
 		},
 		...mapMutations('board', [
 			'updateDraggedItem',
@@ -93,9 +101,6 @@ export default {
 	&__btn-add {
 		width: $w-group;
 		flex-shrink: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		border: 2px dashed $c-dark;
 		border-radius: $border-r-md;
 		color: $c-dark;
@@ -105,9 +110,6 @@ export default {
 		&:hover {
 			opacity: 0.3;
 		}
-	}
-	.group {
-		margin-right: 15px;
 	}
 }
 </style>

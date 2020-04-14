@@ -31,7 +31,7 @@
 							@keypress.enter="save"
 							@keydown.prevent.stop.esc="cancelEdit"
 						></textarea>
-						<div v-if="isSaving" class="post__icon-saving">
+						<div v-if="isSaving" class="absolute-center">
 							<i class="las la-circle-notch la-spin la"></i>
 						</div>
 					</div>
@@ -332,9 +332,6 @@ export default {
 	}
 	&__content-container {
 		position: relative;
-	}
-	&__icon-saving {
-		@extend %absolute-center;
 	}
 	// guest mode style
 	&--guest &__btn-like {

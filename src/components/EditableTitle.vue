@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { errorShake } from '@libs/uiUtils';
+
 export default {
 	data() {
 		return {
@@ -56,18 +58,15 @@ export default {
 			this.onEdit();
 		}
 	},
+	beforeDestroy() {
+		document.removeEventListener('mousedown', this.onDocumentClick);
+	},
 	methods: {
 		bindEvents() {
-			document.addEventListener('mousedown', (e) => {
-				if(e.target.isEqualNode(this.$refs.title) || e.target.isEqualNode(this.$refs.input)){
-					return;
-				}
-				if(this.isEditing) {
-					this.endEdit();
-				}
-			});
+			document.addEventListener('mousedown', this.onDocumentClick);
 		},
 		cancelEdit() {
+			this.$emit('cancel');
 			if(!this.title.length) {
 				return;
 			}
@@ -76,18 +75,28 @@ export default {
 		endEdit() {
 			if(!this.newTitle.length) {
 				if(this.title) {
-					// revert
-					this.newTitle = this.title
+					this.cancelEdit();
+					errorShake(this.$refs.title);
 				} else {
-					// set default
-					this.newTitle = 'untitled';
+					if(this.$refs.input === document.activeElement) {
+						errorShake(this.$refs.input);
+					}
 				}
+				return;
 			}
 			if(this.newTitle === this.title) {
 				this.cancelEdit();
 				return;
 			}
 			this.$emit('update', this.newTitle);
+		},
+		onDocumentClick(e) {
+			if(e.target.isEqualNode(this.$refs.title) || e.target.isEqualNode(this.$refs.input)){
+				return;
+			}
+			if(this.isEditing) {
+				this.endEdit();
+			}
 		},
 		onEdit() {
 			if(this.disabled) {

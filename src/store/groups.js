@@ -24,9 +24,9 @@ const mutations = {
 	},
 };
 const actions = {
-	async createGroup({ state, dispatch }) {
+	async createGroup({ state, dispatch }, payload = {}) {
 		const newGroup = {
-			name: '',
+			name: _.get(payload, 'name', ''),
 		};
 		await state.groupsRef.add(newGroup).then((groupRef) => {
 			console.log("Group written with ID: ", groupRef.id);
