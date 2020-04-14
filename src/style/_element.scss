@@ -24,7 +24,7 @@ input, textarea {
 	width: 100%;
 	font-size: $font-size-base;
 	padding: 18px 30px;
-	background-color: $c-gray-lighter;
+	background-color: rgba(0, 0, 0, 0.05);
 	border: 2px solid transparent;
 	border-radius: $border-r-md;
 	outline: none;

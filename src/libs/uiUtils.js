@@ -1,9 +1,16 @@
 export function errorShake(element) {
-	if(element.classList.contains('error-shake')) {
+	animationOnce(element, 'error-shake', 0.4);
+}
+
+export function animationOnce(element, animationName, duration = 0.3, timeFunc = 'ease-out') {
+	if(element.style.animationName) {
 		return;
 	}
 	element.addEventListener('animationend', () => {
-		element.classList.remove('error-shake');
+		element.style.animation = '';
 	}, { once: true });
-	element.classList.add('error-shake')
+	element.style.animationName = animationName;
+	element.style.animationIterationCount = 1;
+	element.style.animationDuration = duration + 's';
+	element.style.animationTimingFunction = timeFunc;
 }

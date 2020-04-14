@@ -1,5 +1,15 @@
 <template>
-	<div :class="[{ 'post--editing': isEditing, 'post--deleting': isDeleting, 'post--guest': isGuestMode }, colorClass]" class="post" :data-post-id="post.id">
+	<div
+		:class="[{
+			'post--editing': isEditing,
+			'post--deleting': isDeleting,
+			'post--guest': isGuestMode
+			},
+			colorClass
+		]"
+		class="post"
+		:data-post-id="post.id"
+	>
 		<div class="frow nowrap">
 			<i class="post__handle las la-grip-lines-vertical"></i>
 			<div class="grow-1">
@@ -40,6 +50,7 @@
 						/>
 						<button
 							v-if="!isGuestMode"
+							ref="btnLike"
 							:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
 							class="post__btn-like shrink-0 ml-10"
 							@click="toggleLike">
@@ -55,9 +66,12 @@
 <script>
 import setStringToClipBoard from 'set-string-to-clipboard';
 import showdown from 'showdown';
+import { animationOnce } from '@libs/uiUtils';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
-const converter = new showdown.Converter();
+const converter = new showdown.Converter({
+	simplifiedAutoLink: true,
+});
 export default {
 	components: {
 		AvatarList,
@@ -141,6 +155,13 @@ export default {
 			'getUsersById',
 			'users',
 		]),
+	},
+	watch: {
+		isLikedByCurrentUser() {
+			if(this.isLikedByCurrentUser) {
+				animationOnce(this.$refs.btnLike, 'heart-beat', 0.2);
+			}
+		},
 	},
 	methods: {
 		cancelEdit() {
@@ -292,13 +313,13 @@ export default {
 		i {
 			font-size: 16px;
 			color: $c-bright;
+			opacity: 0.8;
 			text-shadow: 0 0 1px $c-dark, 0 0 1px $c-dark, 0 0 1px $c-dark, 0 0 1px $c-dark;
 		}
 		&--liked {
 			i {
-				animation: .2s like ease-in-out;
-				animation-iteration-count: 1;
 				color: $c-danger;
+				opacity: 1;
 				text-shadow: none;
 			}
 		}
@@ -341,17 +362,6 @@ export default {
 	}
 	&--blue {
 		background-color: $c-post-blue;
-	}
-}
-@keyframes like {
-	0% {
-		transform: scale(1);
-	}
-	50% {
-		transform: scale(1.25);
-	}
-	100% {
-		transform: scale(1);
 	}
 }
 </style>
