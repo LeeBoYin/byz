@@ -17,7 +17,6 @@
 					<div class="post__content-container grow-1 my-10">
 						<p v-if="!isEditing" class="post__content">
 							<span v-html="formattedContent"></span>
-							<span v-if="isEdited" class="post__edited-hint">(edited)</span>
 						</p>
 						<textarea
 							v-if="isEditing"
@@ -66,7 +65,7 @@
 <script>
 import setStringToClipBoard from 'set-string-to-clipboard';
 import showdown from 'showdown';
-import { animationOnce } from '@libs/uiUtils';
+import { animationOnce, transitionendOnce } from '@libs/uiUtils';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
 const converter = new showdown.Converter({
@@ -101,9 +100,6 @@ export default {
 		},
 		isLikedByCurrentUser() {
 			return _.includes(this.post.likedUsersId, _.get(this.currentUser, 'id'));
-		},
-		isEdited() {
-			return !_.isNil(this.post.lastEditTimestamp);
 		},
 		options() {
 			const options = [
@@ -168,9 +164,8 @@ export default {
 			this.isEditing = false;
 		},
 		onClickColor(color) {
-			const self = this;
 			return () => {
-				self.updatePost({
+				this.updatePost({
 					postId: this.post.id,
 					updateObj: {
 						color: color,
@@ -182,7 +177,7 @@ export default {
 			setStringToClipBoard(this.post.content);
 		},
 		onClickDelete() {
-			this.$el.addEventListener('transitionend', () => {
+			transitionendOnce(this.$el, () => {
 				this.deletePost(this.post.id);
 			});
 			this.isDeleting = true;
@@ -264,7 +259,7 @@ export default {
 	}
 	&--deleting {
 		opacity: 0.5;
-		transition: .2s ease-out;
+		transition: .3s ease-out;
 		transform: scale(0);
 	}
 	&__handle {

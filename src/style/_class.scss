@@ -24,6 +24,14 @@
 	&--secondary {
 		background-color: $c-secondary;
 	}
+	&--default {
+		color: $c-dark;
+		border: 1px solid $c-gray-light;
+		background-color: $c-bright;
+		&:active {
+			background-color: $c-gray-lighter;
+		}
+	}
 }
 
 .hint {

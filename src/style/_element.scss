@@ -15,6 +15,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+	margin: 0;
 	font-weight: normal;
 }
 
@@ -57,4 +58,8 @@ hr {
 	border: 0 solid $c-primary-dark;
 	border-top-width: 1px;
 	margin: 30px 0;
+}
+
+p, ul, ol {
+	margin: 0;
 }

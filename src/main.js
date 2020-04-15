@@ -20,6 +20,12 @@ import autoHeight from '@directives/autoHeight';
 Vue.directive('auto-focus', autoFocus);
 Vue.directive('auto-height', autoHeight);
 
+// plugins
+import alertBox from '@plugins/alertBox';
+import confirmBox from '@plugins/confirmBox';
+Vue.use(alertBox);
+Vue.use(confirmBox);
+
 new Vue({
 	el: '#app',
 	store,

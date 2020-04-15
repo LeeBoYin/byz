@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { transitionendOnce } from '@libs/uiUtils';
 const MODAL_STATE = 'modal-state';
 if(window.history.state === MODAL_STATE) {
 	window.history.back();
@@ -54,15 +55,15 @@ export default {
 		onOpen() {
 			window.history.pushState(MODAL_STATE, null);
 			this.$emit('opening');
-			this.$refs.modalContent.addEventListener('transitionend', () => {
+			transitionendOnce(this.$refs.modalContent, () => {
 				this.$emit('opened');
-			}, { once: true });
+			});
 		},
 		onClose() {
 			this.$emit('closing');
-			this.$refs.modalContent.addEventListener('transitionend', () => {
+			transitionendOnce(this.$refs.modalContent, () => {
 				this.$emit('closed');
-			}, { once: true });
+			});
 			if(window.history.state === MODAL_STATE) {
 				window.history.back();
 			}
@@ -94,6 +95,7 @@ $header-padding: 15px;
 		border-radius: $border-r-lg;
 		overflow: hidden;
 		background-color: $c-bright;
+		box-shadow: $shadow-modal;
 		z-index: $z-index-modal;
 		visibility: hidden;
 		opacity: 0;
@@ -163,7 +165,7 @@ $header-padding: 15px;
 		width:100%;
 		height:100%;
 		opacity: 0;
-		background-color: rgba(0,0,0,0.6);
+		background-color: $c-overlay;
 		transition: opacity .3s, visibility 0s .3s;
 		z-index: $z-index-modal-overlay;
 	}

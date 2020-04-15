@@ -25,6 +25,8 @@ $c-post-red: #fbe2e2;
 $c-post-green: #d8ecd8;
 $c-post-blue: #dee8f1;
 
+$c-overlay: rgba(0,0,0,0.3);
+
 // border-radius
 $border-r-lg: 20px;
 $border-r-md: 10px;
@@ -39,3 +41,6 @@ $block-lg: 720px;
 $block-md: 580px;
 $block-sm: 480px;
 $w-group: 350px;
+
+// shadow
+$shadow-modal: 0 5px 15px rgba(0, 0, 0, 0.3);

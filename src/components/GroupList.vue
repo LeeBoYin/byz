@@ -4,11 +4,9 @@
 			v-for="group in orderedGroups"
 			:key="group.id"
 			:group="group"
-			class="mr-15"
 		/>
 		<GroupForm
 			v-if="isCreating"
-			class="mr-15"
 			@cancel="isCreating = false"
 			@created="isCreating = false"
 		/>
@@ -110,6 +108,9 @@ export default {
 		&:hover {
 			opacity: 0.3;
 		}
+	}
+	.group, .group-form {
+		margin-right: 15px;
 	}
 }
 </style>

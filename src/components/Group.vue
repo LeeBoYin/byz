@@ -21,6 +21,7 @@
 import EditableTitle from '@components/EditableTitle';
 import OptionsDropdown from '@components/OptionsDropdown';
 import PostList from '@components/PostList';
+import { transitionendOnce } from '@libs/uiUtils';
 export default {
 	components: {
 		EditableTitle,
@@ -71,13 +72,26 @@ export default {
 		]),
 	},
 	methods: {
-		onClickDelete() {
-			this.$el.addEventListener('transitionend', () => {
-				this.deleteGroup(this.group.id);
+		executeDelete() {
+			transitionendOnce(this.$el, () => {
+				this.deleteGroup( this.group.id );
 			});
 			this.isDeleting = true;
 			this.$nextTick(() => {
 				this.$el.style.marginRight = `-${ this.$el.offsetWidth }px`;
+			});
+		},
+		onClickDelete() {
+			if(!this.posts.length) {
+				this.executeDelete();
+				return;
+			}
+			this.$confirmBox({
+				msg: `All posts in ${ this.group.name } will be deleted`,
+				buttonText: 'Delete',
+				onConfirm: () => {
+					this.executeDelete();
+				},
 			});
 		},
 		onClickEditTitle() {
@@ -129,7 +143,7 @@ export default {
 	transform-origin: top left;
 	&--deleting {
 		opacity: 0.5;
-		transition: .3s ease-out;
+		transition: .5s ease-out;
 		transform: scale(0);
 	}
 	&__title {
