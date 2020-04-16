@@ -12,7 +12,7 @@
 	>
 		<div class="frow nowrap">
 			<i class="post__handle las la-grip-lines-vertical"></i>
-			<div class="grow-1">
+			<div class="grow-1 overflow-hidden">
 				<div class="frow nowrap items-start">
 					<div class="post__content-container grow-1 my-10">
 						<p v-if="!isEditing" class="post__content">
@@ -37,14 +37,13 @@
 					<OptionsDropdown :options="options" direction="left" class="post__options" />
 				</div>
 				<div class="post__footer my-10 mr-10">
-					<div class="frow direction-column grow-1 overflow-hidden">
-						<div v-if="post.posterName" class="post__poster">
-							- {{ post.posterName }}
-						</div>
+					<div v-if="post.posterName" class="post__poster grow-1 shrink-1 overflow-hidden">
+						- {{ post.posterName }}
 					</div>
 					<div class="frow row-center shrink-0">
 						<AvatarList
-							:users="getUsersById(post.likedUsersId)"
+							:users="likedUsers"
+							:max="10"
 							size="sm"
 						/>
 						<button
@@ -100,6 +99,9 @@ export default {
 		},
 		isLikedByCurrentUser() {
 			return _.includes(this.post.likedUsersId, _.get(this.currentUser, 'id'));
+		},
+		likedUsers() {
+			return this.getUsersById(this.post.likedUsersId);
 		},
 		options() {
 			const options = [
@@ -283,6 +285,9 @@ export default {
 		&--saving {
 			opacity: 0.6;
 		}
+	}
+	&--white &__textarea, &--red &__textarea, &--green &__textarea, &--blue &__textarea {
+		background-color: rgba(255, 255, 255, 0.5);
 	}
 	&__footer {
 		display: flex;

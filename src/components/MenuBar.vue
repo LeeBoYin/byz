@@ -13,7 +13,7 @@
 					/>
 					<div class="menu-bar__tools ml-5">
 						<button class="menu-bar__tool" @click="isOpenModalShare = true">
-							<i class="las la-share"></i>
+							<i class="las la-link"></i>
 						</button>
 						<button v-if="isSupportFullscreen" class="menu-bar__tool" @click="onToggleFullscreen">
 							<i v-if="isFullScreen" class="las la-compress"></i>
@@ -27,7 +27,7 @@
 					<i class="las la-mask"></i>
 				</a>
 			</div>
-			<AvatarList :users="users" size="md"/>
+			<AvatarList :users="users" :max="15" size="md"/>
 		</div>
 		<ModalShare
 			:is-open="isOpenModalShare"

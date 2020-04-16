@@ -80,6 +80,9 @@ export default {
 @import '~@style/custom';
 .confirm-box {
 	@include modal-box;
+	&__content {
+		max-width: $block-sm;
+	}
 	&__btn-container {
 		display: flex;
 		justify-content: right;

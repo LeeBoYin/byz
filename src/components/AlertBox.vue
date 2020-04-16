@@ -75,5 +75,8 @@ export default {
 @import '~@style/custom';
 .alert-box {
 	@include modal-box;
+	&__content {
+		max-width: $block-sm;
+	}
 }
 </style>
