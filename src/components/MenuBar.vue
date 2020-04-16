@@ -95,7 +95,6 @@ export default {
 @import '~@style/custom';
 .menu-bar {
 	&__title {
-		flex-grow: 1;
 		font-size: 16px;
 	}
 	&__user-name {

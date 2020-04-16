@@ -54,7 +54,7 @@ export default {
 		display: flex;
 	}
 	&__input {
-		flex-grow: 1;
+		@extend .grow-remain;
 		margin-right: 15px;
 	}
 	&__btn {

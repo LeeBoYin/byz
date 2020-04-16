@@ -12,9 +12,9 @@
 	>
 		<div class="frow nowrap">
 			<i class="post__handle las la-grip-lines-vertical"></i>
-			<div class="grow-1 overflow-hidden">
+			<div class="grow-remain">
 				<div class="frow nowrap items-start">
-					<div class="post__content-container grow-1 my-10">
+					<div class="post__content-container grow-remain my-10">
 						<p v-if="!isEditing" class="post__content">
 							<span v-html="formattedContent"></span>
 						</p>
@@ -37,7 +37,7 @@
 					<OptionsDropdown :options="options" direction="left" class="post__options" />
 				</div>
 				<div class="post__footer my-10 mr-10">
-					<div v-if="post.posterName" class="post__poster grow-1 shrink-1 overflow-hidden">
+					<div v-if="post.posterName" class="post__poster grow-remain">
 						- {{ post.posterName }}
 					</div>
 					<div class="frow row-center shrink-0">
@@ -278,7 +278,6 @@ export default {
 	&__content {
 		font-size: 16px;
 		margin: 0;
-		flex-grow: 1;
 	}
 	&__textarea {
 		padding: 9px 15px;

@@ -5,7 +5,7 @@
 				:title="groupName"
 				:disabled="isLoading"
 				element="h2"
-				class="group-form__title grow-1"
+				class="group-form__title"
 				placeholder="Group Name"
 				@cancel="cancel"
 				@update="save"
@@ -68,8 +68,8 @@ export default {
 		opacity: 0.8;
 	}
 	&__title {
+		@extend .grow-remain;
 		padding: 16px 0;
-		overflow: hidden;
 	}
 }
 </style>

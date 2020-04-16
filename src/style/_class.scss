@@ -65,3 +65,10 @@
 	transform: scale(0.1);
 	opacity: 0.5;
 }
+
+// https://css-tricks.com/flexbox-truncated-text/
+.grow-remain {
+	flex-grow: 1;
+	min-width: 0;
+	min-height: 0;
+}

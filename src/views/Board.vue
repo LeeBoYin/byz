@@ -97,13 +97,13 @@ export default {
 		margin-bottom: 20px;
 	}
 	&__body {
-		flex-grow: 1;
+		@extend .grow-remain;
 		display: flex;
-		overflow: hidden;
+		min-height: 0;
 	}
 	&__group-list-container {
 		@include custom-scrollbar(#dcd6c9, true);
-		flex-grow: 1;
+		@extend .grow-remain;
 		display: flex;
 		overflow-x: auto;
 		overflow-y: hidden;

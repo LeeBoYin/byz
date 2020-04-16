@@ -8,7 +8,7 @@
 				:disabled="isGuestMode"
 				element="h2"
 				placeholder="Group Name"
-				class="group__title grow-1"
+				class="group__title"
 				@update="updateGroupName"
 			/>
 			<OptionsDropdown :options="options" direction="bottom" class="group__options" />
@@ -147,11 +147,11 @@ export default {
 		transform: scale(0);
 	}
 	&__title {
+		@extend .grow-remain;
 		padding: 16px 0;
-		overflow: hidden;
 	}
 	&__post-list {
-		flex-grow: 1;
+		@extend .grow-remain;
 	}
 	&__options {
 		@extend %tool;

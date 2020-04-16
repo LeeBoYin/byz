@@ -56,7 +56,7 @@ export default {
 	}
 	.post-list {
 		@include custom-scrollbar(#F7E0A4);
-		flex-grow: 1;
+		@extend .grow-remain;
 		flex-direction: column-reverse;
 		.post {
 			position: relative;
