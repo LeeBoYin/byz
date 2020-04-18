@@ -1,12 +1,12 @@
-import AlertBox from '@components/AlertBox';
+import ModalAlert from '@components/ModalAlert';
 export default {
 	install(Vue, options) {
 		// append container
 		const container = document.createElement('div');
-		container.setAttribute('id', 'alert-box-container');
+		container.setAttribute('id', 'alert-container');
 		document.body.appendChild(container);
 
-		Vue.prototype.$alertBox = ({
+		Vue.prototype.$alert = ({
 			title,
 			msg,
 			buttonText,
@@ -14,10 +14,10 @@ export default {
 			onClosed = () => {},
 			buttonCloseOnly,
 		}) => {
-			const AlertBoxClass = Vue.extend(AlertBox);
+			const ModalAlertClass = Vue.extend(ModalAlert);
 
 			// mount component
-			const component = new AlertBoxClass({
+			const component = new ModalAlertClass({
 				propsData: {
 					title,
 					msg,
@@ -29,7 +29,7 @@ export default {
 
 			// append to dom and open
 			window.requestAnimationFrame(() => {
-				document.getElementById('alert-box-container').appendChild(component.$el);
+				document.getElementById('alert-container').appendChild(component.$el);
 				window.requestAnimationFrame(() => {
 					component.$props.isOpen = true;
 				});
@@ -41,7 +41,7 @@ export default {
 				onClose();
 			});
 			component.$once('closed', () => {
-				document.getElementById('alert-box-container').removeChild(component.$el);
+				document.getElementById('alert-container').removeChild(component.$el);
 				component.$destroy();
 				onClosed();
 			});

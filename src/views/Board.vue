@@ -26,7 +26,6 @@ import Group from '@components/Group';
 import GroupList from '@components/GroupList';
 import LoadingMsg from '@components/LoadingMsg';
 import MenuBar from '@components/MenuBar';
-import TrashCan from '@components/TrashCan';
 import ModalUserForm from '@components/ModalUserForm';
 import PostArea from '@components/PostArea';
 import PostAreaButton from '@components/PostAreaButton';
@@ -44,7 +43,6 @@ export default {
 		ModalUserForm,
 		PostArea,
 		PostAreaButton,
-		TrashCan,
 	},
 	data() {
 		return {
@@ -84,68 +82,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss">
-@import '~@style/custom';
-.board {
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	margin: 0 auto;
-	padding: 20px 15px;
-	&__header {
-		margin-bottom: 20px;
-	}
-	&__body {
-		@extend .grow-remain;
-		display: flex;
-		min-height: 0;
-	}
-	&__group-list-container {
-		@include custom-scrollbar(#dcd6c9, true);
-		@extend .grow-remain;
-		display: flex;
-		overflow-x: auto;
-		overflow-y: hidden;
-		padding-bottom: 10px;
-	}
-	&__post-area-container {
-		display: flex;
-		position: relative;
-		bottom: 0;
-		right: 0;
-		margin-left: 0;
-		border-radius: 0;
-		transform-origin: bottom right;
-		transition: .2s ease-out .1s;
-	}
-	&--expand &__post-area-container {
-		border-radius: 50%;
-		bottom: 30px;
-		right: 30px;
-		opacity: 0.3;
-		transform: scale(0);
-		transition: .2s ease-out;
-	}
-	&__btn-post-area {
-		visibility: hidden;
-		opacity: 0;
-		transform: scale(0);
-		transition:
-			opacity .2s ease-out,
-			transform .2s ease-out,
-			visibility 0s ease .2s;
-		/*display: none;*/
-	}
-	&--expand &__btn-post-area {
-		visibility: visible;
-		opacity: 1;
-		transform: scale(1);
-		transition:
-			opacity .1s ease-out .1s,
-			transform .1s ease-out .1s,
-			visibility 0s ease 0s;
-		/*display: block;*/
-	}
-}
-</style>

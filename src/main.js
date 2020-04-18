@@ -1,4 +1,5 @@
-import './style/custom.scss';
+import '@style/vendor.scss';
+import '@style/custom.scss';
 
 // firebase
 import 'firebase/auth';
@@ -21,10 +22,10 @@ Vue.directive('auto-focus', autoFocus);
 Vue.directive('auto-height', autoHeight);
 
 // plugins
-import alertBox from '@plugins/alertBox';
-import confirmBox from '@plugins/confirmBox';
-Vue.use(alertBox);
-Vue.use(confirmBox);
+import alert from '@plugins/alert';
+import confirm from '@plugins/confirm';
+Vue.use(alert);
+Vue.use(confirm);
 
 new Vue({
 	el: '#app',

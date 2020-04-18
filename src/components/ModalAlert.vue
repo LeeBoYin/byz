@@ -1,13 +1,13 @@
 <template>
-	<div :class="{ 'alert-box--open': isOpen }" class="alert-box" @click.self="!buttonCloseOnly && $emit('close')">
-		<div class="alert-box__content">
-			<div v-if="title" class="alert-box__title">
+	<div :class="{ 'modal-alert--open': isOpen }" class="modal-alert" @click.self="!buttonCloseOnly && $emit('close')">
+		<div class="modal-alert__content">
+			<div v-if="title" class="modal-alert__title">
 				{{ title }}
 			</div>
-			<div class="alert-box__msg">
+			<div class="modal-alert__msg">
 				{{ msg }}
 			</div>
-			<button class="alert-box__btn btn--primary" @click="$emit('close')">
+			<button class="modal-alert__btn" @click="$emit('close')">
 				{{ buttonText }}
 			</button>
 		</div>
@@ -70,13 +70,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss">
-@import '~@style/custom';
-.alert-box {
-	@include modal-box;
-	&__content {
-		max-width: $block-sm;
-	}
-}
-</style>

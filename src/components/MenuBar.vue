@@ -90,23 +90,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~@style/custom';
-.menu-bar {
-	&__title {
-		font-size: 16px;
-	}
-	&__user-name {
-		font-size: 12px;
-		color: $c-gray;
-	}
-	&__tools {
-
-	}
-	&__tool {
-		font-size: 16px;
-		margin-left: 10px;
-	}
-}
-</style>

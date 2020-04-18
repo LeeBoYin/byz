@@ -1,17 +1,17 @@
 <template>
-	<div :class="{ 'confirm-box--open': isOpen }" class="confirm-box" @click.self="!buttonCloseOnly && $emit('cancel')">
-		<div class="confirm-box__content">
-			<div v-if="title" class="confirm-box__title">
+	<div :class="{ 'modal-confirm--open': isOpen }" class="modal-confirm" @click.self="!buttonCloseOnly && $emit('cancel')">
+		<div class="modal-confirm__content">
+			<div v-if="title" class="modal-confirm__title">
 				{{ title }}
 			</div>
-			<div class="confirm-box__msg">
+			<div class="modal-confirm__msg">
 				{{ msg }}
 			</div>
-			<div class="confirm-box__btn-container">
-				<button class="confirm-box__btn btn--default" @click="$emit('cancel')">
+			<div class="modal-confirm__btn-container">
+				<button class="modal-confirm__btn-cancel" @click="$emit('cancel')">
 					Cancel
 				</button>
-				<button class="confirm-box__btn btn--primary" @click="$emit('confirm')">
+				<button class="modal-confirm__btn-confirm" @click="$emit('confirm')">
 					{{ buttonText }}
 				</button>
 			</div>
@@ -75,20 +75,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss">
-@import '~@style/custom';
-.confirm-box {
-	@include modal-box;
-	&__content {
-		max-width: $block-sm;
-	}
-	&__btn-container {
-		display: flex;
-		justify-content: right;
-	}
-	&__btn {
-		margin-left: 15px;
-	}
-}
-</style>

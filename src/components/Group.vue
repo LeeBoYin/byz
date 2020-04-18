@@ -86,7 +86,7 @@ export default {
 				this.executeDelete();
 				return;
 			}
-			this.$confirmBox({
+			this.$confirm({
 				msg: `All posts in ${ this.group.name } will be deleted`,
 				buttonText: 'Delete',
 				onConfirm: () => {
@@ -125,49 +125,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~@style/custom';
-%tool-group {
-	font-size: 24px;
-	padding: 22px 0;
-}
-.group {
-	position: relative;
-	background-color: rgba(0, 0, 0, 0.03);
-	display: flex;
-	flex-direction: column;
-	padding-bottom: 6px;
-	border-radius: $border-r-md;
-	width: $w-group;
-	transform-origin: top left;
-	&--deleting {
-		opacity: 0.5;
-		transition: .5s ease-out;
-		transform: scale(0);
-	}
-	&__title {
-		@extend .grow-remain;
-		padding: 16px 0;
-	}
-	&__post-list {
-		@extend .grow-remain;
-	}
-	&__options {
-		@extend %tool;
-		@extend %tool-group;
-		right: 0;
-	}
-	&__handle {
-		@extend %tool;
-		@extend %tool-group;
-		@extend %handle;
-		left: 0;
-	}
-	// guest mode style
-	&--guest &__options,
-	&--guest &__handle {
-		visibility: hidden;
-	}
-}
-</style>

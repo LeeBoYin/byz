@@ -65,21 +65,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~@style/custom';
-.post-form {
-	&__input {
-		border-radius: 30px;
-		background-color: $c-bright;
-		max-height: 150px;
-		&:hover,
-		&:focus {
-			border-color: $c-primary;
-		}
-		&::-webkit-scrollbar {
-			width: 0;
-		}
-	}
-}
-</style>

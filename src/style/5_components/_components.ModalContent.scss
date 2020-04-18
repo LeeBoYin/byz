@@ -1,0 +1,59 @@
+.modal-content {
+	@include modal;
+	$header-font-size: 24px;
+	$header-padding: 15px;
+	&__content {
+		padding: 0;
+	}
+	&--lg &__content {
+		width: 100%;
+		max-width: $w-block-lg;
+	}
+	&--md &__content {
+		width: 100%;
+		max-width: $w-block-md;
+	}
+	&--sm &__content {
+		width: 100%;
+		max-width: $w-block-sm;
+	}
+	&__header {
+		position: relative;
+		flex: 0 0;
+		font-size: $header-font-size;
+		line-height: 1;
+		padding: $header-padding;
+		border-bottom: 1px solid #EEE;
+		display: flex;
+		align-items: center;
+	}
+	&__title {
+		font-weight: bold;
+		position: relative;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin: 0 ($header-padding + $header-font-size);
+		flex: 1 1 auto;
+		text-align: center;
+	}
+	&__close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		line-height: 0;
+		padding: $header-padding;
+	}
+
+	&__body {
+		flex: 1 1 auto;
+		overflow: auto;
+		padding: 30px 50px;
+	}
+	&__footer {
+		flex: 0 0 auto;
+		&:not(:empty) {
+			border-top: 1px solid #EEE;
+		}
+	}
+}
