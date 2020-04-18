@@ -212,23 +212,3 @@ console.log(this.sortable);
 // onSort
 // onEnd
 </script>
-
-<style lang="scss" scoped>
-@import '~@style/custom';
-.post-list {
-	@include custom-scrollbar(#dcd6c9);
-	display: flex;
-	flex-direction: column;
-	padding: 0 8px;
-	margin: 0 6px;
-	min-height: 10px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	.post {
-		flex-shrink: 0;
-		margin-top: 8px;
-		margin-bottom: 8px;
-	}
-}
-
-</style>

@@ -1,0 +1,20 @@
+.group-list {
+	display: flex;
+	flex-wrap: nowrap;
+	&__btn-add {
+		width: $w-group;
+		flex-shrink: 0;
+		border: 2px dashed $c-dark;
+		border-radius: $border-r-md;
+		color: $c-dark;
+		font-size: 30px;
+		opacity: 0.1;
+		transition: opacity .1s;
+		&:hover {
+			opacity: 0.3;
+		}
+	}
+	.group, .group-form {
+		margin-right: 15px;
+	}
+}

@@ -1,0 +1,17 @@
+.modal-alert {
+	@include modal;
+	&__content {
+		max-width: $w-block-sm;
+		text-align: center;
+	}
+	&__title {
+
+	}
+	&__msg {
+		margin-bottom: 20px;
+	}
+	&__btn {
+		@extend .btn;
+		@extend .btn--primary;
+	}
+}

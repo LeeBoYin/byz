@@ -1,0 +1,22 @@
+.modal-confirm {
+	@include modal;
+	&__content {
+		max-width: $w-block-sm;
+		text-align: center;
+	}
+	&__title {
+
+	}
+	&__msg {
+		margin-bottom: 20px;
+	}
+	&__btn-cancel {
+		@extend .btn;
+		@extend .btn--default;
+		margin-right: 15px;
+	}
+	&__btn-confirm {
+		@extend .btn;
+		@extend .btn--primary;
+	}
+}

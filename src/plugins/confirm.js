@@ -1,12 +1,12 @@
-import ConfirmBox from '@components/ConfirmBox';
+import ModalConfirm from '@components/ModalConfirm';
 export default {
 	install(Vue, options) {
 		// append container
 		const container = document.createElement('div');
-		container.setAttribute('id', 'confirm-box-container');
+		container.setAttribute('id', 'confirm-container');
 		document.body.appendChild(container);
 
-		Vue.prototype.$confirmBox = ({
+		Vue.prototype.$confirm = ({
 			title,
 			msg,
 			buttonText,
@@ -14,10 +14,10 @@ export default {
 			onCancel = () => {},
 			buttonCloseOnly,
 		}) => {
-			const ConfirmBoxClass = Vue.extend(ConfirmBox);
+			const ModalConfirmClass = Vue.extend(ModalConfirm);
 
 			// mount component
-			const component = new ConfirmBoxClass({
+			const component = new ModalConfirmClass({
 				propsData: {
 					title,
 					msg,
@@ -29,7 +29,7 @@ export default {
 
 			// append to dom and open
 			window.requestAnimationFrame(() => {
-				document.getElementById('confirm-box-container').appendChild(component.$el);
+				document.getElementById('confirm-container').appendChild(component.$el);
 				window.requestAnimationFrame(() => {
 					component.$props.isOpen = true;
 				});
@@ -46,7 +46,7 @@ export default {
 				onCancel();
 			});
 			component.$once('closed', () => {
-				document.getElementById('confirm-box-container').removeChild(component.$el);
+				document.getElementById('confirm-container').removeChild(component.$el);
 				component.$destroy();
 			});
 		};

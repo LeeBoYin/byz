@@ -1,9 +1,51 @@
-@import "frow-setting";
-@import "~frow";
-@import "variable";
-@import "mixin";
-@import "placeholder";
-@import "element";
-@import "class";
-@import "components";
-@import "animation";
+// 0. settings
+@import "0_settings/settings.border-radius.scss";
+@import "0_settings/settings.colors.scss";
+@import "0_settings/settings.fonts.scss";
+@import "0_settings/settings.shadow.scss";
+@import "0_settings/settings.width.scss";
+@import "0_settings/settings.z-index.scss";
+
+// 1. tools
+@import "1_tools/tools.mixin.cutom-scrollbar";
+@import "1_tools/tools.mixin.modal";
+@import "1_tools/tools.placeholders";
+
+// 2. generic
+@import "2_generic/generic.normalize";
+
+// 3. elements
+@import "3_elements/elements.normalize";
+
+// 4. objects
+@import "4_objects/objects.btn";
+@import "4_objects/objects.hint";
+@import "4_objects/objects.sortable";
+
+// 5. components
+@import "5_components/components.Avatar";
+@import "5_components/components.AvatarList";
+@import "5_components/components.Board";
+@import "5_components/components.card";
+@import "5_components/components.ColorSelect";
+@import "5_components/components.EditableTitle";
+@import "5_components/components.Group";
+@import "5_components/components.GroupForm";
+@import "5_components/components.GroupList";
+@import "5_components/components.LoadingMsg";
+@import "5_components/components.MenuBar";
+@import "5_components/components.ModalAlert";
+@import "5_components/components.ModalConfirm";
+@import "5_components/components.ModalContent";
+@import "5_components/components.ModalShare";
+@import "5_components/components.OptionsDropdown";
+@import "5_components/components.Post";
+@import "5_components/components.PostArea";
+@import "5_components/components.PostAreaButton";
+@import "5_components/components.PostForm";
+@import "5_components/components.PostList";
+
+// 6. utilities
+@import "6_utilities/utilities.animations";
+@import "6_utilities/utilities.flex";
+@import "6_utilities/utilities.position";

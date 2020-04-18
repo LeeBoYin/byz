@@ -1,6 +1,6 @@
 <template>
 	<div class="frow centered-column">
-		<div class="board-create">
+		<Card>
 			<div class="mb-30">
 				<label class="mb-15">Board Name</label>
 				<input
@@ -22,14 +22,17 @@
 					</template>
 				</button>
 			</div>
-		</div>
-
+		</Card>
 	</div>
 </template>
 
 <script>
+import Card from '@components/Card';
 import { errorShake } from '@libs/uiUtils';
 export default {
+	components: {
+		Card,
+	},
 	data() {
 		return {
 			boardName: '',
@@ -60,13 +63,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~@style/custom';
-.board-create {
-	@extend %board;
-	@extend %board--float;
-	width: 100%;
-	max-width: $block-md;
-}
-</style>

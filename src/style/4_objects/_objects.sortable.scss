@@ -1,0 +1,10 @@
+.sortable-ghost {
+	> * {
+		visibility: hidden;
+	}
+	opacity: .5;
+	animation: none !important;
+}
+.sortable-drag {
+	box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+}

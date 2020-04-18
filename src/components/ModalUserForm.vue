@@ -1,7 +1,7 @@
 <template>
-	<Modal
+	<ModalContent
 		:is-open="isOpen"
-		class="modal-share modal--sm"
+		size="sm"
 		@close="$emit('close')"
 	>
 		<div slot="body" class="user-form">
@@ -33,20 +33,20 @@
 				</button>
 			</div>
 		</div>
-	</Modal>
+	</ModalContent>
 </template>
 
 <script>
 import constants from '@/constants';
 import Avatar from '@components/Avatar';
 import ColorSelect from '@components/ColorSelect';
-import Modal from '@components/Modal';
+import ModalContent from '@components/ModalContent';
 import { errorShake } from '@libs/uiUtils';
 export default {
 	components: {
 		Avatar,
 		ColorSelect,
-		Modal,
+		ModalContent,
 	},
 	props: ['isOpen'],
 	data() {
@@ -94,10 +94,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~@style/custom';
-.user-form {
-	@extend %board;
-}
-</style>

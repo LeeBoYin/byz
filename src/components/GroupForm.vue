@@ -55,21 +55,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~@style/custom';
-.group-form {
-	position: relative;
-	background-color: rgba(0, 0, 0, 0.02);
-	padding: 0 24px;
-	border-radius: $border-r-md;
-	width: $w-group;
-	&--loading {
-		opacity: 0.8;
-	}
-	&__title {
-		@extend .grow-remain;
-		padding: 16px 0;
-	}
-}
-</style>
