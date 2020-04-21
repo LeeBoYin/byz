@@ -43,7 +43,8 @@ export default {
 					title: 'Sort',
 					iconClass: 'las la-sort-amount-up',
 					onClick: this.onClickSortPosts,
-					isShow: this.posts.length > 1,
+					isDisabled: this.posts.length < 2,
+					isShow: true,
 				},
 				{
 					title: 'Edit Title',
@@ -101,8 +102,8 @@ export default {
 		},
 		onClickSortPosts() {
 			const sortedPostIdList = _.map(_.sortBy(this.posts, (post) => {
-				return _.get(post, 'likedUsersId', []).length;
-			}), 'id').reverse();
+				return -_.get(post, 'likedUsersId', []).length;
+			}), 'id');
 			this.updateGroup({
 				groupId: this.group.id,
 				updateObj: {

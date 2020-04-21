@@ -14,7 +14,7 @@
 			<i class="post__handle las la-grip-lines-vertical"></i>
 			<div class="grow-remain">
 				<div class="frow nowrap items-start">
-					<div class="post__content-container grow-remain my-10">
+					<div class="post__content-container grow-remain mt-10">
 						<p v-if="!isEditing" class="post__content">
 							<span v-html="formattedContent"></span>
 						</p>

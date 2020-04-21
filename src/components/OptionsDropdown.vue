@@ -13,12 +13,15 @@
 			<div class="options-dropdown__dropdown" :style="dropDownStyle">
 				<div
 					v-for="(option, idx) in options"
-					:title="option.title"
-					:class="{ 'options-dropdown__option--danger': option.isDanger }"
+					ref="option"
+					:class="{
+						'options-dropdown__option--disabled': option.isDisabled,
+						'options-dropdown__option--danger': option.isDanger,
+					}"
 					class="options-dropdown__option"
 					:style="getOptionStyle(idx)"
 					@mousedown.stop
-					@click="onOptionClick(option.onClick)"
+					@click="onOptionClick(idx)"
 				>
 					<i :class="option.iconClass"></i>
 				</div>
@@ -28,6 +31,8 @@
 </template>
 
 <script>
+import { errorShake } from '@libs/uiUtils';
+
 const ANIMATION_DURATION = 0.2;
 export default {
 	props: {
@@ -153,8 +158,13 @@ export default {
 			}
 			return style;
 		},
-		onOptionClick(onClick) {
-			onClick();
+		onOptionClick(idx) {
+			const option = this.options[idx];
+			if(option.isDisabled) {
+				errorShake(this.$refs.option[idx]);
+				return;
+			}
+			option.onClick();
 			this.isOpen = false;
 		},
 		toggleOptions(e) {

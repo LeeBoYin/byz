@@ -1,0 +1,24 @@
+$c-tooltip-bg: rgba(0, 0, 0, 0.5);
+.tooltip {
+	position: fixed;
+	z-index: $z-index-tooltip;
+	transform: translate(-50%, 5px);
+	padding: 5px 10px;
+	white-space: nowrap;
+	color: $c-bright;
+	font-size: 12px;
+	text-align: center;
+	background-color: $c-tooltip-bg;
+	border-radius: 5px;
+	&:before {
+		content: '';
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		border: 5px solid $c-tooltip-bg;
+		border-top-color: transparent;
+		border-left-color: transparent;
+		border-right-color: transparent;
+	}
+}

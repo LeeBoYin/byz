@@ -18,8 +18,10 @@ Object.defineProperty(Vue.prototype, '_', { value: _ });
 // directives
 import autoFocus from '@directives/autoFocus';
 import autoHeight from '@directives/autoHeight';
+import tooltip from '@directives/tooltip';
 Vue.directive('auto-focus', autoFocus);
 Vue.directive('auto-height', autoHeight);
+Vue.directive('tooltip', tooltip);
 
 // plugins
 import alert from '@plugins/alert';

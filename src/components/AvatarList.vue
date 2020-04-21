@@ -1,6 +1,10 @@
 <template>
 	<div :class="`avatar-list--${ size }`" class="avatar-list">
-		<div v-if="isShowMore" class="avatar-list__more" :title="`+${ moreNum }`">
+		<div
+			v-if="isShowMore"
+			class="avatar-list__more"
+			v-tooltip="`+${ moreNum }`"
+		>
 			<i class="las la-ellipsis-h"></i>
 		</div>
 		<Avatar
@@ -8,8 +12,8 @@
 			:key="user.id"
 			:name="user.name"
 			:color="user.color"
-			:title="user.name"
 			:size="size"
+			v-tooltip="user.name"
 			class="avatar-list__avatar"
 		/>
 	</div>

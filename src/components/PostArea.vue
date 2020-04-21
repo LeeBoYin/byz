@@ -6,7 +6,10 @@
 				<i class="las la-angle-down"></i>
 			</button>
 		</div>
-		<PostList :posts="newPosts" />
+		<PostList v-if="newPosts.length" :posts="newPosts" />
+		<div v-else class="post-area__empty-placeholder frow centered">
+			no post
+		</div>
 		<PostForm v-if="currentUser" />
 	</div>
 </template>

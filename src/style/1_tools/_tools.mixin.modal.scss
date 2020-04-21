@@ -25,7 +25,7 @@
 		box-shadow: $shadow-modal;
 		background-color: $c-bright;
 		position: relative;
-		top: -150px;
+		top: -50px;
 		transition: top $transition-duration;
 	}
 	&--open &__content {

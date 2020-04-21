@@ -14,6 +14,10 @@
 		font-size: 18px;
 		float: right;
 	}
+	&__empty-placeholder {
+		@extend %grow-remain;
+		color: rgba(0, 0, 0, 0.2);
+	}
 	.post-list {
 		@include custom-scrollbar(#F7E0A4);
 		@extend %grow-remain;

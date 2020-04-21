@@ -1,5 +1,6 @@
 .options-dropdown {
 	display: inline-block;
+	cursor: pointer;
 	&--open {
 		color: $c-gray-darker !important;
 	}
@@ -33,13 +34,9 @@
 		transform-origin: center center;
 		transition-property: opacity, top, left, right, bottom;
 		transition-timing-function: ease-out;
-	}
-	&--open &__option {
-		opacity: 1;
 		&:hover {
 			transform: scale(1.1);
 			color: $c-gray-darker;
-
 		}
 		&:active {
 			transform: scale(0.9);
@@ -47,5 +44,16 @@
 		&--danger:hover {
 			color: $c-danger;
 		}
+		&--disabled {
+			cursor: default;
+			color: $c-gray-light;
+			&:hover, &:active {
+				color: $c-gray-light;
+				transform: scale(1);
+			}
+		}
+	}
+	&--open &__option {
+		opacity: 1;
 	}
 }
