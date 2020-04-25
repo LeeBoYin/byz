@@ -1,17 +1,21 @@
 <template>
 	<div
 		:class="[{
-			'post--editing': isEditing,
 			'post--deleting': isDeleting,
-			'post--guest': isGuestMode
+			'post--editing': isEditing,
+			'post--guest': isGuestMode,
+			'post--modal-mode': isModalMode,
 			},
 			colorClass
 		]"
 		class="post"
 		:data-post-id="post.id"
+		@click="enterModalMode"
+		@mousedown="mousedownPosition = { x: $event.x, y: $event.y }"
+		@mouseup="mouseupPosition = { x: $event.x, y: $event.y }"
 	>
 		<div class="frow nowrap">
-			<i class="post__handle las la-grip-lines-vertical"></i>
+			<i class="post__handle las la-grip-lines-vertical" @click.stop></i>
 			<div class="grow-remain">
 				<div class="frow nowrap items-start">
 					<div class="post__content-container grow-remain mt-10">
@@ -51,7 +55,7 @@
 							ref="btnLike"
 							:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
 							class="post__btn-like shrink-0 ml-10"
-							@click="toggleLike">
+							@click.stop="toggleLike">
 							<i class="las la-heart"></i>
 						</button>
 					</div>
@@ -70,6 +74,12 @@ import OptionsDropdown from '@components/OptionsDropdown';
 const converter = new showdown.Converter({
 	simplifiedAutoLink: true,
 });
+// create overlay
+const overlay = document.createElement('div');
+overlay.classList.add('post-modal-overlay');
+document.getElementsByTagName('body')[0].appendChild(overlay);
+let ghostNode = null;
+
 export default {
 	components: {
 		AvatarList,
@@ -84,6 +94,9 @@ export default {
 			isDeleting: false,
 			isEditing: false,
 			isSaving: false,
+			isModalMode: false,
+			mousedownPosition: null,
+			mouseupPosition: null,
 		};
 	},
 	computed: {
@@ -97,6 +110,10 @@ export default {
 		formattedContent() {
 			return converter.makeHtml(this.post.content);
 		},
+		hasMouseMoved() {
+			return Math.abs(this.mouseupPosition.x - this.mousedownPosition.x) > 3 ||
+				Math.abs(this.mouseupPosition.y - this.mousedownPosition.y) > 3;
+		},
 		isLikedByCurrentUser() {
 			return _.includes(this.post.likedUsersId, _.get(this.currentUser, 'id'));
 		},
@@ -104,46 +121,39 @@ export default {
 			return this.getUsersById(this.post.likedUsersId);
 		},
 		options() {
-			const options = [
+			return [
 				{
 					title: 'Edit',
 					iconClass: 'las la-pencil-alt',
 					onClick: this.onClickEdit,
-					isShow: true,
 				},
 				{
 					title: 'White',
 					iconClass: 'icon-color icon-color--white',
 					onClick: this.onClickColor(null),
-					isShow: true,
 				},
 				{
 					title: 'Red',
 					iconClass: 'icon-color icon-color--red',
 					onClick: this.onClickColor('red'),
-					isShow: true,
 				},
 				{
 					title: 'Green',
 					iconClass: 'icon-color icon-color--green',
 					onClick: this.onClickColor('green'),
-					isShow: true,
 				},
 				{
 					title: 'Blue',
 					iconClass: 'icon-color icon-color--blue',
 					onClick: this.onClickColor('blue'),
-					isShow: true,
 				},
 				{
 					title: 'Delete',
 					iconClass: 'las la-trash-alt',
 					onClick: this.onClickDelete,
 					isDanger: true,
-					isShow: true,
 				},
 			];
-			return _.filter(options, 'isShow');
 		},
 		...mapState('board', [
 			'isGuestMode',
@@ -161,7 +171,19 @@ export default {
 			}
 		},
 	},
+	mounted() {
+		this.bindEvents();
+	},
 	methods: {
+		bindEvents() {
+			// bind leaveModalMode
+			overlay.addEventListener('click', this.leaveModalMode);
+			document.addEventListener('keydown', (e) => {
+				if(e.key === 'Escape') {
+					this.leaveModalMode();
+				}
+			});
+		},
 		cancelEdit() {
 			this.isEditing = false;
 		},
@@ -178,7 +200,11 @@ export default {
 		onClickCopy() {
 			setStringToClipBoard(this.post.content);
 		},
-		onClickDelete() {
+		async onClickDelete() {
+			if(this.isModalMode) {
+				await this.leaveModalMode();
+				await new Promise(resolve => setTimeout(resolve, 0)); // wait transitionend propagation
+			}
 			transitionendOnce(this.$el, () => {
 				this.deletePost(this.post.id);
 			});
@@ -223,6 +249,108 @@ export default {
 						? firebase.firestore.FieldValue.arrayRemove(this.currentUser.id)
 						: firebase.firestore.FieldValue.arrayUnion(this.currentUser.id),
 				},
+			});
+		},
+		enterModalMode() {
+			return new Promise((resolve, reject) => {
+				if(this.isModalMode) {
+					return resolve();
+				}
+				if(this.isEditing) {
+					return reject();
+				}
+				if(this.hasMouseMoved) {
+					return reject();
+				}
+				this.isModalMode = true;
+				const el = this.$el;
+				// clone a placeholder
+				ghostNode = el.cloneNode( true );
+				ghostNode.classList.add('post--ghost');
+				el.after( ghostNode );
+
+				// first
+				const first = el.getBoundingClientRect();
+
+				// last
+				el.classList.add('post--modal-mode');
+				el.style.left = `calc(50% - ${ el.offsetWidth / 2 }px)`;
+				const last = el.getBoundingClientRect();
+
+				// invert
+				const invert = {
+					x: first.x - last.x,
+					y: first.y - last.y,
+					scaleX: first.width / last.width,
+					scaleY: first.height / last.height,
+				};
+				el.style.transform = `translate(${ invert.x }px, ${ invert.y }px) scale(${ invert.scaleX }, ${ invert.scaleY })`;
+				el.style.opacity = 0.5;
+
+				// play
+				requestAnimationFrame( () => {
+					el.classList.add('post--on-transition');
+					el.style.transform = '';
+					el.style.opacity = '';
+					overlay.classList.add('post-modal-overlay--show');
+				} );
+
+				// end
+				transitionendOnce( el, () => {
+					el.classList.remove('post--on-transition');
+					resolve();
+				} );
+			}).catch(() => {
+				// do nothing
+			});
+		},
+		leaveModalMode() {
+			return new Promise((resolve) => {
+				if(!this.isModalMode) {
+					return resolve();
+				}
+				this.isModalMode = false;
+				const el = this.$el;
+
+				// first
+				const first = el.getBoundingClientRect();
+
+				// last
+				el.classList.remove('post--modal-mode', 'post--on-transition');
+				ghostNode.style.display = 'none';
+				const last = el.getBoundingClientRect();
+				ghostNode.style.display = '';
+				el.style.top = last.y;
+				el.style.left = last.x;
+				el.style.width = last.width;
+
+				// invert
+				const invert = {
+					x: first.x - last.x,
+					y: first.y - last.y,
+					scaleX: first.width / last.width,
+					scaleY: first.height / last.height,
+				};
+				el.style.transform = `translate(${ invert.x }px, ${ invert.y }px) scale(${ invert.scaleX }, ${ invert.scaleY })`;
+				el.style.opacity = 0.5;
+
+				// play
+				requestAnimationFrame(() => {
+					el.classList.add('post--on-transition');
+					el.style.transform = '';
+					el.style.opacity = '';
+					overlay.classList.remove('post-modal-overlay--show');
+				});
+
+				// end
+				transitionendOnce(el, () => {
+					ghostNode.remove();
+					el.classList.remove('post--on-transition');
+					el.style.top = '';
+					el.style.left = '';
+					el.style.width = '';
+					resolve();
+				});
 			});
 		},
 		...mapActions('board', [

@@ -1,9 +1,9 @@
 .post {
-	position: relative;
 	background-color: $c-bright;
 	border-radius: $border-r-md;
 	box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
 	inset 4px 0 0 #eeeeee;
+	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	word-break: break-all;
@@ -22,10 +22,42 @@
 	&--blue {
 		background-color: $c-post-blue;
 	}
+	&--editing {
+		cursor: initial;
+	}
 	&--deleting {
 		opacity: 0.5;
 		transition: .3s ease-out;
 		transform: scale(0);
+	}
+	&--modal-mode {
+		cursor: initial;
+		position: fixed;
+		top: 15%;
+		width: 80%;
+		max-width: 500px;
+		z-index: $z-index-post-modal-mode;
+		&, &:hover {
+			box-shadow: $shadow-modal;
+		}
+	}
+	&--modal-mode &__handle {
+		visibility: hidden;
+	}
+	&--on-transition {
+		position: fixed;
+		z-index: $z-index-post-modal-mode;
+		transform-origin: 0 0;
+		transition:
+			transform $transition-duration-modal * 1.2 ease-out,
+			opacity $transition-duration-modal * 1.2 ease-out;
+	}
+	&--ghost {
+		opacity: 0.5;
+		filter: brightness(200);
+		* {
+			visibility: hidden;
+		}
 	}
 	&__handle {
 		@extend %tool;
@@ -39,8 +71,15 @@
 		visibility: hidden;
 	}
 	&__content {
-		font-size: 16px;
+		font-size: 14px;
 		margin: 0;
+		// markdown style
+		ul, ol {
+			padding-left: 25px;
+		}
+		a {
+			color: #336fff;
+		}
 	}
 	&__textarea {
 		padding: 9px 15px;
@@ -121,5 +160,22 @@
 	}
 	&--blue {
 		background-color: $c-post-blue;
+	}
+}
+.post-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: $z-index-post-modal-overlay;
+	background-color: $c-overlay;
+	opacity: 0;
+	visibility: hidden;
+	transition: $transition-modal-overlay-hide;
+	&--show {
+		opacity: 1;
+		visibility: visible;
+		transition: $transition-modal-overlay-show;
 	}
 }

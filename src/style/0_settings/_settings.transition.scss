@@ -1,0 +1,3 @@
+$transition-duration-modal: .2s;
+$transition-modal-overlay-hide: opacity $transition-duration-modal, visibility 0s $transition-duration-modal;
+$transition-modal-overlay-show: opacity $transition-duration-modal, visibility 0s;

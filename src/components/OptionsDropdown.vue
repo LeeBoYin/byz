@@ -3,7 +3,7 @@
 		:class="{ 'options-dropdown--open': isOpen }"
 		class="options-dropdown"
 		:data-uid="_.uniqueId()"
-		@click="toggleOptions">
+		@click.stop="toggleOptions">
 		<div class="options-dropdown__container">
 			<i
 				ref="toggle"

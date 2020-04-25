@@ -2,7 +2,7 @@
 	<div
 		:class="[{ 'modal-content--open': isOpen }, `modal-content--${ size }`]"
 		class="modal-content"
-		@click="$emit('close')">
+		@click.self="$emit('close')">
 		<div ref="modalContent" class="modal-content__content">
 			<!-- header -->
 			<div v-if="title" class="modal-content__header">

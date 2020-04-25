@@ -1,5 +1,4 @@
 @mixin modal {
-	$transition-duration: .2s;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -11,12 +10,12 @@
 	opacity: 0;
 	visibility: hidden;
 	background-color: $c-overlay;
-	transition: opacity $transition-duration, visibility 0s $transition-duration;
+	transition: $transition-modal-overlay-hide;
 	z-index: $z-index-modal;
 	&--open {
 		visibility: visible;
 		opacity: 1;
-		transition: opacity $transition-duration, visibility 0s;
+		transition: $transition-modal-overlay-show;
 	}
 	&__content {
 		width: 80%;
@@ -26,7 +25,7 @@
 		background-color: $c-bright;
 		position: relative;
 		top: -50px;
-		transition: top $transition-duration;
+		transition: top $transition-duration-modal;
 	}
 	&--open &__content {
 		top: 0;
