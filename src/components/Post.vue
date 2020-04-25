@@ -19,7 +19,7 @@
 			<div class="grow-remain">
 				<div class="frow nowrap items-start">
 					<div class="post__content-container grow-remain mt-10">
-						<p v-if="!isEditing" class="post__content">
+						<p v-if="!isEditing" class="post__content" @click="onClickContent">
 							<span v-html="formattedContent"></span>
 						</p>
 						<textarea
@@ -196,6 +196,13 @@ export default {
 					}
 				});
 			};
+		},
+		onClickContent(e) {
+			if(e.target.matches('a')) {
+				e.preventDefault();
+				e.stopPropagation();
+				window.open(e.target.href);
+			}
 		},
 		onClickCopy() {
 			setStringToClipBoard(this.post.content);
