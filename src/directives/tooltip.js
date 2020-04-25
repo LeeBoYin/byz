@@ -1,7 +1,7 @@
 let tooltipEl = null;
 let currentEl = null;
 let removeTimeout = null;
-const body = document.getElementsByTagName('body')[0];
+const body = document.querySelector('body');
 const showTooltip = (el, text) => {
 	if(removeTimeout) {
 		clearTimeout(removeTimeout);

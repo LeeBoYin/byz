@@ -68,7 +68,7 @@
 <script>
 import setStringToClipBoard from 'set-string-to-clipboard';
 import showdown from 'showdown';
-import { animationOnce, transitionendOnce } from '@libs/uiUtils';
+import { animationOnce, transitionendOnce, Flip } from '@libs/uiUtils';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
 const converter = new showdown.Converter({
@@ -77,7 +77,7 @@ const converter = new showdown.Converter({
 // create overlay
 const overlay = document.createElement('div');
 overlay.classList.add('post-modal-overlay');
-document.getElementsByTagName('body')[0].appendChild(overlay);
+document.querySelector('body').appendChild(overlay);
 let ghostNode = null;
 
 export default {
@@ -262,44 +262,33 @@ export default {
 				if(this.hasMouseMoved) {
 					return reject();
 				}
-				this.isModalMode = true;
+
 				const el = this.$el;
+				const flip = new Flip(el, {
+					transitionClass: 'post--on-transition',
+				});
+				this.isModalMode = true;
 				// clone a placeholder
 				ghostNode = el.cloneNode( true );
 				ghostNode.classList.add('post--ghost');
 				el.after( ghostNode );
 
 				// first
-				const first = el.getBoundingClientRect();
+				flip.first();
 
 				// last
 				el.classList.add('post--modal-mode');
 				el.style.left = `calc(50% - ${ el.offsetWidth / 2 }px)`;
-				const last = el.getBoundingClientRect();
+				flip.last();
 
 				// invert
-				const invert = {
-					x: first.x - last.x,
-					y: first.y - last.y,
-					scaleX: first.width / last.width,
-					scaleY: first.height / last.height,
-				};
-				el.style.transform = `translate(${ invert.x }px, ${ invert.y }px) scale(${ invert.scaleX }, ${ invert.scaleY })`;
-				el.style.opacity = 0.5;
+				flip.invert();
 
 				// play
-				requestAnimationFrame( () => {
-					el.classList.add('post--on-transition');
-					el.style.transform = '';
-					el.style.opacity = '';
-					overlay.classList.add('post-modal-overlay--show');
-				} );
-
-				// end
-				transitionendOnce( el, () => {
-					el.classList.remove('post--on-transition');
+				overlay.classList.add('post-modal-overlay--show');
+				flip.play().then(() => {
 					resolve();
-				} );
+				});
 			}).catch(() => {
 				// do nothing
 			});
@@ -311,41 +300,29 @@ export default {
 				}
 				this.isModalMode = false;
 				const el = this.$el;
+				const flip = new Flip(el, {
+					transitionClass: 'post--on-transition',
+				});
 
 				// first
-				const first = el.getBoundingClientRect();
+				flip.first();
 
 				// last
-				el.classList.remove('post--modal-mode', 'post--on-transition');
+				el.classList.remove('post--modal-mode');
 				ghostNode.style.display = 'none';
-				const last = el.getBoundingClientRect();
+				const last = flip.last();
 				ghostNode.style.display = '';
 				el.style.top = last.y;
 				el.style.left = last.x;
 				el.style.width = last.width;
 
 				// invert
-				const invert = {
-					x: first.x - last.x,
-					y: first.y - last.y,
-					scaleX: first.width / last.width,
-					scaleY: first.height / last.height,
-				};
-				el.style.transform = `translate(${ invert.x }px, ${ invert.y }px) scale(${ invert.scaleX }, ${ invert.scaleY })`;
-				el.style.opacity = 0.5;
+				flip.invert();
 
 				// play
-				requestAnimationFrame(() => {
-					el.classList.add('post--on-transition');
-					el.style.transform = '';
-					el.style.opacity = '';
-					overlay.classList.remove('post-modal-overlay--show');
-				});
-
-				// end
-				transitionendOnce(el, () => {
+				overlay.classList.remove('post-modal-overlay--show');
+				flip.play().then(() => {
 					ghostNode.remove();
-					el.classList.remove('post--on-transition');
 					el.style.top = '';
 					el.style.left = '';
 					el.style.width = '';

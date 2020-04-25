@@ -75,7 +75,7 @@ export default {
 			if(document.fullscreenElement) {
 				document.exitFullscreen();
 			} else {
-				document.getElementsByTagName('body')[0].requestFullscreen();
+				document.querySelector('body').requestFullscreen();
 			}
 		},
 		updateBoardName(newName) {

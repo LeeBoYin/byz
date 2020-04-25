@@ -24,3 +24,52 @@ export function transitionendOnce(element, func = () => {}) {
 	};
 	element.addEventListener('transitionend', handler);
 }
+
+export function Flip(el, { transitionClass= 'on-transition' }) {
+	let _first;
+	let _last;
+	let _invert;
+	const first = () => {
+		_first = el.getBoundingClientRect();
+		return _first;
+	};
+	const last = () => {
+		el.classList.remove(transitionClass);
+		_last = el.getBoundingClientRect();
+		return _last;
+	};
+	const invert = () => {
+		_invert = {
+			x: _first.x - _last.x,
+			y: _first.y - _last.y,
+			scaleX: _first.width / _last.width,
+			scaleY: _first.height / _last.height,
+		};
+		el.style.willChange = 'transform, opacity';
+		el.style.transform = `translate(${ _invert.x }px, ${ _invert.y }px) scale(${ _invert.scaleX }, ${ _invert.scaleY })`;
+		el.style.opacity = 0.5;
+		return _invert;
+	};
+	const play = () => {
+		return new Promise((resolve) => {
+			requestAnimationFrame(() => {
+				el.classList.add(transitionClass);
+				el.style.transform = '';
+				el.style.opacity = '';
+				el.style.willChange = '';
+			});
+
+			// end
+			transitionendOnce(el, () => {
+				el.classList.remove(transitionClass);
+				resolve();
+			});
+		});
+	};
+	return {
+		first,
+		last,
+		invert,
+		play,
+	};
+}
