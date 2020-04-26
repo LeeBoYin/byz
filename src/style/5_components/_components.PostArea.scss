@@ -21,7 +21,6 @@
 	.post-list {
 		@include custom-scrollbar(#F7E0A4);
 		@extend %grow-remain;
-		flex-direction: column-reverse;
 	}
 	.post-form {
 		flex-shrink: 0;

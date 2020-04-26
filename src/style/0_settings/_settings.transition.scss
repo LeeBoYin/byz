@@ -1,3 +1,6 @@
 $transition-duration-modal: .2s;
+$transition-duration-post-modal-mode: 30s;
+$transition-ease-out: cubic-bezier(0, 0, 0.3, 1); // Paul Lewis style
 $transition-modal-overlay-hide: opacity $transition-duration-modal, visibility 0s $transition-duration-modal;
 $transition-modal-overlay-show: opacity $transition-duration-modal, visibility 0s;
+$transition-post-background-color: background-color .2s ease-out;

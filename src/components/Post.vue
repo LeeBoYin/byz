@@ -62,6 +62,9 @@
 				</div>
 			</div>
 		</div>
+		<PostCommentArea
+			ref="commentArea"
+		/>
 	</div>
 </template>
 
@@ -71,6 +74,7 @@ import showdown from 'showdown';
 import { animationOnce, transitionendOnce, Flip } from '@libs/uiUtils';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
+import PostCommentArea from '@components/PostCommentArea';
 const converter = new showdown.Converter({
 	simplifiedAutoLink: true,
 });
@@ -84,6 +88,7 @@ export default {
 	components: {
 		AvatarList,
 		OptionsDropdown,
+		PostCommentArea,
 	},
 	props: {
 		post: Object,
@@ -93,8 +98,8 @@ export default {
 			editedContent: null,
 			isDeleting: false,
 			isEditing: false,
-			isSaving: false,
 			isModalMode: false,
+			isSaving: false,
 			mousedownPosition: null,
 			mouseupPosition: null,
 		};
@@ -293,6 +298,7 @@ export default {
 
 				// play
 				overlay.classList.add('post-modal-overlay--show');
+				this.$refs.commentArea.expand();
 				flip.play().then(() => {
 					resolve();
 				});
@@ -307,18 +313,28 @@ export default {
 				}
 				this.isModalMode = false;
 				const el = this.$el;
+				const currentRect = el.getBoundingClientRect();
 				const flip = new Flip(el, {
 					transitionClass: 'post--on-transition',
 				});
 
-				// first
-				flip.first();
+				// before first
+				this.$refs.commentArea.$el.style.display = 'none';
 
-				// last
+				// first
+				const first = flip.first();
+
+				// before last
 				el.classList.remove('post--modal-mode');
 				ghostNode.style.display = 'none';
+
+				// last
 				const last = flip.last();
+
+				// before invert
+				this.$refs.commentArea.$el.style.display = '';
 				ghostNode.style.display = '';
+				el.style.maxHeight = currentRect.height;
 				el.style.top = last.y;
 				el.style.left = last.x;
 				el.style.width = last.width;
@@ -328,8 +344,10 @@ export default {
 
 				// play
 				overlay.classList.remove('post-modal-overlay--show');
+				this.$refs.commentArea.collapse();
 				flip.play().then(() => {
 					ghostNode.remove();
+					el.style.maxHeight = '';
 					el.style.top = '';
 					el.style.left = '';
 					el.style.width = '';

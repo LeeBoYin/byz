@@ -7,7 +7,7 @@
 	display: flex;
 	flex-direction: column;
 	word-break: break-all;
-	transition: background-color .2s ease-out;
+	transition: $transition-post-background-color;
 	transform-origin: top center;
 	&:hover {
 		box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
@@ -31,12 +31,18 @@
 		transform: scale(0);
 	}
 	&--modal-mode {
+		@include custom-scrollbar(#ddd);
 		cursor: initial;
 		position: fixed;
-		top: 15%;
+		top: 60px;
 		width: 80%;
 		max-width: 500px;
+		max-height: calc(100vh - 120px);
 		z-index: $z-index-post-modal-mode;
+		overflow-y: auto;
+		// border space for scrollbar
+		border: 10px solid transparent;
+		padding: 5px;
 		&, &:hover {
 			box-shadow: $shadow-modal;
 		}
@@ -47,10 +53,11 @@
 	&--on-transition {
 		position: fixed;
 		z-index: $z-index-post-modal-mode;
+		overflow: hidden;
 		transform-origin: 0 0;
 		transition:
-			transform $transition-duration-modal * 1.2 ease-out,
-			opacity $transition-duration-modal * 1.2 ease-out;
+			transform $transition-duration-post-modal-mode ease-out,
+			opacity $transition-duration-post-modal-mode ease-out;
 	}
 	&--ghost {
 		opacity: 0.5;
@@ -87,8 +94,10 @@
 			opacity: 0.6;
 		}
 	}
-	&--white &__textarea, &--red &__textarea, &--green &__textarea, &--blue &__textarea {
-		background-color: rgba(255, 255, 255, 0.5);
+	&--white, &--red, &--green, &--blue {
+		textarea {
+			background-color: rgba(255, 255, 255, 0.5);
+		}
 	}
 	&__footer {
 		display: flex;
