@@ -31,7 +31,8 @@
 		transform: scale(0);
 	}
 	&--modal-mode {
-		@include custom-scrollbar(#ddd);
+		$scrollbar-size: 5px;
+		@include custom-scrollbar(rgba(0, 0, 0, 0.2), transparent, $scrollbar-size);
 		cursor: initial;
 		position: fixed;
 		top: 60px;
@@ -39,10 +40,10 @@
 		max-width: 500px;
 		max-height: calc(100vh - 120px);
 		z-index: $z-index-post-modal-mode;
-		overflow-y: auto;
+		overflow-y: scroll;
 		// border space for scrollbar
 		border: 10px solid transparent;
-		padding: 5px;
+		padding: 5px 5px 5px (5px + $scrollbar-size);
 		&, &:hover {
 			box-shadow: $shadow-modal;
 		}
@@ -53,7 +54,7 @@
 	&--on-transition {
 		position: fixed;
 		z-index: $z-index-post-modal-mode;
-		overflow: hidden;
+		overflow-y: scroll;
 		transform-origin: 0 0;
 		transition:
 			transform $transition-duration-post-modal-mode ease-out,

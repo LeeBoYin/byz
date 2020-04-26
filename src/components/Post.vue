@@ -313,28 +313,24 @@ export default {
 				}
 				this.isModalMode = false;
 				const el = this.$el;
-				const currentRect = el.getBoundingClientRect();
 				const flip = new Flip(el, {
 					transitionClass: 'post--on-transition',
 				});
-
-				// before first
-				this.$refs.commentArea.$el.style.display = 'none';
 
 				// first
 				const first = flip.first();
 
 				// before last
 				el.classList.remove('post--modal-mode');
+				el.style.maxHeight = first.height; // prevent last.height exceed first.height
 				ghostNode.style.display = 'none';
 
 				// last
 				const last = flip.last();
 
 				// before invert
-				this.$refs.commentArea.$el.style.display = '';
 				ghostNode.style.display = '';
-				el.style.maxHeight = currentRect.height;
+				el.style.maxHeight = first.height;
 				el.style.top = last.y;
 				el.style.left = last.x;
 				el.style.width = last.width;

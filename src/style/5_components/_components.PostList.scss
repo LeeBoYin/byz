@@ -1,12 +1,13 @@
 .post-list {
-	@include custom-scrollbar(#dcd6c9);
+	$scrollbar-size: 5px;
+	@include custom-scrollbar(#dcd6c9, transparent, $scrollbar-size);
 	display: flex;
 	flex-direction: column;
-	padding: 8px 8px 0;
-	margin: 0 6px;
+	padding: 7px 7px 0 (7px + $scrollbar-size);
+	margin: 0 5px;
 	min-height: 10px;
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: scroll;
 	.post {
 		flex-shrink: 0;
 		margin-bottom: 15px;

@@ -9,15 +9,9 @@
 		<div class="post-comment-area__inner">
 			<div>Comments</div>
 			<div class="list">
-				<hr>
-				comment<hr>
-				comment<hr>
-				comment<hr>
-				comment<hr>
-				comment<hr>
 			</div>
 			<div class="post-comment-area__form">
-				<textarea class="post-comment-area__textarea" type="text"></textarea>
+				<textarea class="post-comment-area__textarea" type="text" rows="1"></textarea>
 			</div>
 		</div>
 	</div>
