@@ -28,7 +28,7 @@
 		align-items: center;
 	}
 	&__title {
-		font-weight: bold;
+		font-weight: $font-weight-bold;
 		position: relative;
 		overflow: hidden;
 		white-space: nowrap;

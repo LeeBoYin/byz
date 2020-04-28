@@ -6,27 +6,66 @@
 		class="post-comment-area"
 		style="overflow: hidden"
 	>
-		<div class="post-comment-area__inner">
-			<div>Comments</div>
-			<div class="list">
+		<div v-if="isShowInner" class="post-comment-area__inner">
+			<div class="post-comment-area__title">
+				{{ title }}
 			</div>
-			<div class="post-comment-area__form">
-				<textarea class="post-comment-area__textarea" type="text" rows="1"></textarea>
+			<div v-if="comments" class="post-comment-area__comment-list">
+				<PostComment v-for="comment in comments" :key="comment.id" :comment="comment" />
 			</div>
+			<PostCommentForm
+				v-if="!isGuestMode"
+				:post-id="postId"
+				class="post-comment-area__form"
+			/>
 		</div>
 	</div>
 </template>
 
 <script>
 import { transitionendOnce } from '@libs/uiUtils';
+import PostComment from '@components/PostComment';
+import PostCommentForm from '@components/PostCommentForm';
 export default {
+	components: {
+		PostComment,
+		PostCommentForm,
+	},
+	props: {
+		postId: {
+			type: String,
+			required: true,
+		},
+	},
 	data() {
 		return {
+			isFetchingComments: false,
 			isOpen: false,
+			isShowInner: false,
 		};
 	},
+	computed: {
+		comments() {
+			return this.getCommentsByPostId(this.postId);
+		},
+		title() {
+			if(!this.comments || !this.comments.length) {
+				return 'No comment';
+			}
+			return `${ this.comments.length } comment${ this.comments.length > 1 ? 's' : '' }`;
+		},
+		...mapState('board', [
+			'isGuestMode',
+		]),
+		...mapGetters('board', [
+			'getCommentsByPostId',
+		]),
+	},
 	methods: {
-		expand() {
+		async expand() {
+			this.fetchComments();
+			this.isShowInner = true;
+			await this.$nextTick(); // wait inner rendered
 			return new Promise((resolve) => {
 				this.$el.classList.add('post-comment-area--open');
 				const expandedHeight = this.$el.offsetHeight;
@@ -46,6 +85,7 @@ export default {
 			});
 		},
 		collapse() {
+			this.stopFetchComments();
 			return new Promise((resolve) => {
 				const expandedHeight = this.$el.offsetHeight;
 				this.$el.style.height = expandedHeight;
@@ -58,10 +98,23 @@ export default {
 				});
 				// end
 				transitionendOnce(this.$el, () => {
+					this.isShowInner = false;
 					resolve();
 				});
 			});
 		},
+		async fetchComments() {
+			this.isFetchingComments = true;
+			await this.fetchCommentsByPostId(this.postId);
+			this.isFetchingComments = false;
+		},
+		stopFetchComments() {
+			this.stopFetchCommentsByPostId(this.postId);
+		},
+		...mapActions('board', [
+			'fetchCommentsByPostId',
+			'stopFetchCommentsByPostId',
+		]),
 	},
 };
 </script>

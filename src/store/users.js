@@ -10,6 +10,9 @@ const getters = {
 	users(state) {
 		return state.users;
 	},
+	getUserById: (state) => (userId) => {
+		return _.get(state.users, userId);
+	},
 	getUsersById: (state, getters) => (usersId = []) => {
 		return _.map(usersId, userId => getters.users[userId]);
 	},
@@ -29,7 +32,7 @@ const mutations = {
 	},
 };
 const actions = {
-	async createUser({ state, commit, dispatch, rootGetters }, user) {
+	async createUser({ state, commit, dispatch }, user) {
 		await state.usersRef.add(user).then((userRef) => {
 			console.log("User written with ID: ", userRef.id);
 			commit('setCurrentUserId', userRef.id);

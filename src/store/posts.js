@@ -3,6 +3,9 @@ const state = {
 	postsRef: null,
 };
 const getters = {
+	getPostById: (state) => (postId) => {
+		return state.posts[postId];
+	},
 	getPostGroupId: (state, getters) => (postId) => {
 		const group = _.find(getters.groups, (group) => {
 			return _.includes(group.postIdList, postId);
@@ -24,7 +27,6 @@ const getters = {
 			return _.get(post, ['timestamp', 'seconds'], moment().unix() + 60);
 		});
 	},
-	// posts: state => state.posts,
 };
 const mutations = {
 	removePost(state, postId) {

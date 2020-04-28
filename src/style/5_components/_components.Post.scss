@@ -43,13 +43,17 @@
 		overflow-y: scroll;
 		// border space for scrollbar
 		border: 10px solid transparent;
-		padding: 5px 5px 5px (5px + $scrollbar-size);
+		padding:
+			5px // space for tool options
+			5px
+			0
+			(5px + $scrollbar-size);
 		&, &:hover {
 			box-shadow: $shadow-modal;
 		}
 	}
 	&--modal-mode &__handle {
-		visibility: hidden;
+		display: none;
 	}
 	&--on-transition {
 		position: fixed;
@@ -95,10 +99,8 @@
 			opacity: 0.6;
 		}
 	}
-	&--white, &--red, &--green, &--blue {
-		textarea {
-			background-color: rgba(255, 255, 255, 0.5);
-		}
+	&--white &__textarea, &--red &__textarea, &--green &__textarea, &--blue &__textarea {
+		background-color: rgba(255, 255, 255, 0.5);
 	}
 	&__footer {
 		display: flex;

@@ -24,7 +24,7 @@
 						</p>
 						<textarea
 							v-if="isEditing"
-							v-model="editedContent"
+							v-model.trim="editedContent"
 							:class="{ 'post__textarea--saving': isSaving }"
 							class="post__textarea"
 							rows="1"
@@ -64,12 +64,12 @@
 		</div>
 		<PostCommentArea
 			ref="commentArea"
+			:post-id="this.post.id"
 		/>
 	</div>
 </template>
 
 <script>
-import setStringToClipBoard from 'set-string-to-clipboard';
 import showdown from 'showdown';
 import { animationOnce, transitionendOnce, Flip } from '@libs/uiUtils';
 import AvatarList from '@components/AvatarList';
@@ -208,9 +208,6 @@ export default {
 				e.stopPropagation();
 				window.open(e.target.href);
 			}
-		},
-		onClickCopy() {
-			setStringToClipBoard(this.post.content);
 		},
 		async onClickDelete() {
 			if(this.isModalMode) {

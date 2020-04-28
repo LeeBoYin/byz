@@ -1,4 +1,5 @@
 import router from '@/router';
+import commentsStore from '@store/comments';
 import groupsStore from '@store/groups';
 import postsStore from '@store/posts';
 import usersStore from '@store/users';
@@ -111,6 +112,7 @@ export default {
 	mutations,
 	actions,
 	modules: {
+		commentsStore,
 		groupsStore,
 		postsStore,
 		usersStore,

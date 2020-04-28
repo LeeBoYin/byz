@@ -1,0 +1,28 @@
+.post-comment-form {
+	position: sticky;
+	bottom: 0;
+	padding-top: 10px;
+	background-color: $c-bright;
+	transition: $transition-post-background-color;
+	.post--red & {
+		background-color: $c-post-red;
+	}
+	.post--green & {
+		background-color: $c-post-green;
+	}
+	.post--blue & {
+		background-color: $c-post-blue;
+	}
+	&__textarea {
+		padding: 7px 13px;
+		border-radius: 20px;
+		border-color: rgba(0, 0, 0, 0.1);
+		background-color: $c-bright;
+		&:focus {
+			border-color: $c-primary;
+		}
+		.post--red &, .post--green &, .post--blue & {
+			border-color: $c-bright;
+		}
+	}
+}

@@ -5,9 +5,9 @@
 		height: initial;
 	}
 	&__inner {
-		border-top: 1px solid $c-gray-light;
-		padding: 20px 25px;
-		margin-top: 15px;
+		border-top: 1px solid rgba(0, 0, 0, 0.2);
+		padding: 20px 10px 0 0;
+		margin-top: 10px;
 		opacity: 0;
 		transition:
 			opacity $transition-duration-post-modal-mode ease-out;
@@ -16,21 +16,15 @@
 		opacity: 1;
 		transition-delay: $transition-duration-post-modal-mode / 2;
 	}
-	&__form {
-		padding: 10px 0;
-		background-color: $c-bright;
-		//position: sticky;
-		bottom: 0;
-		transition: $transition-post-background-color;
-		.post--red & {
-			background-color: $c-post-red;
-		}
-		.post--green & {
-			background-color: $c-post-green;
-		}
-		.post--blue & {
-			background-color: $c-post-blue;
-		}
+	&__title {
+		font-weight: $font-weight-bold;
+		font-size: 12px;
+		margin-bottom: 20px;
 	}
+	&__comment-list {
 
+	}
+	&__form {
+
+	}
 }
