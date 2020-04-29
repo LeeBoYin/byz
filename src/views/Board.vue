@@ -60,6 +60,9 @@ export default {
 		]),
 	},
 	watch: {
+		id() {
+			window.location.reload();
+		},
 		isShowPostArea() {
 			this.setPostAreaMargin();
 		},

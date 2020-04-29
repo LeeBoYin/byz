@@ -38,21 +38,18 @@ const actions = {
 			console.error("Error adding group: ", error);
 		});
 	},
-	async getGroups({ state, commit }) {
-		await state.groupsRef.get().then((groupsSnapshot) => {
-			groupsSnapshot.forEach((groupDoc) => {
-				commit('setGroup', groupDoc);
-			});
-		});
-
-		// listen to groups change
-		state.groupsRef.onSnapshot((groupsSnapshot) => {
-			console.log('groups changed');
-			groupsSnapshot.docChanges().forEach((change) => {
-				if(change.type === 'added' || change.type === 'modified') {
-					commit('setGroup', change.doc);
-				}
-			});
+	getGroups({ state, commit }) {
+		return new Promise((resolve) => {
+			// listen to groups change
+			state.groupsRef.onSnapshot( ( groupsSnapshot ) => {
+				console.log( 'groups changed' );
+				groupsSnapshot.docChanges().forEach( ( change ) => {
+					if ( change.type === 'added' || change.type === 'modified' ) {
+						commit( 'setGroup', change.doc );
+					}
+				} );
+				resolve();
+			} );
 		});
 	},
 	async updateGroup({ state }, { groupId, updateObj }) {

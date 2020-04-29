@@ -52,23 +52,20 @@ const actions = {
 			console.error("Error adding post: ", error);
 		});
 	},
-	async getPosts({ state, commit }) {
-		await state.postsRef.get().then((postsSnapshot) => {
-			postsSnapshot.forEach((postDoc) => {
-				commit('setPost', postDoc);
-			});
-		});
-
-		// listen to posts change
-		state.postsRef.onSnapshot((postsSnapshot) => {
-			console.log('posts changed');
-			postsSnapshot.docChanges().forEach((change) => {
-				if(change.type === 'added' || change.type === 'modified') {
-					commit('setPost', change.doc);
-				}
-				if(change.type === 'removed') {
-					commit('removePost', change.doc.id);
-				}
+	getPosts({ state, commit }) {
+		return new Promise((resolve) => {
+			// get and listen to posts change
+			state.postsRef.onSnapshot((postsSnapshot) => {
+				console.log('posts changed');
+				postsSnapshot.docChanges().forEach((change) => {
+					if(change.type === 'added' || change.type === 'modified') {
+						commit('setPost', change.doc);
+					}
+					if(change.type === 'removed') {
+						commit('removePost', change.doc.id);
+					}
+				});
+				resolve();
 			});
 		});
 	},

@@ -44,27 +44,20 @@ const actions = {
 			console.error("Error adding user: ", error);
 		});
 	},
-	async getUsers({ commit }) {
-		await state.usersRef.get().then((usersSnapshot) => {
-			usersSnapshot.forEach((userDoc) => {
-				console.log(userDoc);
-				commit('setUser', {
-					id: userDoc.id,
-					user: userDoc.data(),
+	getUsers({ commit }) {
+		return new Promise((resolve) => {
+			// get and listen to users change
+			state.usersRef.onSnapshot((usersSnapshot) => {
+				console.log('users changed');
+				usersSnapshot.docChanges().forEach((change) => {
+					if(change.type === 'added' || change.type === 'modified') {
+						commit('setUser', {
+							id: change.doc.id,
+							user: change.doc.data(),
+						});
+					}
 				});
-			});
-		});
-
-		// listen to users change
-		state.usersRef.onSnapshot((usersSnapshot) => {
-			console.log('users changed');
-			usersSnapshot.docChanges().forEach((change) => {
-				if(change.type === 'added' || change.type === 'modified') {
-					commit('setUser', {
-						id: change.doc.id,
-						user: change.doc.data(),
-					});
-				}
+				resolve();
 			});
 		});
 	},
