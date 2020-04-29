@@ -46,7 +46,6 @@ const mutations = {
 const actions = {
 	createPost({ state }, post) {
 		state.postsRef.add(post).then((postRef) => {
-			console.log("Post written with ID: ", postRef.id);
 			return postRef;
 		}).catch((error) => {
 			console.error("Error adding post: ", error);
@@ -56,7 +55,6 @@ const actions = {
 		return new Promise((resolve) => {
 			// get and listen to posts change
 			state.postsRef.onSnapshot((postsSnapshot) => {
-				console.log('posts changed');
 				postsSnapshot.docChanges().forEach((change) => {
 					if(change.type === 'added' || change.type === 'modified') {
 						commit('setPost', change.doc);
@@ -72,7 +70,6 @@ const actions = {
 	async updatePost({ state }, { postId, updateObj }) {
 		await state.posts[postId].ref.update(updateObj).then(() => {
 			// success
-			console.log('updatePost success');
 		}).catch(() => {
 			// fail
 		});
@@ -88,7 +85,6 @@ const actions = {
 				},
 			});
 		}
-console.log('deletePost');
 		state.posts[postId].ref.delete().then(() => {
 			// success
 		}).catch(() => {

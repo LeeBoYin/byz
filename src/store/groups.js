@@ -29,7 +29,6 @@ const actions = {
 			name: _.get(payload, 'name', ''),
 		};
 		await state.groupsRef.add(newGroup).then((groupRef) => {
-			console.log("Group written with ID: ", groupRef.id);
 			dispatch('updateBoard', {
 				groupIdList: firebase.firestore.FieldValue.arrayUnion(groupRef.id),
 			});
@@ -42,7 +41,6 @@ const actions = {
 		return new Promise((resolve) => {
 			// listen to groups change
 			state.groupsRef.onSnapshot( ( groupsSnapshot ) => {
-				console.log( 'groups changed' );
 				groupsSnapshot.docChanges().forEach( ( change ) => {
 					if ( change.type === 'added' || change.type === 'modified' ) {
 						commit( 'setGroup', change.doc );
@@ -55,7 +53,6 @@ const actions = {
 	async updateGroup({ state }, { groupId, updateObj }) {
 		const group = state.groups[groupId];
 		await group.ref.update(updateObj).then(() => {
-			console.log('update group ' + groupId + ' success');
 			// success
 		}).catch(() => {
 			// fail

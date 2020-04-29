@@ -38,7 +38,6 @@ const actions = {
 	createComment({ state, getters }, payload) {
 		const post = getters.getPostById(payload.postId);
 		post.ref.collection('comments').add(payload.comment).then((commentRef) => {
-			console.log("Comment written with ID: ", commentRef.id);
 			return commentRef;
 		}).catch((error) => {
 			console.error("Error adding comment: ", error);
@@ -49,7 +48,6 @@ const actions = {
 		const commentsRef = post.ref.collection('comments');
 		return new Promise((resolve) => {
 			const unsubscribeFunc = commentsRef.onSnapshot((commentsSnapshot) => {
-				console.log('comments changed');
 				commentsSnapshot.docChanges().forEach((change) => {
 					if(change.type === 'added' || change.type === 'modified') {
 						commit('setComment', {

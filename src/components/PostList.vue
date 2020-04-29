@@ -65,32 +65,27 @@ export default {
 
 
 			setData(/** DataTransfer */dataTransfer, /** HTMLElement*/dragEl) {
-console.log('setData');
 				dataTransfer.setData('Text', dragEl.textContent); // `dataTransfer` object of HTML5 DragEvent
 			},
 
 			// Element is chosen
 			onChoose(e) {
-console.log('onChoose');
 				e.oldIndex;  // element index within parent
 			},
 
 			// Element is unchosen
 			onUnchoose(e) {
-console.log('onUnchoose');
 				// same properties as onEnd
 			},
 
 			// Element dragging started
 			onStart(e) {
-console.log('onStart');
 				e.oldIndex;  // element index within parent
 				postList.updateDraggedItem(e.item);
 			},
 
 			// Element dragging ended
 			onEnd() {
-console.log('onEnd');
 				postList.updateDraggedItem(null);
 				// const itemEl = e.item;  // dragged HTMLElement
 				// e.to;    // target list
@@ -105,16 +100,12 @@ console.log('onEnd');
 
 			// Element is dropped into the list from another list
 			onAdd(e) {
-console.log('onAdd');
-console.log(e.item);
-console.log(postList.sortable.toArray());
 				// same properties as onEnd
 				postList.updateGroupPostList(e.to.getAttribute('data-group-id'), postList.sortable.toArray());
 			},
 
 			// Changed sorting within list
 			onUpdate(e) {
-console.log('onUpdate');
 				// same properties as onEnd
 			},
 
@@ -123,26 +114,22 @@ console.log('onUpdate');
 				if(e.from.getAttribute('data-group-id') !== e.to.getAttribute('data-group-id')) {
 					return;
 				}
-console.log('onSort');
 				postList.updateGroupPostList(e.to.getAttribute('data-group-id'), postList.sortable.toArray());
 			},
 
 			// Element is removed from the list into another list
 			onRemove(e) {
-console.log('onRemove');
 				// same properties as onEnd
 				postList.updateGroupPostList(e.from.getAttribute('data-group-id'), postList.sortable.toArray());
 			},
 
 			// Attempt to drag a filtered element
 			onFilter(e) {
-console.log('onFilter');
 				const itemEl = e.item;  // HTMLElement receiving the `mousedown|tapstart` event.
 			},
 
 			// Event when you move an item in the list or between lists
 			onMove(e, /**Event*/originalEvent) {
-console.log('onMove in post list');
 				// Example: https://jsbin.com/nawahef/edit?js,output
 				e.dragged; // dragged HTMLElement
 				e.draggedRect; // DOMRect {left, top, right, bottom}
@@ -157,26 +144,21 @@ console.log('onMove in post list');
 
 			// Called when creating a clone of element
 			onClone(e) {
-console.log('onClone');
 				const origEl = e.item;
 				const cloneEl = e.clone;
 			},
 
 			// Called when dragging element changes position
 			onChange(e) {
-console.log('onChange in post list');
 				e.newIndex // most likely why this event is used is to get the dragging element's current index
 				// same properties as onEnd
 			},
 			// revertOnSpill: true, // Enable plugin
 			// // Called when item is spilled
 			// onSpill: function(/**Event*/evt) {
-			// 	console.log('onSpill');
-			// 	console.log(evt);
 			// 	evt.item // The spilled item
 			// }
 		});
-console.log(this.sortable);
 	},
 	methods: {
 		updateGroupPostList(groupId, postIdList) {

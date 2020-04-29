@@ -14,7 +14,6 @@ const mutations = {
 const actions = {
 	init({ commit }) {
 		commit('setDB', firebase.firestore());
-		console.log('init');
 	},
 };
 

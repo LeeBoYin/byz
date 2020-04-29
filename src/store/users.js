@@ -34,7 +34,6 @@ const mutations = {
 const actions = {
 	async createUser({ state, commit, dispatch }, user) {
 		await state.usersRef.add(user).then((userRef) => {
-			console.log("User written with ID: ", userRef.id);
 			commit('setCurrentUserId', userRef.id);
 			dispatch('board/setLocalData', {
 				userId: state.currentUserId,
@@ -48,7 +47,6 @@ const actions = {
 		return new Promise((resolve) => {
 			// get and listen to users change
 			state.usersRef.onSnapshot((usersSnapshot) => {
-				console.log('users changed');
 				usersSnapshot.docChanges().forEach((change) => {
 					if(change.type === 'added' || change.type === 'modified') {
 						commit('setUser', {
