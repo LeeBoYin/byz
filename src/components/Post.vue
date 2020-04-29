@@ -41,8 +41,15 @@
 					<OptionsDropdown :options="options" direction="left" class="post__options" />
 				</div>
 				<div class="post__footer my-10 mr-10">
-					<div v-if="post.posterName" class="post__poster grow-remain">
-						- {{ post.posterName }}
+					<div class="grow-remain">
+						<div v-if="post.posterName" class="post__poster">
+							- {{ post.posterName }}
+						</div>
+						<div v-if="isModalMode" class="post__post-time">
+							<span v-tooltip="postTimeCalendar">
+								{{ postTimeAgo }}
+							</span>
+						</div>
 					</div>
 					<div class="frow row-center shrink-0">
 						<AvatarList
@@ -75,6 +82,7 @@ import { animationOnce, transitionendOnce, Flip } from '@libs/uiUtils';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
 import PostCommentArea from '@components/PostCommentArea';
+import constants from '@/constants';
 const converter = new showdown.Converter({
 	simplifiedAutoLink: true,
 });
@@ -100,6 +108,7 @@ export default {
 			isEditing: false,
 			isModalMode: false,
 			isSaving: false,
+			lastUpdateTimestamp: moment(),
 			mousedownPosition: null,
 			mouseupPosition: null,
 		};
@@ -160,6 +169,20 @@ export default {
 				},
 			];
 		},
+		postTimeAgo() {
+			if(!this.post.timestamp) {
+				return 'posting';
+			}
+			return this.lastUpdateTimestamp && moment(this.post.timestamp.toDate()).fromNow();
+		},
+		postTimeCalendar() {
+			if(!this.post.timestamp) {
+				return null;
+			}
+			return this.lastUpdateTimestamp && moment(this.post.timestamp.toDate()).calendar(null, {
+				sameElse: constants.dateFormat,
+			});
+		},
 		...mapState('board', [
 			'isGuestMode',
 		]),
@@ -188,6 +211,9 @@ export default {
 					this.leaveModalMode();
 				}
 			});
+			setInterval(() => {
+				this.lastUpdateTimestamp = moment();
+			}, 3000);
 		},
 		cancelEdit() {
 			this.isEditing = false;

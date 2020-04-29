@@ -7,4 +7,5 @@ export default {
 		'#C081DF',
 		'#96D788',
 	],
+	dateFormat: 'YYYY/MM/DD',
 };

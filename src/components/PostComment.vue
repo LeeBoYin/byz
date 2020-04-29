@@ -10,7 +10,11 @@
 			/>
 			<div class="post-comment__content">
 				<span v-html="formattedContent"></span>
-				<div class="post-comment__post-time">{{ postTime }}</div>
+				<div class="post-comment__post-time">
+					<span v-tooltip="postTimeCalendar">
+						{{ postTimeAgo }}
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -19,6 +23,7 @@
 <script>
 import showdown from 'showdown';
 import Avatar from '@components/Avatar';
+import constants from '@/constants';
 const converter = new showdown.Converter({
 	simplifiedAutoLink: true,
 });
@@ -46,11 +51,19 @@ export default {
 		poster() {
 			return this.getUserById(this.comment.posterId) || {};
 		},
-		postTime() {
+		postTimeAgo() {
 			if(!this.comment.timestamp) {
 				return 'posting';
 			}
 			return this.lastUpdateTimestamp && moment(this.comment.timestamp.toDate()).fromNow();
+		},
+		postTimeCalendar() {
+			if(!this.comment.timestamp) {
+				return null;
+			}
+			return this.lastUpdateTimestamp && moment(this.comment.timestamp.toDate()).calendar(null, {
+				sameElse: constants.dateFormat,
+			});
 		},
 		...mapGetters('board', [
 			'getUserById',

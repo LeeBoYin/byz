@@ -112,6 +112,10 @@
 		@extend %text-ellipsis;
 		color: $c-gray;
 	}
+	&__post-time {
+		@extend %text-ellipsis;
+		color: $c-gray;
+	}
 	&__options {
 		@extend %tool;
 		font-size: 18px;
