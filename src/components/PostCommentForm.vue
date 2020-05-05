@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { scrollTopAnimate } from '@libs/uiUtils';
+import { EventBus } from '@/main';
 import Avatar from '@components/Avatar';
 export default {
 	components: {
@@ -67,6 +69,14 @@ export default {
 			this.content = '';
 			this.$refs.input.style.height = 'auto';
 			this.$refs.input.focus();
+
+			EventBus.$once('added.comment', () => {
+				this.$nextTick(this.scrollPostToBottom);
+			});
+		},
+		scrollPostToBottom() {
+			const postElement = document.querySelector(`[data-post-id="${ this.postId }"]`);
+			scrollTopAnimate(postElement, postElement.scrollHeight - postElement.clientHeight);
 		},
 		...mapActions('board', [
 			'createComment'

@@ -21,7 +21,7 @@
 		&:focus {
 			border-color: $c-primary;
 		}
-		.post--red &, .post--green &, .post--blue & {
+		.post--colored & {
 			border-color: $c-bright;
 		}
 	}

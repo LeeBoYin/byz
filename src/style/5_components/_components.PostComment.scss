@@ -4,7 +4,7 @@
 		background-color: rgba(0, 0, 0, 0.05);
 		border-radius: $border-r-lg;
 		padding: 9px 15px;
-		.post--red &, .post--green &, .post--blue & {
+		.post--colored & {
 			background-color: rgba(255, 255, 255, 0.5);
 		}
 	}

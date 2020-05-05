@@ -119,7 +119,7 @@ export default {
 			if(!color) {
 				return null;
 			}
-			return `post--${ color }`;
+			return `post--colored post--${ color }`;
 		},
 		formattedContent() {
 			return converter.makeHtml(this.post.content);

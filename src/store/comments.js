@@ -1,3 +1,5 @@
+import { EventBus } from '@/main';
+
 const state = {
 	comments: {},
 	unsubscribeFunc: {},
@@ -8,7 +10,7 @@ const getters = {
 			return null;
 		}
 		return _.orderBy(state.comments[postId], (comment) => {
-			return _.get(comment, ['timestamp', 'seconds'], moment().unix() + 60);
+			return _.get(comment, ['timestamp', 'seconds'], Infinity);
 		});
 	},
 	getUnsubscribeFuncByPostId: (state) => (postId) => {
@@ -54,6 +56,9 @@ const actions = {
 							postId,
 							commentDoc: change.doc,
 						});
+						if(change.type === 'added') {
+							EventBus.$emit('added.comment');
+						}
 					}
 					if(change.type === 'removed') {
 						commit('removeComment', change.doc.id);

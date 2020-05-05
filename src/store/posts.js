@@ -24,7 +24,7 @@ const getters = {
 			return !_.includes(groupedPostsId, post.id);
 		});
 		return _.sortBy(newPosts, (post) => {
-			return _.get(post, ['timestamp', 'seconds'], moment().unix() + 60);
+			return _.get(post, ['timestamp', 'seconds'], Infinity);
 		});
 	},
 };

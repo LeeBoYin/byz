@@ -1,3 +1,8 @@
+const ease = (value, easePower = 2) => {
+	// https://youtu.be/ZPlYZRubXkU
+	return 1 - Math.pow(1 - value, easePower);
+};
+
 export function errorShake(element) {
 	animationOnce(element, 'error-shake', 0.4);
 }
@@ -13,6 +18,25 @@ export function animationOnce(element, animationName, duration = 0.3, timeFunc =
 	element.style.animationIterationCount = 1;
 	element.style.animationDuration = duration + 's';
 	element.style.animationTimingFunction = timeFunc;
+}
+
+export function scrollTopAnimate(element, toY, duration = 300, cb = () => {}) {
+	const fromY = element.scrollTop;
+	const delta = toY - fromY;
+	const start = window.performance.now();
+	const update = () => {
+		const time = window.performance.now() - start;
+		const percent = ease(Math.min(time / duration, 1), 5);
+		const newY = fromY + delta * percent;
+		element.scrollTop = newY;
+		if (percent < 1) {
+			window.requestAnimationFrame(update);
+		} else {
+			cb();
+		}
+	};
+
+	window.requestAnimationFrame(update);
 }
 
 export function transitionendOnce(element, func = () => {}) {

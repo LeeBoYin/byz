@@ -37,3 +37,5 @@ new Vue({
 		this.$store.dispatch('init');
 	},
 });
+
+export const EventBus = new Vue();
