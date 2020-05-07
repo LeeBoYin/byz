@@ -48,17 +48,22 @@ export default {
 		comments() {
 			return this.getCommentsByPostId(this.postId);
 		},
+		post() {
+			return this.getPostById(this.postId);
+		},
 		title() {
-			if(!this.comments || !this.comments.length) {
+			const commentCount = this.post.commentCount || this.comments.length;
+			if(!commentCount) {
 				return 'No comment';
 			}
-			return `${ this.comments.length } comment${ this.comments.length > 1 ? 's' : '' }`;
+			return `${ commentCount } comment${ commentCount > 1 ? 's' : '' }`;
 		},
 		...mapState('board', [
 			'isGuestMode',
 		]),
 		...mapGetters('board', [
 			'getCommentsByPostId',
+			'getPostById',
 		]),
 	},
 	methods: {

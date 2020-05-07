@@ -16,6 +16,7 @@
 					</span>
 				</div>
 			</div>
+			<OptionsDropdown :options="options" direction="left" class="post-comment__options" />
 		</div>
 	</div>
 </template>
@@ -23,6 +24,7 @@
 <script>
 import showdown from 'showdown';
 import Avatar from '@components/Avatar';
+import OptionsDropdown from '@components/OptionsDropdown';
 import constants from '@/constants';
 const converter = new showdown.Converter({
 	simplifiedAutoLink: true,
@@ -30,6 +32,7 @@ const converter = new showdown.Converter({
 export default {
 	components: {
 		Avatar,
+		OptionsDropdown,
 	},
 	props: {
 		comment: Object,
@@ -37,6 +40,14 @@ export default {
 	data() {
 		return {
 			lastUpdateTimestamp: moment(),
+			options: [
+				{
+					title: 'Delete comment',
+					iconClass: 'las la-trash-alt',
+					onClick: this.onClickDelete,
+					isDanger: true,
+				},
+			],
 		};
 	},
 	mounted() {
@@ -67,6 +78,14 @@ export default {
 		},
 		...mapGetters('board', [
 			'getUserById',
+		]),
+	},
+	methods: {
+		onClickDelete() {
+			this.deleteComment(this.comment.id);
+		},
+		...mapActions('board', [
+			'deleteComment',
 		]),
 	},
 };

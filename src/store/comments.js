@@ -6,10 +6,8 @@ const state = {
 };
 const getters = {
 	getCommentsByPostId: (state) => (postId) => {
-		if(_.isNil(state.comments[postId])) {
-			return null;
-		}
-		return _.orderBy(state.comments[postId], (comment) => {
+		const comments = _.filter(state.comments, ['postId', postId]);
+		return _.orderBy(comments, (comment) => {
 			return _.get(comment, ['timestamp', 'seconds'], Infinity);
 		});
 	},
@@ -18,14 +16,11 @@ const getters = {
 	},
 };
 const mutations = {
-	removePost(state, commentId) {
+	removeComment(state, commentId) {
 		Vue.delete(state.comments, commentId);
 	},
 	setComment(state, payload) {
-		if(!_.isObject(state.comments[payload.postId])) {
-			Vue.set(state.comments, payload.postId, {});
-		}
-		Vue.set(state.comments[payload.postId], payload.commentDoc.id, {
+		Vue.set(state.comments, payload.commentDoc.id, {
 			id: payload.commentDoc.id,
 			ref: payload.commentDoc.ref,
 			postId: payload.postId,
@@ -78,7 +73,14 @@ const actions = {
 		if(_.isFunction(unsubscribeFunc)) {
 			unsubscribeFunc();
 		}
-	}
+	},
+	async deleteComment({ state, getters, dispatch }, commentId) {
+		state.comments[commentId].ref.delete().then(() => {
+			// success
+		}).catch(() => {
+			// fail
+		});
+	},
 };
 export default {
 	state,

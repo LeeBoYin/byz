@@ -50,6 +50,9 @@
 								{{ postTimeAgo }}
 							</span>
 						</div>
+						<div v-if="!isModalMode && post.commentCount" class="post__comment-count">
+							{{`${ post.commentCount } comment${ post.commentCount > 1 ? 's' : '' }` }}
+						</div>
 					</div>
 					<div class="frow row-center shrink-0">
 						<AvatarList

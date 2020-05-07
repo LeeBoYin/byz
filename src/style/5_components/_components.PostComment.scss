@@ -17,4 +17,12 @@
 		font-size: 12px;
 		color: $c-gray;
 	}
+	&__options {
+		align-self: center;
+		visibility: hidden;
+		margin-left: 5px;
+	}
+	&:hover &__options, &__options.options-dropdown--open {
+		visibility: visible;
+	}
 }

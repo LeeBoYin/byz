@@ -112,9 +112,9 @@
 		@extend %text-ellipsis;
 		color: $c-gray;
 	}
-	&__post-time {
+	&__post-time, &__comment-count {
 		@extend %text-ellipsis;
-		color: $c-gray;
+		margin-top: 5px;
 	}
 	&__options {
 		@extend %tool;
