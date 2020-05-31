@@ -8,6 +8,13 @@ const getters = {
 };
 const mutations = {
 	setDB(state, db) {
+		if (location.hostname === "localhost") {
+			console.log('db host = localhost:8080');
+			db.settings({
+				host: "localhost:8080",
+				ssl: false
+			});
+		}
 		state.db = db;
 	},
 };
