@@ -1,12 +1,13 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+const REGION_HONG_KONG = 'asia-east2'; // same as the region of firestore
 admin.initializeApp();
 
-export const helloWorld = functions.https.onRequest((request, response) => {
+export const helloWorld = functions.region(REGION_HONG_KONG).https.onRequest((request, response) => {
 	response.send("Hello from Firebase!!!!!!");
 });
 
-export const onCreateComment = functions.firestore
+export const onCreateComment = functions.region(REGION_HONG_KONG).firestore
 	.document('/board/{boardId}/posts/{postId}/comments/{commentId}')
 	.onCreate(async (snapshot, context) => {
 		const postRef = snapshot.ref.parent.parent;
@@ -32,7 +33,7 @@ export const onCreateComment = functions.firestore
 		});
 	});
 
-export const onDeleteComment = functions.firestore
+export const onDeleteComment = functions.region(REGION_HONG_KONG).firestore
 	.document('/board/{boardId}/posts/{postId}/comments/{commentId}')
 	.onDelete(async (snapshot, context) => {
 		const postRef = snapshot.ref.parent.parent;
@@ -58,7 +59,7 @@ export const onDeleteComment = functions.firestore
 		});
 	});
 
-export const onDeletePost = functions.firestore
+export const onDeletePost = functions.region(REGION_HONG_KONG).firestore
 	.document('/board/{boardId}/posts/{postId}')
 	.onDelete(async (snapshot, context) => {
 		const commentsRef = snapshot.ref.collection('comments');
