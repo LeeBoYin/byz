@@ -5,7 +5,9 @@
 		"clean": "rimraf dist",
 		"build": "npm run clean && webpack --mode production",
 		"watch": "webpack --watch",
-		"serve": "webpack-dev-server --mode development"
+		"serve": "webpack-dev-server --mode development",
+		"build-functions": "cd functions && npm run build",
+		"emulate": "npm run build-functions && firebase emulators:start --only firestore,functions"
 	},
 	"author": "leeboyin",
 	"license": "ISC",
