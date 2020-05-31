@@ -61,10 +61,8 @@ export default {
 			direction: 'horizontal',
 			emptyInsertThreshold: 20,
 			onStart(e) {
-				// groupList.updateDraggedItem(e.item);
 			},
 			onEnd() {
-				// groupList.updateDraggedItem(null);
 			},
 			onSort() {
 				groupList.updateBoard({
@@ -80,9 +78,6 @@ export default {
 			}
 			this.isCreating = true;
 		},
-		...mapMutations('board', [
-			'updateDraggedItem',
-		]),
 		...mapActions('board', [
 			'createGroup',
 			'updateBoard',

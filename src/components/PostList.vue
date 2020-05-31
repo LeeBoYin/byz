@@ -81,12 +81,10 @@ export default {
 			// Element dragging started
 			onStart(e) {
 				e.oldIndex;  // element index within parent
-				postList.updateDraggedItem(e.item);
 			},
 
 			// Element dragging ended
 			onEnd() {
-				postList.updateDraggedItem(null);
 				// const itemEl = e.item;  // dragged HTMLElement
 				// e.to;    // target list
 				// e.from;  // previous list
@@ -102,6 +100,11 @@ export default {
 			onAdd(e) {
 				// same properties as onEnd
 				postList.updateGroupPostList(e.to.getAttribute('data-group-id'), postList.sortable.toArray());
+				// remove added sortable item
+				const unwatch = postList.$watch('posts', () => {
+					e.item.remove();
+					unwatch();
+				});
 			},
 
 			// Changed sorting within list
@@ -172,9 +175,6 @@ export default {
 				},
 			});
 		},
-		...mapMutations('board', [
-			'updateDraggedItem',
-		]),
 		...mapActions('board', [
 			'updateGroup',
 		]),

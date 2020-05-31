@@ -6,7 +6,6 @@ import usersStore from '@store/users';
 const state = {
 	board: null,
 	boardRef: null,
-	draggedItem: null,
 	isInitialized: false,
 	isShowPostArea: true,
 	isGuestMode: false,
@@ -38,9 +37,6 @@ const mutations = {
 	updateBoard(state, board) {
 		state.board = board;
 		document.title = _.get(state.board, 'name') + ' - BYZ';
-	},
-	updateDraggedItem(state, item) {
-		state.draggedItem = item;
 	},
 };
 const actions = {

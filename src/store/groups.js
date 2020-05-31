@@ -68,7 +68,7 @@ const actions = {
 		await dispatch('updateBoard', {
 			groupIdList: firebase.firestore.FieldValue.arrayRemove(groupId),
 		});
-		// delete board
+		// delete group
 		await group.ref.delete().then(() => {
 			// success
 		}).catch(() => {
