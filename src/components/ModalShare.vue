@@ -28,8 +28,11 @@ export default {
 	},
 	computed: {
 		shareLink() {
-			return window.location.href;
+			return `${ window.location.host }/board/${ this.boardId }`;
 		},
+		...mapGetters('board', [
+			'boardId',
+		]),
 	},
 	methods: {
 		onClickCopy() {
