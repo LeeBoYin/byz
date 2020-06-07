@@ -1,6 +1,14 @@
 <template>
-	<div :class="{ 'group--deleting': isDeleting, 'group--guest': isGuestMode }" class="group" :data-group-id="group.id">
-		<div class="frow nowrap">
+	<div
+		:class="{
+			'group--deleting': isDeleting,
+			'group--guest': isGuestMode,
+			'group--draggable': !isDeleting && !isGuestMode
+		}"
+		class="group"
+		:data-group-id="group.id"
+	>
+		<div class="group__header frow nowrap">
 			<i class="group__handle las la-grip-lines-vertical"></i>
 			<EditableTitle
 				ref="editableTitle"

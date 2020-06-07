@@ -5,6 +5,7 @@
 			'post--editing': isEditing,
 			'post--guest': isGuestMode,
 			'post--modal-mode': isModalMode,
+			'post--draggable': !isModalMode && !isDeleting && !isEditing && !isGuestMode,
 			},
 			colorClass
 		]"

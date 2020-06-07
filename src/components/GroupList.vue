@@ -53,7 +53,7 @@ export default {
 			animation: 300,
 			easing: "cubic-bezier(1, 0, 0, 1)",
 			draggable: ".group",
-			handle: '.group__handle',
+			handle: '.group--draggable .group__header',
 			dataIdAttr: 'data-group-id',
 			ghostClass: "sortable-ghost",
 			chosenClass: "sortable-chosen",
