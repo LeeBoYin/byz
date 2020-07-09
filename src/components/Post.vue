@@ -26,13 +26,14 @@
 						<textarea
 							v-if="isEditing"
 							v-model.trim="editedContent"
+							ref="textarea"
 							:class="{ 'post__textarea--saving': isSaving }"
 							class="post__textarea"
 							rows="1"
 							v-auto-focus
 							v-auto-height
 							:disabled="isSaving"
-							@keypress.enter="save"
+							@keypress.enter="onEditPressEnter"
 							@keydown.prevent.stop.esc="cancelEdit"
 						></textarea>
 						<div v-if="isSaving" class="absolute-center">
@@ -206,15 +207,16 @@ export default {
 	mounted() {
 		this.bindEvents();
 	},
+	beforeDestroy() {
+		document.removeEventListener('keydown', this.onKeyDown);
+		document.removeEventListener('mousedown', this.onDocumentClick);
+	},
 	methods: {
 		bindEvents() {
 			// bind leaveModalMode
 			overlay.addEventListener('click', this.leaveModalMode);
-			document.addEventListener('keydown', (e) => {
-				if(e.key === 'Escape') {
-					this.leaveModalMode();
-				}
-			});
+			document.addEventListener('keydown', this.onKeyDown);
+			document.addEventListener('mousedown', this.onDocumentClick);
 			setInterval(() => {
 				this.lastUpdateTimestamp = moment();
 			}, 3000);
@@ -256,12 +258,31 @@ export default {
 			this.editedContent = this.post.content;
 			this.isEditing = true;
 		},
-		async save(e) {
+		onDocumentClick(e) {
+			if(e.target.isEqualNode(this.$refs.textarea)){
+				return;
+			}
+			if(this.isEditing) {
+				this.save();
+			}
+		},
+		onKeyDown(e) {
+			if(e.key === 'Escape') {
+				this.leaveModalMode();
+			}
+		},
+		onEditPressEnter(e) {
 			if(e.ctrlKey || e.shiftKey || e.altKey) {
 				// 換行
 				return;
 			}
 			e.preventDefault();
+			this.save();
+		},
+		async save() {
+			if(!this.isEditing) {
+				return;
+			}
 			if(this.post.content === this.editedContent) {
 				this.isEditing = false;
 				return;

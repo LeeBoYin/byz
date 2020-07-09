@@ -1,6 +1,6 @@
 %tool-group {
 	font-size: 20px;
-	padding: 4px 5px;
+	padding: 8px 5px;
 }
 .group {
 	position: relative;
@@ -26,7 +26,7 @@
 	&__title {
 		@extend %grow-remain;
 		font-size: 16px;
-		padding: 2px 0;
+		padding: 6px 0;
 	}
 	&__post-list {
 		@extend %grow-remain;
