@@ -9,7 +9,7 @@
 	letter-spacing: 1px;
 	padding: 18px 40px;
 	text-transform: uppercase;
-	transition: .2s;
+	transition: background-color .2s;
 	user-select: none;
 	&:active {
 		background-color: $c-gray-darker;

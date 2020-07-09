@@ -3,7 +3,7 @@
 	@include custom-scrollbar(#dcd6c9, transparent, $scrollbar-size);
 	display: flex;
 	flex-direction: column;
-	padding: 7px 7px 0 (7px + $scrollbar-size);
+	padding: 10px 7px 0 (7px + $scrollbar-size);
 	margin: 0 5px;
 	min-height: 10px;
 	overflow-x: hidden;

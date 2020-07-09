@@ -10,11 +10,7 @@
 					<div class="board__group-list-container">
 						<GroupList class="" />
 					</div>
-					<div ref="postAreaContainer" class="board__post-area-container">
-						<PostArea class="ml-15"/>
-					</div>
 				</div>
-				<PostAreaButton class="board__btn-post-area" />
 			</div>
 			<ModalUserForm :is-open="!currentUser && !isGuestMode" />
 		</template>
@@ -27,8 +23,6 @@ import GroupList from '@components/GroupList';
 import LoadingMsg from '@components/LoadingMsg';
 import MenuBar from '@components/MenuBar';
 import ModalUserForm from '@components/ModalUserForm';
-import PostArea from '@components/PostArea';
-import PostAreaButton from '@components/PostAreaButton';
 export default {
 	props: {
 		id: { // $route.params.id
@@ -41,8 +35,6 @@ export default {
 		LoadingMsg,
 		MenuBar,
 		ModalUserForm,
-		PostArea,
-		PostAreaButton,
 	},
 	data() {
 		return {

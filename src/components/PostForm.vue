@@ -9,6 +9,7 @@
 			class="post-form__input"
 			placeholder="Type something..."
 			@keypress.enter="submit"
+			@keydown.esc="cancel"
 		>
 		</textarea>
 	</div>
@@ -16,6 +17,12 @@
 
 <script>
 export default {
+	props: {
+		groupId: {
+			type: String,
+			required: true,
+		},
+	},
 	data() {
 		return {
 			content: '',
@@ -51,13 +58,20 @@ export default {
 				return;
 			}
 			this.createPost({
-				content: this.content,
-				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-				posterName: this.currentUser.name,
+				post: {
+					content: this.content,
+					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+					posterName: this.currentUser.name,
+				},
+				groupId: this.groupId,
 			});
+			this.$emit('posted');
 			this.content = '';
 			this.$refs.input.style.height = 'auto';
 			this.$refs.input.focus();
+		},
+		cancel() {
+			this.$emit('cancel');
 		},
 		...mapActions('board', [
 			'createPost',

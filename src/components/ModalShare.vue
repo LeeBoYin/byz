@@ -28,7 +28,7 @@ export default {
 	},
 	computed: {
 		shareLink() {
-			return `${ window.location.host }/board/${ this.boardId }`;
+			return `${ window.location.protocol }//${ window.location.host }/board/${ this.boardId }`;
 		},
 		...mapGetters('board', [
 			'boardId',

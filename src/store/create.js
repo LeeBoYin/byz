@@ -1,3 +1,5 @@
+import constants from '@/constants';
+
 const state = {
 
 };
@@ -9,7 +11,7 @@ const mutations = {
 };
 const actions = {
 	async createBoard({ dispatch, rootState }, { boardName, userName }) {
-		return await rootState.db.collection('board').add({
+		const boardRef = await rootState.db.collection('board').add({
 			name: boardName,
 			isAllowJoin: true,
 		}).then((boardRef) => {
@@ -17,6 +19,22 @@ const actions = {
 		}).catch((error) => {
 			console.error("Error adding board: ", error);
 		});
+		await dispatch('createGroups', { boardRef });
+		return boardRef;
+	},
+	async createGroups(context, { boardRef }) {
+		const groupIdList = [];
+		const promises = [];
+		for(let i = 0; i < constants.groupNum; i++) {
+			promises.push(new Promise((resolve) => {
+				boardRef.collection( 'groups' ).add( { name: '' } ).then(( groupRef) => {
+					groupIdList.push(groupRef.id);
+					resolve();
+				} );
+			}));
+		}
+		await Promise.all(promises);
+		await boardRef.update({ groupIdList });
 	},
 };
 export default {

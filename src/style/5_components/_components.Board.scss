@@ -3,9 +3,9 @@
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	padding: 20px 15px;
+	padding: 10px 15px;
 	&__header {
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
 	&__body {
 		@extend %grow-remain;

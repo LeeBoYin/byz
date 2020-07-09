@@ -1,15 +1,15 @@
 <template>
-	<component :is="element" :class="{ 'editable-title--disabled': disabled }" class="editable-title">
+	<component :is="element" :class="[`editable-title--${ align }`, { 'editable-title--disabled': disabled, 'editable-title--clickable': clickable }]" class="editable-title">
 		<div
 			v-show="!isEditing"
 			ref="title"
 			:data-uid="_.uniqueId()"
 			class="editable-title__display"
-			@click="onEdit">
+			@click="onClickEdit">
 			<div class="editable-title__text">
 				{{ title }}
 			</div>
-			<i v-if="!disabled" class="editable-title__icon-edit las la-pencil-alt"></i>
+			<i v-if="!disabled && clickable" class="editable-title__icon-edit las la-pencil-alt"></i>
 		</div>
 		<input
 			v-if="isEditing"
@@ -42,6 +42,18 @@ export default {
 			type: String,
 			default: 'div',
 		},
+		required: {
+			type: Boolean,
+			default: false,
+		},
+		clickable: {
+			type: Boolean,
+			default: false,
+		},
+		align: {
+			type: String,
+			default: 'left',
+		},
 		disabled: {
 			type: Boolean,
 			default: false,
@@ -54,7 +66,7 @@ export default {
 	},
 	mounted() {
 		this.bindEvents();
-		if(!this.title) {
+		if(this.required && !this.title) {
 			this.onEdit();
 		}
 	},
@@ -67,13 +79,13 @@ export default {
 		},
 		cancelEdit() {
 			this.$emit('cancel');
-			if(!this.title.length) {
+			if(this.required && !this.title.length) {
 				return;
 			}
 			this.isEditing = false;
 		},
 		endEdit() {
-			if(!this.newTitle.length) {
+			if(this.required && !this.newTitle.length) {
 				if(this.title) {
 					this.cancelEdit();
 					errorShake(this.$refs.title);
@@ -89,6 +101,12 @@ export default {
 				return;
 			}
 			this.$emit('update', this.newTitle);
+		},
+		onClickEdit() {
+			if(!this.clickable) {
+				return;
+			}
+			this.onEdit();
 		},
 		onDocumentClick(e) {
 			if(e.target.isEqualNode(this.$refs.title) || e.target.isEqualNode(this.$refs.input)){

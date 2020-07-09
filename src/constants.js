@@ -8,4 +8,5 @@ export default {
 		'#96D788',
 	],
 	dateFormat: 'YYYY/MM/DD',
+	groupNum: 5,
 };

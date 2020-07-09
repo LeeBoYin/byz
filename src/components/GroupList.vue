@@ -5,12 +5,7 @@
 			:key="group.id"
 			:group="group"
 		/>
-		<GroupForm
-			v-if="isCreating"
-			@cancel="isCreating = false"
-			@created="isCreating = false"
-		/>
-		<button v-if="!isGuestMode && !isCreating" class="group-list__btn-add" @click="onClickCreate">
+		<button v-if="!isGuestMode" class="group-list__btn-add" @click="onClickCreate">
 			<i class="las la-plus"></i>
 		</button>
 	</div>
@@ -18,16 +13,13 @@
 
 <script>
 import Group from '@components/Group';
-import GroupForm from '@components/GroupForm';
 import Sortable from 'sortablejs';
 export default {
 	components: {
 		Group,
-		GroupForm,
 	},
 	data() {
 		return {
-			isCreating: false,
 			sortable: null,
 		};
 	},
@@ -73,10 +65,9 @@ export default {
 	},
 	methods: {
 		async onClickCreate() {
-			if(this.isCreating) {
-				return;
-			}
-			this.isCreating = true;
+			this.createGroup({
+				name: '',
+			});
 		},
 		...mapActions('board', [
 			'createGroup',

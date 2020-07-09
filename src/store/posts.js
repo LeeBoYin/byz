@@ -44,11 +44,17 @@ const mutations = {
 	},
 };
 const actions = {
-	createPost({ state }, post) {
-		state.postsRef.add(post).then((postRef) => {
-			return postRef;
+	async createPost({ state, dispatch }, { post, groupId }) {
+		const postId = await state.postsRef.add(post).then((postRef) => {
+			return postRef.id;
 		}).catch((error) => {
 			console.error("Error adding post: ", error);
+		});
+		await dispatch('updateGroup', {
+			groupId,
+			updateObj: {
+				postIdList: firebase.firestore.FieldValue.arrayUnion(postId),
+			},
 		});
 	},
 	getPosts({ state, commit }) {

@@ -3,6 +3,7 @@
 	cursor: pointer;
 	&--open {
 		color: $c-gray-darker !important;
+		visibility: visible !important;
 	}
 	&__container {
 		position: relative;

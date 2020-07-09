@@ -6,6 +6,8 @@
 					<EditableTitle
 						:title="boardName"
 						:disabled="isGuestMode"
+						:required="true"
+						:clickable="true"
 						element="h1"
 						placeholder="Board Name"
 						class="menu-bar__title"

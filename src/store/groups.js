@@ -1,3 +1,5 @@
+import { EventBus } from '@/main';
+
 const state = {
 	groups: {},
 	groupsRef: null,
@@ -44,6 +46,9 @@ const actions = {
 				groupsSnapshot.docChanges().forEach( ( change ) => {
 					if ( change.type === 'added' || change.type === 'modified' ) {
 						commit( 'setGroup', change.doc );
+					}
+					if (change.type === 'modified') {
+						EventBus.$emit('modified.group');
 					}
 				} );
 				resolve();

@@ -1,6 +1,6 @@
 %tool-group {
-	font-size: 24px;
-	padding: 22px 0;
+	font-size: 20px;
+	padding: 4px 5px;
 }
 .group {
 	position: relative;
@@ -8,7 +8,7 @@
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 6px;
-	border-radius: $border-r-md;
+	margin-right: 2px;
 	width: $w-group;
 	transform-origin: top left;
 	&--deleting {
@@ -16,9 +16,17 @@
 		transition: .5s ease-out;
 		transform: scale(0);
 	}
+	&__header {
+		font-size: 12px;
+		background-color: rgba(0, 0, 0, 0.02);
+	}
+	&--draggable &__header {
+		@extend %grabbable;
+	}
 	&__title {
 		@extend %grow-remain;
-		padding: 16px 0;
+		font-size: 16px;
+		padding: 2px 0;
 	}
 	&__post-list {
 		@extend %grow-remain;
@@ -26,13 +34,30 @@
 	&__options {
 		@extend %tool;
 		@extend %tool-group;
-		right: 0;
 	}
 	&__handle {
 		@extend %tool;
 		@extend %tool-group;
 		@extend %grabbable;
-		left: 0;
+	}
+	&__post-form-area {
+		padding: 10px;
+		background-color: #f2ebda;
+	}
+	&__btn-post {
+		@extend .btn;
+		@extend .btn--primary;
+		position: absolute;
+		bottom: 15px;
+		right: 15px;
+		font-size: 24px;
+		padding: 13px;
+		border-radius: 50%;
+		box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+		visibility: hidden;
+	}
+	&:hover &__btn-post {
+		visibility: visible;
 	}
 	// guest mode style
 	&--guest &__options,

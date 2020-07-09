@@ -7,7 +7,7 @@ const state = {
 	board: null,
 	boardRef: null,
 	isInitialized: false,
-	isShowPostArea: true,
+	isShowPostArea: false,
 	isGuestMode: false,
 };
 const getters = {

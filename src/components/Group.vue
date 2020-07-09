@@ -3,37 +3,52 @@
 		:class="{
 			'group--deleting': isDeleting,
 			'group--guest': isGuestMode,
-			'group--draggable': !isDeleting && !isGuestMode
+			'group--draggable': !isDeleting && !isGuestMode,
+			'group--posting': isPosting,
 		}"
 		class="group"
 		:data-group-id="group.id"
 	>
 		<div class="group__header frow nowrap">
-			<i class="group__handle las la-grip-lines-vertical"></i>
+			<i class="group__handle las la-grip-lines"></i>
 			<EditableTitle
 				ref="editableTitle"
 				:title="group.name"
 				:disabled="isGuestMode"
 				element="h2"
 				placeholder="Group Name"
+				align="center"
 				class="group__title"
 				@update="updateGroupName"
 			/>
 			<OptionsDropdown :options="options" direction="bottom" class="group__options" />
 		</div>
-		<PostList :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
+		<PostList ref="postList" :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
+		<button v-if="!isGuestMode && !isPosting" class="group__btn-post" @click="onClickCreatePost">
+			<i class="las la-plus"></i>
+		</button>
+		<div v-if="isPosting" class="group__post-form-area">
+			<PostForm
+				:group-id="group.id"
+				@posted="onPosted"
+				@cancel="isPosting = false"
+			/>
+		</div>
 	</div>
 </template>
 
 <script>
 import EditableTitle from '@components/EditableTitle';
 import OptionsDropdown from '@components/OptionsDropdown';
+import PostForm from '@components/PostForm';
 import PostList from '@components/PostList';
-import { transitionendOnce } from '@libs/uiUtils';
+import { scrollTopAnimate, transitionendOnce } from '@libs/uiUtils';
+import { EventBus } from '@/main';
 export default {
 	components: {
 		EditableTitle,
 		OptionsDropdown,
+		PostForm,
 		PostList,
 	},
 	props: {
@@ -42,6 +57,7 @@ export default {
 	data() {
 		return {
 			isDeleting: false,
+			isPosting: false,
 		};
 	},
 	computed: {
@@ -58,7 +74,7 @@ export default {
 					title: 'Edit Title',
 					iconClass: 'las la-pencil-alt',
 					onClick: this.onClickEditTitle,
-					isShow: false,
+					isShow: true,
 				},
 				{
 					title: 'Delete Group',
@@ -90,13 +106,16 @@ export default {
 				this.$el.style.marginRight = `-${ this.$el.offsetWidth }px`;
 			});
 		},
+		onClickCreatePost() {
+			this.isPosting = true;
+		},
 		onClickDelete() {
 			if(!this.posts.length) {
 				this.executeDelete();
 				return;
 			}
 			this.$confirm({
-				msg: `All posts in ${ this.group.name } will be deleted`,
+				msg: `All posts in ${ this.group.name || 'the group' } will be deleted`,
 				buttonText: 'Delete',
 				onConfirm: () => {
 					this.executeDelete();
@@ -117,6 +136,15 @@ export default {
 				updateObj: {
 					postIdList: sortedPostIdList,
 				},
+			});
+		},
+		onPosted() {
+			this.isPosting = false;
+			EventBus.$once('modified.group', () => {
+				this.$nextTick(() => {
+					const postListElement = this.$refs.postList.$el;
+					scrollTopAnimate(postListElement, postListElement.scrollHeight - postListElement.clientHeight);
+				});
 			});
 		},
 		updateGroupName(newName) {
