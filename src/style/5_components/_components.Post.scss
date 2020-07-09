@@ -110,7 +110,7 @@
 	}
 	&__poster {
 		@extend %text-ellipsis;
-		color: $c-gray;
+		color: $c-gray-dark;
 	}
 	&__post-time, &__comment-count {
 		@extend %text-ellipsis;

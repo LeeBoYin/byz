@@ -59,6 +59,7 @@ export default {
 	computed: {
 		...mapGetters('board', [
 			'boardName',
+			'users',
 		]),
 	},
 	watch: {
@@ -80,15 +81,30 @@ export default {
 			if(this.isLoading) {
 				return;
 			}
-			this.isLoading = true;
-			await this.createUser({
-				name: this.userName,
-				color: this.userColor,
+			const existingUser = _.find(this.users, (user) => {
+				return user.name === this.userName;
 			});
+			this.isLoading = true;
+			if(existingUser) {
+				this.setUserId(existingUser.id);
+				await this.updateUser({
+					userId: existingUser.id,
+					updateObj: {
+						color: this.userColor,
+					},
+				});
+			} else {
+				await this.createUser({
+					name: this.userName,
+					color: this.userColor,
+				});
+			}
 			this.isLoading = false;
 		},
 		...mapActions('board', [
 			'createUser',
+			'setUserId',
+			'updateUser',
 			'viewAsGuest',
 		]),
 	},

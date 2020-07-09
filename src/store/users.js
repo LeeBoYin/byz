@@ -21,10 +21,11 @@ const mutations = {
 	setCurrentUserId(state, id) {
 		state.currentUserId = id;
 	},
-	setUser(state, { id, user }) {
-		Vue.set(state.users, id, {
-			id,
-			...user
+	setUser(state, userDoc) {
+		Vue.set(state.users, userDoc.id, {
+			id: userDoc.id,
+			ref: userDoc.ref,
+			...userDoc.data(),
 		});
 	},
 	setUsersRef(state, usersRef) {
@@ -34,13 +35,17 @@ const mutations = {
 const actions = {
 	async createUser({ state, commit, dispatch }, user) {
 		await state.usersRef.add(user).then((userRef) => {
-			commit('setCurrentUserId', userRef.id);
-			dispatch('board/setLocalData', {
-				userId: state.currentUserId,
-			}, { root: true });
+			dispatch('setUserId', userRef.id);
 			return userRef;
 		}).catch((error) => {
 			console.error("Error adding user: ", error);
+		});
+	},
+	async updateUser({ state }, { userId, updateObj }) {
+		await state.users[userId].ref.update(updateObj).then(() => {
+			// success
+		}).catch(() => {
+			// fail
 		});
 	},
 	getUsers({ commit }) {
@@ -49,15 +54,18 @@ const actions = {
 			state.usersRef.onSnapshot((usersSnapshot) => {
 				usersSnapshot.docChanges().forEach((change) => {
 					if(change.type === 'added' || change.type === 'modified') {
-						commit('setUser', {
-							id: change.doc.id,
-							user: change.doc.data(),
-						});
+						commit('setUser', change.doc);
 					}
 				});
 				resolve();
 			});
 		});
+	},
+	setUserId({ commit, dispatch }, userId) {
+		commit('setCurrentUserId', userId);
+		dispatch('board/setLocalData', {
+			userId: userId,
+		}, { root: true });
 	},
 };
 
