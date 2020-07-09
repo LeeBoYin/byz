@@ -47,7 +47,16 @@ export default {
 			}
 		},
 	},
+	mounted() {
+		this.bindEvents();
+	},
+	beforeDestroy() {
+		document.removeEventListener('mousedown', this.onDocumentClick);
+	},
 	methods: {
+		bindEvents() {
+			document.addEventListener('mousedown', this.onDocumentClick);
+		},
 		async submit(e) {
 			if(e.ctrlKey || e.shiftKey || e.altKey) {
 				// 換行
@@ -72,6 +81,12 @@ export default {
 		},
 		cancel() {
 			this.$emit('cancel');
+		},
+		onDocumentClick(e) {
+			if(this.content.length || e.target.isEqualNode(this.$refs.input)){
+				return;
+			}
+			this.cancel();
 		},
 		...mapActions('board', [
 			'createPost',
