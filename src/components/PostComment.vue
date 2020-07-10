@@ -34,7 +34,7 @@
 					<i class="las la-circle-notch la-spin la"></i>
 				</div>
 			</div>
-			<OptionsDropdown v-if="!isEditing" :options="options" direction="left" class="post-comment__options" />
+			<OptionsDropdown v-if="!isGuestMode && !isEditing" :options="options" direction="left" class="post-comment__options" />
 		</div>
 	</div>
 </template>
@@ -106,6 +106,9 @@ export default {
 				sameElse: constants.dateFormat,
 			});
 		},
+		...mapState('board', [
+			'isGuestMode',
+		]),
 		...mapGetters('board', [
 			'getUserById',
 		]),

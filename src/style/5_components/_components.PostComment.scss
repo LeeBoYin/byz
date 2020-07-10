@@ -25,9 +25,10 @@
 		color: $c-gray;
 	}
 	&__options {
-		align-self: center;
+		align-self: flex-start;
 		visibility: hidden;
-		margin-left: 5px;
+		margin-top: 8px;
+		padding: 4px 0 4px 4px;
 	}
 	&:hover &__options, &__options.options-dropdown--open {
 		visibility: visible;
