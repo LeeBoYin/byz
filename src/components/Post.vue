@@ -84,6 +84,7 @@
 <script>
 import showdown from 'showdown';
 import { animationOnce, transitionendOnce, Flip } from '@libs/uiUtils';
+import editablePostContentMixin from '@/mixins/editablePostContent';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
 import PostCommentArea from '@components/PostCommentArea';
@@ -103,16 +104,16 @@ export default {
 		OptionsDropdown,
 		PostCommentArea,
 	},
+	mixins: [
+		editablePostContentMixin,
+	],
 	props: {
 		post: Object,
 	},
 	data() {
 		return {
-			editedContent: null,
 			isDeleting: false,
-			isEditing: false,
 			isModalMode: false,
-			isSaving: false,
 			lastUpdateTimestamp: moment(),
 			mousedownPosition: null,
 			mouseupPosition: null,
@@ -144,7 +145,9 @@ export default {
 				{
 					title: 'Edit',
 					iconClass: 'las la-pencil-alt',
-					onClick: this.onClickEdit,
+					onClick: () => {
+						this.onClickEdit(this.post.content);
+					},
 				},
 				{
 					title: 'White',
@@ -209,20 +212,15 @@ export default {
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.onKeyDown);
-		document.removeEventListener('mousedown', this.onDocumentClick);
 	},
 	methods: {
 		bindEvents() {
 			// bind leaveModalMode
 			overlay.addEventListener('click', this.leaveModalMode);
 			document.addEventListener('keydown', this.onKeyDown);
-			document.addEventListener('mousedown', this.onDocumentClick);
 			setInterval(() => {
 				this.lastUpdateTimestamp = moment();
 			}, 3000);
-		},
-		cancelEdit() {
-			this.isEditing = false;
 		},
 		onClickColor(color) {
 			return () => {
@@ -254,40 +252,12 @@ export default {
 				this.$el.style.marginBottom = `-${ this.$el.offsetHeight }px`;
 			});
 		},
-		onClickEdit() {
-			this.editedContent = this.post.content;
-			this.isEditing = true;
-		},
-		onDocumentClick(e) {
-			if(e.target.isEqualNode(this.$refs.textarea)){
-				return;
-			}
-			if(this.isEditing) {
-				this.save();
-			}
-		},
 		onKeyDown(e) {
 			if(e.key === 'Escape') {
 				this.leaveModalMode();
 			}
 		},
-		onEditPressEnter(e) {
-			if(e.ctrlKey || e.shiftKey || e.altKey) {
-				// 換行
-				return;
-			}
-			e.preventDefault();
-			this.save();
-		},
 		async save() {
-			if(!this.isEditing) {
-				return;
-			}
-			if(this.post.content === this.editedContent) {
-				this.isEditing = false;
-				return;
-			}
-			this.isSaving = true;
 			await this.updatePost({
 				postId: this.post.id,
 				updateObj: {
@@ -295,8 +265,6 @@ export default {
 					lastEditTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				},
 			});
-			this.isSaving = false;
-			this.isEditing = false;
 		},
 		toggleLike() {
 			if(this.isGuestMode) {

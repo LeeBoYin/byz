@@ -1,12 +1,19 @@
 .post-comment {
+	@include editable-post-content;
 	margin-bottom: 15px;
+	&__content-container {
+		position: relative;
+	}
 	&__content {
 		background-color: rgba(0, 0, 0, 0.05);
 		border-radius: $border-r-lg;
-		padding: 9px 15px;
+		padding: $padding-post-textarea;
 		.post--colored & {
-			background-color: rgba(255, 255, 255, 0.5);
+			background-color: $c-bright-transparent-half;
 		}
+	}
+	&__textarea {
+		border-radius: $border-r-lg;
 	}
 	&__avatar {
 		flex-shrink: 0;

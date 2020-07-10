@@ -14,7 +14,7 @@
 		background-color: $c-post-blue;
 	}
 	&__textarea {
-		padding: 7px 13px;
+		padding: $padding-post-textarea;
 		border-radius: 20px;
 		border-color: rgba(0, 0, 0, 0.1);
 		background-color: $c-bright;

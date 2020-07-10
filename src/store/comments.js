@@ -74,6 +74,13 @@ const actions = {
 			unsubscribeFunc();
 		}
 	},
+	async updateComment({ state }, { commentId, updateObj }) {
+		await state.comments[commentId].ref.update(updateObj).then(() => {
+			// success
+		}).catch(() => {
+			// fail
+		});
+	},
 	async deleteComment({ state, getters, dispatch }, commentId) {
 		state.comments[commentId].ref.delete().then(() => {
 			// success
