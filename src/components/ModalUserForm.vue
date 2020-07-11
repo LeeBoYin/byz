@@ -16,7 +16,7 @@
 					ref="autocompleteInput"
 					v-model="userName"
 					type="text"
-					class="user-form-name-input"
+					class="user-form__autocomplete-input"
 					:options="usersOptions"
 					:auto-focus="true"
 					:disabled="isLoading"

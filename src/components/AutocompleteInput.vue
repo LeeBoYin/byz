@@ -17,6 +17,7 @@
 		<div
 			v-if="filteredOptions.length && isShowSelect"
 			:key="typedValue"
+			ref="select"
 			class="autocomplete-input__select"
 		>
 			<div
@@ -40,6 +41,8 @@
 </template>
 
 <script>
+import { scrollTopAnimate } from '@libs/uiUtils';
+
 export default {
 	props: {
 		autoFocus: {
@@ -107,20 +110,32 @@ export default {
 			if(this.focusedIndex === null) {
 				if(direction === 'up') {
 					this.focusedIndex = length - 1;
-					return;
-				}
-				if(direction === 'down') {
+				} else if(direction === 'down') {
 					this.focusedIndex = 0;
-					return;
+				}
+			} else {
+				if((direction === 'up' && this.focusedIndex === 0) || (direction === 'down' && this.focusedIndex === length - 1)) {
+					this.focusedIndex = null;
+				} else if(direction === 'up') {
+					this.focusedIndex -= 1;
+				} else if(direction === 'down') {
+					this.focusedIndex += 1;
 				}
 			}
-			if((direction === 'up' && this.focusedIndex === 0) || (direction === 'down' && this.focusedIndex === length - 1)) {
-				this.focusedIndex = null;
-			} else if(direction === 'up') {
-				this.focusedIndex -= 1;
-			} else if(direction === 'down') {
-				this.focusedIndex += 1;
-			}
+			this.$nextTick(() => {
+				const select = this.$refs.select;
+				const focusedOption = this.$el.querySelector('.autocomplete-input__option--focused');
+				if(this.focusedIndex === null) {
+					// scroll to top
+					scrollTopAnimate(select, 0, 100);
+				} else if(select.scrollTop > focusedOption.offsetTop) {
+					// scroll up to show focusedOption
+					scrollTopAnimate(select, focusedOption.offsetTop, 100);
+				} else if(select.scrollTop + select.clientHeight < focusedOption.offsetTop + focusedOption.offsetHeight) {
+					// scroll down to show focusedOption
+					scrollTopAnimate(select, focusedOption.offsetTop + focusedOption.offsetHeight - select.clientHeight, 100);
+				}
+			});
 		},
 		onDocumentClick(e) {
 			if(e.target.isEqualNode(this.$refs.input)){
