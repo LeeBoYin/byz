@@ -12,22 +12,24 @@
 						:color="userColor" />
 					<ColorSelect v-model="userColor" />
 				</div>
-				<input
-					ref="input"
+				<AutocompleteInput
+					ref="autocompleteInput"
+					v-model="userName"
 					type="text"
-					v-model.trim="userName"
-					v-auto-focus
+					class="user-form-name-input"
+					:options="usersOptions"
+					:auto-focus="true"
 					:disabled="isLoading"
 					placeholder="Your name"
 					@keypress.enter="submit"
-				>
+				/>
 			</div>
 			<div class="frow row-between">
 				<a class="hint text-underline" @click="viewAsGuest">view as a guest</a>
 				<button class="btn btn--primary" :disabled="isLoading" @click="submit">
 					<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
 					<template v-else>
-						Join
+						{{ isNameExisting ? 'ENTER' : 'JOIN' }}
 						<i class="las la-arrow-right"></i>
 					</template>
 				</button>
@@ -38,12 +40,14 @@
 
 <script>
 import constants from '@/constants';
+import AutocompleteInput from '@components/AutocompleteInput';
 import Avatar from '@components/Avatar';
 import ColorSelect from '@components/ColorSelect';
 import ModalContent from '@components/ModalContent';
 import { errorShake } from '@libs/uiUtils';
 export default {
 	components: {
+		AutocompleteInput,
 		Avatar,
 		ColorSelect,
 		ModalContent,
@@ -57,6 +61,19 @@ export default {
 		};
 	},
 	computed: {
+		isNameExisting() {
+			return _.some(this.users, user => {
+				return user.name === this.userName;
+			});
+		},
+		usersOptions() {
+			return _.map(this.users, user => {
+				return {
+					text: user.name,
+					color: user.color,
+				};
+			});
+		},
 		...mapGetters('board', [
 			'boardName',
 			'users',
@@ -66,16 +83,25 @@ export default {
 		isOpen() {
 			if(this.isOpen) {
 				this.$nextTick(() => {
-					this.$refs.input.focus();
+					this.$refs.autocompleteInput.focus();
 				});
 			}
-		}
+		},
+		userName() {
+			const existingUser = _.find(this.users, user => {
+				return user.name === this.userName;
+			});
+			if(existingUser) {
+				this.userColor = existingUser.color;
+			}
+		},
 	},
 	methods: {
 		async submit() {
+			this.userName = _.trim(this.userName);
 			if(!this.userName.length) {
-				errorShake(this.$refs.input);
-				this.$refs.input.focus();
+				errorShake(this.$refs.autocompleteInput.$el);
+				this.$refs.autocompleteInput.focus();
 				return;
 			}
 			if(this.isLoading) {
