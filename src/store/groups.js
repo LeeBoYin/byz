@@ -27,10 +27,10 @@ const mutations = {
 };
 const actions = {
 	async createGroup({ state, dispatch }, payload = {}) {
-		const newGroup = {
+		await state.groupsRef.add({
 			name: _.get(payload, 'name', ''),
-		};
-		await state.groupsRef.add(newGroup).then((groupRef) => {
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		}).then((groupRef) => {
 			dispatch('updateBoard', {
 				groupIdList: firebase.firestore.FieldValue.arrayUnion(groupRef.id),
 			});

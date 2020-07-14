@@ -45,7 +45,10 @@ const mutations = {
 };
 const actions = {
 	async createPost({ state, dispatch }, { post, groupId }) {
-		const postId = await state.postsRef.add(post).then((postRef) => {
+		const postId = await state.postsRef.add({
+			...post,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		}).then((postRef) => {
 			return postRef.id;
 		}).catch((error) => {
 			console.error("Error adding post: ", error);

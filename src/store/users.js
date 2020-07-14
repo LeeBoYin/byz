@@ -34,7 +34,10 @@ const mutations = {
 };
 const actions = {
 	async createUser({ state, commit, dispatch }, user) {
-		await state.usersRef.add(user).then((userRef) => {
+		await state.usersRef.add({
+			...user,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		}).then((userRef) => {
 			dispatch('setUserId', userRef.id);
 			return userRef;
 		}).catch((error) => {

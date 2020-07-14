@@ -62,7 +62,6 @@ export default {
 				postId: this.postId,
 				comment: {
 					content: this.content,
-					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 					posterId: this.currentUser.id,
 				},
 			});

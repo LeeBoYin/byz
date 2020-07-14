@@ -34,7 +34,10 @@ const mutations = {
 const actions = {
 	createComment({ state, getters }, payload) {
 		const post = getters.getPostById(payload.postId);
-		post.ref.collection('comments').add(payload.comment).then((commentRef) => {
+		post.ref.collection('comments').add({
+			...payload.comment,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		}).then((commentRef) => {
 			return commentRef;
 		}).catch((error) => {
 			console.error("Error adding comment: ", error);

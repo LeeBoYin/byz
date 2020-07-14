@@ -69,7 +69,6 @@ export default {
 			this.createPost({
 				post: {
 					content: this.content,
-					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 					posterName: this.currentUser.name,
 				},
 				groupId: this.groupId,
