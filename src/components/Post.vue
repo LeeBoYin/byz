@@ -6,6 +6,7 @@
 			'post--guest': isGuestMode,
 			'post--modal-mode': isModalMode,
 			'post--draggable': !isModalMode && !isDeleting && !isEditing && !isGuestMode,
+			'post--pinned': post.isPinned,
 			},
 			colorClass
 		]"
@@ -16,7 +17,12 @@
 		@mouseup="mouseupPosition = { x: $event.x, y: $event.y }"
 	>
 		<div class="frow nowrap">
-			<i class="post__handle las la-grip-lines-vertical" @click.stop></i>
+			<div v-if="post.isPinned" class="post__pin">
+				<i class="las la-thumbtack"></i>
+			</div>
+			<div v-else class="post__handle" @click.stop>
+				<i class="las la-grip-lines-vertical"></i>
+			</div>
 			<div class="grow-remain">
 				<div class="frow nowrap items-start">
 					<div class="post__content-container grow-remain mt-10">
@@ -170,6 +176,11 @@ export default {
 					onClick: this.onClickColor('blue'),
 				},
 				{
+					title: 'Pin',
+					iconClass: 'icon-pin las la-thumbtack',
+					onClick: this.onClickPin,
+				},
+				{
 					title: 'Delete',
 					iconClass: 'las la-trash-alt',
 					onClick: this.onClickDelete,
@@ -251,6 +262,9 @@ export default {
 			this.$nextTick(() => {
 				this.$el.style.marginBottom = `-${ this.$el.offsetHeight }px`;
 			});
+		},
+		async onClickPin() {
+			await this.togglePostPin(this.post.id);
 		},
 		onKeyDown(e) {
 			if(e.key === 'Escape') {
@@ -370,6 +384,7 @@ export default {
 		...mapActions('board', [
 			'deletePost',
 			'updatePost',
+			'togglePostPin',
 		]),
 	},
 };

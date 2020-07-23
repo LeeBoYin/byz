@@ -21,6 +21,11 @@ export default {
 			sortable: null,
 		};
 	},
+	computed: {
+		...mapGetters('board', [
+			'getPostById',
+		]),
+	},
 	mounted() {
 		const postList = this;
 		this.sortable = Sortable.create(this.$el, {
@@ -84,7 +89,7 @@ export default {
 			},
 
 			// Element dragging ended
-			onEnd() {
+			onEnd(e) {
 				// const itemEl = e.item;  // dragged HTMLElement
 				// e.to;    // target list
 				// e.from;  // previous list
@@ -94,6 +99,22 @@ export default {
 				// e.newDraggableIndex; // element's new index within new parent, only counting draggable elements
 				// e.clone // the clone element
 				// e.pullMode;  // when item is in another sortable: `"clone"` if cloning, `true` if moving
+				// check if post pin should be removed
+				const unwatch = postList.$watch('posts', () => {
+					unwatch();
+					const groupId = e.to.dataset.groupId;
+					if(groupId !== postList.groupId) {
+						return;
+					}
+					const postId = e.item.dataset.postId;
+					const post = postList.getPostById(postId);
+					const postIndex = _.findIndex(postList.posts, ['id', postId]);
+					const postsAtFront = _.slice(postList.posts, 0, postIndex);
+					const isSomeUnpinnedAtFront = _.some(postsAtFront, post => !post.isPinned);
+					if(post.isPinned && isSomeUnpinnedAtFront) {
+						postList.togglePostPin(postId);
+					}
+				});
 			},
 
 			// Element is dropped into the list from another list
@@ -176,6 +197,7 @@ export default {
 			});
 		},
 		...mapActions('board', [
+			'togglePostPin',
 			'updateGroup',
 		]),
 	},

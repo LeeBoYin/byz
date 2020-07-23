@@ -128,9 +128,12 @@ export default {
 			}, 10);
 		},
 		onClickSortPosts() {
-			const sortedPostIdList = _.map(_.sortBy(this.posts, (post) => {
-				return -_.get(post, 'likedUsersId', []).length;
-			}), 'id');
+			const sortedPostIdList = _.map([
+				..._.filter(this.posts, post => post.isPinned),
+				..._.sortBy(_.filter(this.posts, post => !post.isPinned), (post) => {
+					return -_.get(post, 'likedUsersId', []).length;
+				})
+			], 'id');
 			this.updateGroup({
 				groupId: this.group.id,
 				updateObj: {
