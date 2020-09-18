@@ -14,6 +14,7 @@
 		background-color: $c-post-blue;
 	}
 	&__textarea {
+		@extend .input-block;
 		padding: 7px 13px;
 		border-radius: 20px;
 		border-color: rgba(0, 0, 0, 0.1);

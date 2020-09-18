@@ -18,29 +18,26 @@
 			</button>
 		</div>
 		<div slot="footer" class="modal-share__footer">
-			<div class="frow row-start mr-30">
+			<div class="mr-20">
+				Invite people to
+			</div>
+			<div class="frow row-start mr-20">
 				<input
 					id="option-join"
-					class="mr-10"
 					v-model="linkType"
 					type="radio"
 					value="join"
 				>
-				<label for="option-join">
-					Invite people to join
-				</label>
+				<label for="option-join" class="px-10">join</label>
 			</div>
 			<div class="frow row-start">
 				<input
 					id="option-guest"
-					class="mr-10"
 					v-model="linkType"
 					type="radio"
 					value="guest"
 				>
-				<label for="option-guest">
-					Invite people to view
-				</label>
+				<label for="option-guest" class="px-10">view</label>
 			</div>
 		</div>
 	</ModalContent>

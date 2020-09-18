@@ -5,6 +5,7 @@
 	}
 	&__input {
 		@extend %grow-remain;
+		@extend .input-block;
 		margin-right: 15px;
 	}
 }

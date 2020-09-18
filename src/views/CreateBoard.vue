@@ -8,6 +8,7 @@
 					v-model="boardName"
 					v-auto-focus
 					type="text"
+					class="input-block"
 					:disabled="isLoading"
 					placeholder="Board name"
 					@keypress.enter="submit"
@@ -54,6 +55,7 @@ export default {
 				name: 'Board',
 				params: {
 					id: docRef.id,
+					action: 'join',
 				},
 			} );
 		},

@@ -1,5 +1,6 @@
 .post-form {
 	&__input {
+		@extend .input-block;
 		border-radius: 30px;
 		background-color: $c-bright;
 		max-height: 150px;

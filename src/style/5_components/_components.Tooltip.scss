@@ -2,7 +2,7 @@ $c-tooltip-bg: rgba(0, 0, 0, 0.5);
 .tooltip {
 	position: fixed;
 	z-index: $z-index-tooltip;
-	transform: translate(-50%, 5px);
+	transform: translate(-50%, 8px);
 	padding: 5px 10px;
 	white-space: nowrap;
 	color: $c-bright;

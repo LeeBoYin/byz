@@ -19,6 +19,7 @@
 					v-auto-focus
 					:disabled="isLoading"
 					placeholder="Your name"
+					class="input-block"
 					@keypress.enter="submit"
 				>
 			</div>

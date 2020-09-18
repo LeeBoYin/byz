@@ -1,12 +1,15 @@
 <template>
-	<component :is="element" :class="[`editable-title--${ align }`, { 'editable-title--disabled': disabled, 'editable-title--clickable': clickable }]" class="editable-title">
+	<component
+		:is="element" :class="[`editable-title--${ align }`, { 'editable-title--disabled': disabled, 'editable-title--clickable': clickable }]"
+		class="editable-title"
+		@click="onClickEdit"
+		@dblclick="onDoubleClickEdit"
+	>
 		<div
 			v-show="!isEditing"
 			ref="title"
 			:data-uid="_.uniqueId()"
 			class="editable-title__display"
-			@click="onClickEdit"
-			@dblclick="onDoubleClickEdit"
 		>
 			<div class="editable-title__text">
 				{{ title }}
@@ -129,7 +132,7 @@ export default {
 			}
 		},
 		onEdit() {
-			if(this.disabled) {
+			if(this.disabled || this.isEditing) {
 				return;
 			}
 			this.newTitle = this.title;
