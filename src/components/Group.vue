@@ -140,7 +140,6 @@ export default {
 			});
 		},
 		onPosted() {
-			this.isPosting = false;
 			EventBus.$once('modified.group', () => {
 				this.$nextTick(() => {
 					const postListElement = this.$refs.postList.$el;

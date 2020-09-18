@@ -57,7 +57,8 @@ export default {
 	},
 	computed: {
 		formattedContent() {
-			return converter.makeHtml(this.comment.content);
+			const lineBroke = _.replace(this.comment.content, /\n/g, '<br>');
+			return converter.makeHtml(lineBroke);
 		},
 		poster() {
 			return this.getUserById(this.comment.posterId) || {};

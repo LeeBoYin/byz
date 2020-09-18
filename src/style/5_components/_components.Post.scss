@@ -93,6 +93,7 @@
 		}
 	}
 	&__textarea {
+		@extend .input-block;
 		padding: 9px 15px;
 		&--saving {
 			opacity: 0.6;
