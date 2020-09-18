@@ -1,7 +1,7 @@
 <template>
 	<div class="frow centered-column">
 		<Card>
-			<div class="mb-30">
+			<div class="frow direction-column mb-30">
 				<label class="mb-15">Board Name</label>
 				<input
 					ref="input"

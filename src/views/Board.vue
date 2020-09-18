@@ -28,6 +28,9 @@ export default {
 		id: { // $route.params.id
 			required: true,
 		},
+		action: { // $route.params.action
+			required: false,
+		},
 	},
 	components: {
 		Group,
@@ -60,7 +63,10 @@ export default {
 		},
 	},
 	mounted() {
-		this.init(this.id);
+		this.init({
+			boardId: this.id,
+			action: this.action,
+		});
 	},
 	methods: {
 		setPostAreaMargin() {

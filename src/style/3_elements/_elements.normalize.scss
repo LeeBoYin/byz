@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 }
 
-input, textarea {
+input[type="text"], textarea {
 	display: block;
 	color: $c-dark;
 	width: 100%;
@@ -23,13 +23,21 @@ input, textarea {
 	}
 }
 
+input[type="radio"] {
+	margin: 0;
+	cursor: pointer;
+}
+
 textarea {
 	resize: none;
 }
 
 label {
-	display: block;
 	margin: 0;
+}
+
+label[for] {
+	cursor: pointer;
 }
 
 a {

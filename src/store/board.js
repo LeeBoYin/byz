@@ -40,7 +40,7 @@ const mutations = {
 	},
 };
 const actions = {
-	async init({ getters, dispatch, rootState, commit }, boardId) {
+	async init({ state, getters, dispatch, rootState, commit }, { boardId, action }) {
 		commit('setBoardRef', rootState.db.collection('board').doc(boardId));
 		commit('setGroupsRef', state.boardRef.collection('groups'));
 		commit('setPostsRef', state.boardRef.collection('posts'));
@@ -52,6 +52,9 @@ const actions = {
 			dispatch('getUsers'),
 		]);
 		commit('setCurrentUserId', getters.localData('userId') || null);
+		if(!state.usersStore.currentUserId && action !== 'join') {
+			dispatch('viewAsGuest');
+		}
 		commit('setInitialized', true);
 	},
 	async getBoard({ commit, state, dispatch }) {
