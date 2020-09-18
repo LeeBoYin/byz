@@ -5,7 +5,9 @@
 			ref="title"
 			:data-uid="_.uniqueId()"
 			class="editable-title__display"
-			@click="onClickEdit">
+			@click="onClickEdit"
+			@dblclick="onDoubleClickEdit"
+		>
 			<div class="editable-title__text">
 				{{ title }}
 			</div>
@@ -47,6 +49,10 @@ export default {
 			default: false,
 		},
 		clickable: {
+			type: Boolean,
+			default: false,
+		},
+		doubleClickable: {
 			type: Boolean,
 			default: false,
 		},
@@ -104,6 +110,12 @@ export default {
 		},
 		onClickEdit() {
 			if(!this.clickable) {
+				return;
+			}
+			this.onEdit();
+		},
+		onDoubleClickEdit() {
+			if(!this.doubleClickable) {
 				return;
 			}
 			this.onEdit();

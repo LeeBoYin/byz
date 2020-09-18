@@ -15,6 +15,7 @@
 				ref="editableTitle"
 				:title="group.name"
 				:disabled="isGuestMode"
+				:double-clickable="true"
 				element="h2"
 				placeholder="Group Name"
 				align="center"
