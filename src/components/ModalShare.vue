@@ -17,7 +17,7 @@
 				<i v-else class="post__tool-item las la-copy"></i>
 			</button>
 		</div>
-		<div slot="footer" class="modal-share__footer">
+		<div v-if="!isGuestMode" slot="footer" class="modal-share__footer">
 			<div class="mr-20">
 				Invite people to
 			</div>
@@ -60,8 +60,14 @@ export default {
 	computed: {
 		shareLink() {
 			const link = `${ window.location.protocol }//${ window.location.host }/board/${ this.boardId }`;
+			if(this.isGuestMode) {
+				return link;
+			}
 			return this.linkType === 'join' ? `${ link }/join` : link;
 		},
+		...mapState('board', [
+			'isGuestMode',
+		]),
 		...mapGetters('board', [
 			'boardId',
 		]),
