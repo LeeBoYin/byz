@@ -55,6 +55,7 @@
 		display: none;
 	}
 	&--on-transition {
+		@extend %hide-scrollbar;
 		position: fixed;
 		z-index: $z-index-post-modal-mode;
 		overflow-y: scroll;
