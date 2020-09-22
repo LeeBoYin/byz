@@ -20,9 +20,7 @@
 			<div class="grow-remain">
 				<div class="frow nowrap items-start">
 					<div class="post__content-container grow-remain mt-10">
-						<p v-if="!isEditing" class="post__content" @click="onClickContent">
-							<span v-html="formattedContent"></span>
-						</p>
+						<div v-if="!isEditing" class="post__content" v-html="formattedContent" @click="onClickContent"></div>
 						<textarea
 							v-if="isEditing"
 							v-model.trim="editedContent"
@@ -82,16 +80,14 @@
 </template>
 
 <script>
-import showdown from 'showdown';
 import { animationOnce, transitionendOnce, Flip } from '@libs/uiUtils';
 import editablePostContentMixin from '@/mixins/editablePostContent';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
 import PostCommentArea from '@components/PostCommentArea';
 import constants from '@/constants';
-const converter = new showdown.Converter({
-	simplifiedAutoLink: true,
-});
+import { showDownConverter } from '@/main';
+
 // create overlay
 const overlay = document.createElement('div');
 overlay.classList.add('post-modal-overlay');
@@ -128,8 +124,7 @@ export default {
 			return `post--colored post--${ color }`;
 		},
 		formattedContent() {
-			const lineBroke = _.replace(this.post.content, /\n/g, '<br>');
-			return converter.makeHtml(lineBroke);
+			return showDownConverter.makeHtml(this.post.content);
 		},
 		hasMouseMoved() {
 			return Math.abs(this.mouseupPosition.x - this.mousedownPosition.x) > 3 ||
@@ -235,9 +230,8 @@ export default {
 		},
 		onClickContent(e) {
 			if(e.target.matches('a')) {
-				e.preventDefault();
+				// avoid modal mode when click on <a> links
 				e.stopPropagation();
-				window.open(e.target.href);
 			}
 		},
 		async onClickDelete() {

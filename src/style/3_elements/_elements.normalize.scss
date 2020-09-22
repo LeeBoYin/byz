@@ -37,6 +37,11 @@ a {
 	text-decoration: none !important;
 }
 
+a[href] {
+	color: $c-link;
+	word-break: break-all;
+}
+
 button {
 	outline: none;
 	cursor: pointer;
@@ -49,6 +54,10 @@ hr {
 	border: 0 solid $c-primary-dark;
 	border-top-width: 1px;
 	margin: 30px 0;
+}
+
+ul, ol {
+	padding-left: 25px;
 }
 
 p, ul, ol {

@@ -1,5 +1,6 @@
 @mixin editable-post-content() {
 	&__textarea {
+		@extend .input-block;
 		padding: $padding-post-textarea;
 		&--saving {
 			opacity: 0.6;

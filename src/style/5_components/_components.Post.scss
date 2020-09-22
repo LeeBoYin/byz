@@ -84,25 +84,7 @@
 		visibility: hidden;
 	}
 	&__content {
-		margin: 0;
-		// markdown style
-		ul, ol {
-			padding-left: 25px;
-		}
-		a {
-			color: #336fff;
-			word-break: break-all;
-		}
-	}
-	&__textarea {
-		@extend .input-block;
-		padding: 9px 15px;
-		&--saving {
-			opacity: 0.6;
-		}
-	}
-	&--white &__textarea, &--red &__textarea, &--green &__textarea, &--blue &__textarea {
-		background-color: rgba(255, 255, 255, 0.5);
+		@extend %markdown-content;
 	}
 	&__footer {
 		display: flex;

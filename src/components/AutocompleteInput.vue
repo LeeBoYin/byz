@@ -7,6 +7,7 @@
 			type="text"
 			:disabled="disabled"
 			:placeholder="placeholder"
+			class="autocomplete-input__input"
 			@input="onInputInput"
 			@focus="onInputFocus"
 			@keydown.prevent.up="onArrowKeyDown('up')"

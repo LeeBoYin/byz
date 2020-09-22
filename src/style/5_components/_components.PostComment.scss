@@ -5,6 +5,7 @@
 		position: relative;
 	}
 	&__content {
+		@extend %markdown-content;
 		background-color: rgba(0, 0, 0, 0.05);
 		border-radius: $border-r-lg;
 		padding: $padding-post-textarea;

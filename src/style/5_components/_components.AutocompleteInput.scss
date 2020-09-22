@@ -1,5 +1,8 @@
 .autocomplete-input {
 	position: relative;
+	&__input {
+		@extend .input-block;
+	}
 	&__select {
 		position: absolute;
 		top: 100%;

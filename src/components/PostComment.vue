@@ -10,7 +10,7 @@
 			/>
 			<div :class="{ 'grow-remain': isEditing }" class="post-comment__content-container">
 				<div v-if="!isEditing" class="post-comment__content">
-					<span v-html="formattedContent"></span>
+					<div v-html="formattedContent"></div>
 					<div class="post-comment__post-time">
 						<span v-tooltip="postTimeCalendar">
 							{{ postTimeAgo }}
@@ -40,14 +40,12 @@
 </template>
 
 <script>
-import showdown from 'showdown';
 import Avatar from '@components/Avatar';
 import OptionsDropdown from '@components/OptionsDropdown';
 import constants from '@/constants';
 import editablePostContentMixin from '@/mixins/editablePostContent';
-const converter = new showdown.Converter({
-	simplifiedAutoLink: true,
-});
+import { showDownConverter } from '@/main';
+
 export default {
 	components: {
 		Avatar,
@@ -87,8 +85,7 @@ export default {
 	},
 	computed: {
 		formattedContent() {
-			const lineBroke = _.replace(this.comment.content, /\n/g, '<br>');
-			return converter.makeHtml(lineBroke);
+			return showDownConverter.makeHtml(this.comment.content);
 		},
 		poster() {
 			return this.getUserById(this.comment.posterId) || {};
