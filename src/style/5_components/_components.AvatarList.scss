@@ -51,3 +51,16 @@ $shrink-lg: 15px;
 		border-color: $c-post-blue;
 	}
 }
+
+// Vue List Transitions
+.avatar-list {
+	&-enter-active, &-leave-active {
+		will-change: transform, opacity;
+		transition-property: transform, opacity;
+		transition-duration: .3s;
+	}
+	&-enter, &-leave-to {
+		opacity: 0;
+		transform: translateY(75%);
+	}
+}

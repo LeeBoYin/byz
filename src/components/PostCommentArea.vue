@@ -9,9 +9,13 @@
 			<div class="post-comment-area__title">
 				{{ title }}
 			</div>
-			<div v-if="comments" class="post-comment-area__comment-list">
+			<TransitionGroup
+				v-if="comments"
+				class="post-comment-area__comment-list"
+				name="comment-list"
+			>
 				<PostComment v-for="comment in comments" :key="comment.id" :comment="comment" />
-			</div>
+			</TransitionGroup>
 			<PostCommentForm
 				v-if="!isGuestMode"
 				:post-id="postId"

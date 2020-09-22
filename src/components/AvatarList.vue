@@ -1,5 +1,9 @@
 <template>
-	<div :class="`avatar-list--${ size }`" class="avatar-list">
+	<TransitionGroup
+		:class="`avatar-list--${ size }`"
+		class="avatar-list"
+		name="avatar-list"
+	>
 		<div
 			v-if="isShowMore"
 			class="avatar-list__more"
@@ -16,7 +20,7 @@
 			v-tooltip="user.name"
 			class="avatar-list__avatar"
 		/>
-	</div>
+	</TransitionGroup>
 </template>
 
 <script>

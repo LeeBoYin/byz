@@ -14,8 +14,10 @@
 	}
 }
 
-// Vue List Move Transitions
-.post-list-move {
-	will-change: transform;
-	transition: transform 0.5s;
+// Vue List Transitions
+.post-list {
+	&-move {
+		will-change: transform;
+		transition: transform 0.5s;
+	}
 }
