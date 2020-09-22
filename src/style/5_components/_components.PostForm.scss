@@ -1,4 +1,5 @@
 .post-form {
+	position: relative;
 	&__input {
 		@extend .input-block;
 		border-radius: 30px;
@@ -11,5 +12,16 @@
 		&::-webkit-scrollbar {
 			width: 0;
 		}
+	}
+	&__icon-loading {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 14px;
+		font-size: 1.4rem;
+		line-height: 1;
+		height: 1.4rem;
+		margin: auto;
+		color: $c-gray-light;
 	}
 }

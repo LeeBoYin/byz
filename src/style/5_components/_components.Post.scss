@@ -2,16 +2,14 @@
 	@include editable-post-content;
 	background-color: $c-bright;
 	border-radius: $border-r-md;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
-	inset 4px 0 0 #eeeeee;
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, .02);
 	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	transition: $transition-post-background-color;
 	transform-origin: top center;
 	&:hover {
-		box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
-		inset 4px 0 0 #ffeec0;
+		box-shadow: 3px 3px 0 rgba(0, 0, 0, .05);
 	}
 	&--red {
 		background-color: $c-post-red;
