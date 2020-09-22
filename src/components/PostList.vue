@@ -1,7 +1,11 @@
 <template>
-	<div class="post-list">
+	<TransitionGroup
+		tag="div"
+		class="post-list"
+		name="post-list"
+	>
 		<Post v-for="post in posts" :key="post.id" :post="post" />
-	</div>
+	</TransitionGroup>
 </template>
 
 <script>
@@ -168,6 +172,8 @@ export default {
 			if(!groupId) {
 				return;
 			}
+			// prevent duplicate post in one group
+			postIdList = _.uniq(postIdList);
 			this.updateGroup({
 				groupId,
 				updateObj: {

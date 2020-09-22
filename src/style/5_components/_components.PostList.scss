@@ -13,3 +13,9 @@
 		margin-bottom: 15px;
 	}
 }
+
+// Vue List Move Transitions
+.post-list-move {
+	will-change: transform;
+	transition: transform 0.5s;
+}
