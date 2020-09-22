@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import createStore from '@store/create';
 import Card from '@components/Card';
 import { errorShake } from '@libs/uiUtils';
 export default {
@@ -39,6 +40,12 @@ export default {
 			boardName: '',
 			isLoading: false,
 		};
+	},
+	beforeCreate() {
+		this.$store.registerModule('create', createStore);
+	},
+	destroyed() {
+		this.$store.unregisterModule('create');
 	},
 	methods: {
 		async submit() {

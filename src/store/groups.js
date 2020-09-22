@@ -8,9 +8,9 @@ const getters = {
 	groups: state => state.groups,
 	orderedGroups(state, getters, rootState) {
 		const groupIdList = _.get(rootState, ['board', 'board', 'groupIdList'], []);
-		return _.map(groupIdList, (groupId) => {
+		return _.filter(_.map(groupIdList, (groupId) => {
 			return state.groups[groupId];
-		});
+		}));
 	},
 };
 const mutations = {

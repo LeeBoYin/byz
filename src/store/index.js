@@ -1,5 +1,3 @@
-import createStore from '@store/create';
-import boardStore from '@store/board';
 const state = {
 	db: null,
 };
@@ -29,8 +27,4 @@ export default {
 	getters,
 	mutations,
 	actions,
-	modules: {
-		create: createStore,
-		board: boardStore,
-	},
 };
