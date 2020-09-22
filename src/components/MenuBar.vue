@@ -14,10 +14,20 @@
 						@update="updateBoardName"
 					/>
 					<div class="menu-bar__tools ml-5">
-						<button class="menu-bar__tool" @click="isOpenModalShare = true">
+						<button
+							class="menu-bar__tool"
+							v-tooltip="'Share'"
+							@click="isOpenModalShare = true"
+						>
 							<i class="las la-link"></i>
 						</button>
-						<button v-if="isSupportFullscreen" class="menu-bar__tool" @click="onToggleFullscreen">
+						<button
+							v-if="isSupportFullscreen"
+							:key="+isFullScreen"
+							class="menu-bar__tool"
+							v-tooltip="isFullScreen ? 'Leave Full Screen' : 'Full Screen'"
+							@click="onToggleFullscreen"
+						>
 							<i v-if="isFullScreen" class="las la-compress"></i>
 							<i v-else class="las la-expand"></i>
 						</button>

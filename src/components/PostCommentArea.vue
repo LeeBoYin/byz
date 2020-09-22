@@ -4,7 +4,6 @@
 			'post-comment-area--open': isOpen,
 		}"
 		class="post-comment-area"
-		style="overflow: hidden"
 	>
 		<div v-if="isShowInner" class="post-comment-area__inner">
 			<div class="post-comment-area__title">
@@ -103,6 +102,7 @@ export default {
 				});
 				// end
 				transitionendOnce(this.$el, () => {
+					this.$el.style.overflow = '';
 					this.isShowInner = false;
 					resolve();
 				});

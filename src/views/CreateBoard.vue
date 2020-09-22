@@ -1,13 +1,14 @@
 <template>
 	<div class="frow centered-column">
 		<Card>
-			<div class="mb-30">
+			<div class="frow direction-column mb-30">
 				<label class="mb-15">Board Name</label>
 				<input
 					ref="input"
 					v-model="boardName"
 					v-auto-focus
 					type="text"
+					class="input-block"
 					:disabled="isLoading"
 					placeholder="Board name"
 					@keypress.enter="submit"
@@ -54,6 +55,7 @@ export default {
 				name: 'Board',
 				params: {
 					id: docRef.id,
+					action: 'join',
 				},
 			} );
 		},

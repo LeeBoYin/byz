@@ -1,10 +1,11 @@
 .modal-share {
-	&__body {
+	&__body, &__footer {
 		padding: 15px;
 		display: flex;
 	}
 	&__input {
 		@extend %grow-remain;
+		@extend .input-block;
 		margin-right: 15px;
 	}
 }

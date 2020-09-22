@@ -128,7 +128,8 @@ export default {
 			return `post--colored post--${ color }`;
 		},
 		formattedContent() {
-			return converter.makeHtml(this.post.content);
+			const lineBroke = _.replace(this.post.content, /\n/g, '<br>');
+			return converter.makeHtml(lineBroke);
 		},
 		hasMouseMoved() {
 			return Math.abs(this.mouseupPosition.x - this.mousedownPosition.x) > 3 ||

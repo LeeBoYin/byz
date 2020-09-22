@@ -1,11 +1,16 @@
 <template>
-	<component :is="element" :class="[`editable-title--${ align }`, { 'editable-title--disabled': disabled, 'editable-title--clickable': clickable }]" class="editable-title">
+	<component
+		:is="element" :class="[`editable-title--${ align }`, { 'editable-title--disabled': disabled, 'editable-title--clickable': clickable }]"
+		class="editable-title"
+		@click="onClickEdit"
+		@dblclick="onDoubleClickEdit"
+	>
 		<div
 			v-show="!isEditing"
 			ref="title"
 			:data-uid="_.uniqueId()"
 			class="editable-title__display"
-			@click="onClickEdit">
+		>
 			<div class="editable-title__text">
 				{{ title }}
 			</div>
@@ -47,6 +52,10 @@ export default {
 			default: false,
 		},
 		clickable: {
+			type: Boolean,
+			default: false,
+		},
+		doubleClickable: {
 			type: Boolean,
 			default: false,
 		},
@@ -108,6 +117,12 @@ export default {
 			}
 			this.onEdit();
 		},
+		onDoubleClickEdit() {
+			if(!this.doubleClickable) {
+				return;
+			}
+			this.onEdit();
+		},
 		onDocumentClick(e) {
 			if(e.target.isEqualNode(this.$refs.title) || e.target.isEqualNode(this.$refs.input)){
 				return;
@@ -117,7 +132,7 @@ export default {
 			}
 		},
 		onEdit() {
-			if(this.disabled) {
+			if(this.disabled || this.isEditing) {
 				return;
 			}
 			this.newTitle = this.title;

@@ -21,6 +21,7 @@
 					:auto-focus="true"
 					:disabled="isLoading"
 					placeholder="Your name"
+					class="input-block"
 					@keypress.enter="submit"
 				/>
 			</div>

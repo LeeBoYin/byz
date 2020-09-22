@@ -25,7 +25,7 @@ const router =  new VueRouter({
 			},
 		},
 		{
-			path: '/board/:id',
+			path: '/board/:id/:action?',
 			name: 'Board',
 			component: Board,
 			props: true,

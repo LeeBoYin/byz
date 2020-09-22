@@ -15,6 +15,7 @@
 				ref="editableTitle"
 				:title="group.name"
 				:disabled="isGuestMode"
+				:double-clickable="true"
 				element="h2"
 				placeholder="Group Name"
 				align="center"
@@ -139,7 +140,6 @@ export default {
 			});
 		},
 		onPosted() {
-			this.isPosting = false;
 			EventBus.$once('modified.group', () => {
 				this.$nextTick(() => {
 					const postListElement = this.$refs.postList.$el;

@@ -3,23 +3,22 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 }
 
-input, textarea {
-	display: block;
+input[type="text"], textarea {
 	color: $c-dark;
-	width: 100%;
-	font-size: $font-size-base;
-	padding: 10px 30px;
 	background-color: rgba(0, 0, 0, 0.05);
-	border: 2px solid transparent;
-	border-radius: $border-r-md;
+	font-size: $font-size-base;
 	outline: none;
-	transition-property: color, border, background-color;
-	transition-duration: .2s;
 	font-family: inherit;
 	letter-spacing: inherit;
+	line-height: 1.4em;
 	&::placeholder {
 		color: rgba(0, 0, 0, 0.2);
 	}
+}
+
+input[type="radio"] {
+	margin: 0;
+	cursor: pointer;
 }
 
 textarea {
@@ -27,8 +26,11 @@ textarea {
 }
 
 label {
-	display: block;
 	margin: 0;
+}
+
+label[for] {
+	cursor: pointer;
 }
 
 a {
