@@ -50,7 +50,8 @@
 			box-shadow: $shadow-modal;
 		}
 	}
-	&--modal-mode &__handle {
+	&--modal-mode &__handle,
+	&--modal-mode &__pin {
 		display: none;
 	}
 	&--on-transition {
@@ -80,6 +81,16 @@
 	}
 	&--editing &__handle {
 		visibility: hidden;
+	}
+	&__pin {
+		color: $c-danger;
+		padding: 5px 2px 0 6px;
+		i {
+			transform: rotate(-75deg);
+		}
+	}
+	&--pinned .icon-pin {
+		color: $c-danger;
 	}
 	&__content {
 		@extend %markdown-content;
@@ -140,6 +151,9 @@
 	&--guest &__handle {
 		visibility: hidden;
 	}
+}
+.icon-pin {
+	transform: rotate(-75deg);
 }
 .icon-color {
 	display: block;

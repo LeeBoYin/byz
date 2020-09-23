@@ -25,6 +25,11 @@ export default {
 			sortable: null,
 		};
 	},
+	computed: {
+		...mapGetters('board', [
+			'getPostById',
+		]),
+	},
 	mounted() {
 		const postList = this;
 		this.sortable = Sortable.create(this.$el, {
@@ -88,7 +93,7 @@ export default {
 			},
 
 			// Element dragging ended
-			onEnd() {
+			onEnd(e) {
 				// const itemEl = e.item;  // dragged HTMLElement
 				// e.to;    // target list
 				// e.from;  // previous list
@@ -103,7 +108,7 @@ export default {
 			// Element is dropped into the list from another list
 			onAdd(e) {
 				// same properties as onEnd
-				postList.updateGroupPostList(e.to.getAttribute('data-group-id'), postList.sortable.toArray());
+				postList.updateGroupPostList(e.to.dataset.groupId, postList.sortable.toArray());
 				// remove added sortable item
 				const unwatch = postList.$watch('posts', () => {
 					e.item.remove();
@@ -118,16 +123,32 @@ export default {
 
 			// Called by any change to the list (add / update / remove)
 			onSort(e) {
-				if(e.from.getAttribute('data-group-id') !== e.to.getAttribute('data-group-id')) {
-					return;
+				// check if post pin should be removed
+				const groupId = e.to.dataset.groupId;
+				if(groupId === postList.groupId) {
+					const unwatch = postList.$watch('posts', () => {
+						unwatch();
+
+						const postId = e.item.dataset.postId;
+						const post = postList.getPostById(postId);
+						const postIndex = _.findIndex(postList.posts, ['id', postId]);
+						const postsAtFront = _.slice(postList.posts, 0, postIndex);
+						const isSomeUnpinnedAtFront = _.some(postsAtFront, post => !post.isPinned);
+						if(post.isPinned && isSomeUnpinnedAtFront) {
+							postList.togglePostPin(postId);
+						}
+					});
 				}
-				postList.updateGroupPostList(e.to.getAttribute('data-group-id'), postList.sortable.toArray());
+
+				if(e.from.dataset.groupId === e.to.dataset.groupId) {
+					postList.updateGroupPostList(e.to.dataset.groupId, postList.sortable.toArray());
+				}
 			},
 
 			// Element is removed from the list into another list
 			onRemove(e) {
 				// same properties as onEnd
-				postList.updateGroupPostList(e.from.getAttribute('data-group-id'), postList.sortable.toArray());
+				postList.updateGroupPostList(e.from.dataset.groupId, postList.sortable.toArray());
 			},
 
 			// Attempt to drag a filtered element
@@ -182,6 +203,7 @@ export default {
 			});
 		},
 		...mapActions('board', [
+			'togglePostPin',
 			'updateGroup',
 		]),
 	},
