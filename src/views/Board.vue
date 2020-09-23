@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import boardStore from '@store/board';
 import Group from '@components/Group';
 import GroupList from '@components/GroupList';
 import LoadingMsg from '@components/LoadingMsg';
@@ -62,11 +63,17 @@ export default {
 			this.setPostAreaMargin();
 		},
 	},
+	beforeCreate() {
+		this.$store.registerModule('board', boardStore);
+	},
 	mounted() {
 		this.init({
 			boardId: this.id,
 			action: this.action,
 		});
+	},
+	destroyed() {
+		this.$store.unregisterModule('board');
 	},
 	methods: {
 		setPostAreaMargin() {

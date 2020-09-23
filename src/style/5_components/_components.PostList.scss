@@ -13,3 +13,11 @@
 		margin-bottom: 15px;
 	}
 }
+
+// Vue List Transitions
+.post-list {
+	&-move {
+		will-change: transform;
+		transition: transform 0.5s;
+	}
+}

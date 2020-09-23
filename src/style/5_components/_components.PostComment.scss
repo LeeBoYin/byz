@@ -1,12 +1,19 @@
 .post-comment {
-	margin-bottom: 15px;
+	@include editable-post-content;
+	&__content-container {
+		position: relative;
+	}
 	&__content {
+		@extend %markdown-content;
 		background-color: rgba(0, 0, 0, 0.05);
 		border-radius: $border-r-lg;
-		padding: 9px 15px;
+		padding: $padding-post-textarea;
 		.post--colored & {
-			background-color: rgba(255, 255, 255, 0.5);
+			background-color: $c-bright-transparent-half;
 		}
+	}
+	&__textarea {
+		border-radius: $border-r-lg;
 	}
 	&__avatar {
 		flex-shrink: 0;
@@ -18,9 +25,10 @@
 		color: $c-gray;
 	}
 	&__options {
-		align-self: center;
+		align-self: flex-start;
 		visibility: hidden;
-		margin-left: 5px;
+		margin-top: 8px;
+		padding: 4px 0 4px 4px;
 	}
 	&:hover &__options, &__options.options-dropdown--open {
 		visibility: visible;

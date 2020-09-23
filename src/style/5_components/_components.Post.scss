@@ -1,16 +1,15 @@
 .post {
+	@include editable-post-content;
 	background-color: $c-bright;
 	border-radius: $border-r-md;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
-	inset 4px 0 0 #eeeeee;
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, .02);
 	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	transition: $transition-post-background-color;
 	transform-origin: top center;
 	&:hover {
-		box-shadow: 3px 3px 0 rgba(0, 0, 0, .03),
-		inset 4px 0 0 #ffeec0;
+		box-shadow: 3px 3px 0 rgba(0, 0, 0, .05);
 	}
 	&--red {
 		background-color: $c-post-red;
@@ -51,7 +50,8 @@
 			box-shadow: $shadow-modal;
 		}
 	}
-	&--modal-mode &__handle {
+	&--modal-mode &__handle,
+	&--modal-mode &__pin {
 		display: none;
 	}
 	&--on-transition {
@@ -82,27 +82,18 @@
 	&--editing &__handle {
 		visibility: hidden;
 	}
+	&__pin {
+		color: $c-danger;
+		padding: 5px 2px 0 6px;
+		i {
+			transform: rotate(-75deg);
+		}
+	}
+	&--pinned .icon-pin {
+		color: $c-danger;
+	}
 	&__content {
-		font-size: 14px;
-		margin: 0;
-		// markdown style
-		ul, ol {
-			padding-left: 25px;
-		}
-		a {
-			color: #336fff;
-			word-break: break-all;
-		}
-	}
-	&__textarea {
-		@extend .input-block;
-		padding: 9px 15px;
-		&--saving {
-			opacity: 0.6;
-		}
-	}
-	&--white &__textarea, &--red &__textarea, &--green &__textarea, &--blue &__textarea {
-		background-color: rgba(255, 255, 255, 0.5);
+		@extend %markdown-content;
 	}
 	&__footer {
 		display: flex;
@@ -160,6 +151,9 @@
 	&--guest &__handle {
 		visibility: hidden;
 	}
+}
+.icon-pin {
+	transform: rotate(-75deg);
 }
 .icon-color {
 	display: block;

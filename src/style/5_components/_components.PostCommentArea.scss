@@ -27,4 +27,26 @@
 	&__form {
 
 	}
+
+	.post-comment {
+		transform-origin: left center;
+		margin-bottom: 15px;
+	}
+}
+
+// Vue List Transitions
+.comment-list {
+	&-enter-active, &-leave-active {
+		will-change: transform, opacity;
+		transition-property: transform, opacity;
+		transition-duration: .3s;
+	}
+	&-enter {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	&-leave-to {
+		opacity: 0;
+		transform: scale(0);
+	}
 }

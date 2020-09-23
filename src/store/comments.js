@@ -34,7 +34,10 @@ const mutations = {
 const actions = {
 	createComment({ state, getters }, payload) {
 		const post = getters.getPostById(payload.postId);
-		post.ref.collection('comments').add(payload.comment).then((commentRef) => {
+		post.ref.collection('comments').add({
+			...payload.comment,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		}).then((commentRef) => {
 			return commentRef;
 		}).catch((error) => {
 			console.error("Error adding comment: ", error);
@@ -73,6 +76,13 @@ const actions = {
 		if(_.isFunction(unsubscribeFunc)) {
 			unsubscribeFunc();
 		}
+	},
+	async updateComment({ state }, { commentId, updateObj }) {
+		await state.comments[commentId].ref.update(updateObj).then(() => {
+			// success
+		}).catch(() => {
+			// fail
+		});
 	},
 	async deleteComment({ state, getters, dispatch }, commentId) {
 		state.comments[commentId].ref.delete().then(() => {

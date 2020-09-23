@@ -14,6 +14,7 @@ const actions = {
 		const boardRef = await rootState.db.collection('board').add({
 			name: boardName,
 			isAllowJoin: true,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 		}).then((boardRef) => {
 			return boardRef;
 		}).catch((error) => {

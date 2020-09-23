@@ -6,6 +6,7 @@
 			'post--guest': isGuestMode,
 			'post--modal-mode': isModalMode,
 			'post--draggable': !isModalMode && !isDeleting && !isEditing && !isGuestMode,
+			'post--pinned': post.isPinned,
 			},
 			colorClass
 		]"
@@ -16,13 +17,16 @@
 		@mouseup="mouseupPosition = { x: $event.x, y: $event.y }"
 	>
 		<div class="frow nowrap">
-			<i class="post__handle las la-grip-lines-vertical" @click.stop></i>
+			<div v-if="post.isPinned" class="post__pin">
+				<i class="las la-thumbtack"></i>
+			</div>
+			<div v-else class="post__handle" @click.stop>
+				<i class="las la-grip-lines-vertical"></i>
+			</div>
 			<div class="grow-remain">
 				<div class="frow nowrap items-start">
 					<div class="post__content-container grow-remain mt-10">
-						<p v-if="!isEditing" class="post__content" @click="onClickContent">
-							<span v-html="formattedContent"></span>
-						</p>
+						<div v-if="!isEditing" class="post__content" v-html="formattedContent" @click="onClickContent"></div>
 						<textarea
 							v-if="isEditing"
 							v-model.trim="editedContent"
@@ -82,15 +86,14 @@
 </template>
 
 <script>
-import showdown from 'showdown';
 import { animationOnce, transitionendOnce, Flip } from '@libs/uiUtils';
+import editablePostContentMixin from '@/mixins/editablePostContent';
 import AvatarList from '@components/AvatarList';
 import OptionsDropdown from '@components/OptionsDropdown';
 import PostCommentArea from '@components/PostCommentArea';
 import constants from '@/constants';
-const converter = new showdown.Converter({
-	simplifiedAutoLink: true,
-});
+import { showDownConverter } from '@/main';
+
 // create overlay
 const overlay = document.createElement('div');
 overlay.classList.add('post-modal-overlay');
@@ -103,16 +106,16 @@ export default {
 		OptionsDropdown,
 		PostCommentArea,
 	},
+	mixins: [
+		editablePostContentMixin,
+	],
 	props: {
 		post: Object,
 	},
 	data() {
 		return {
-			editedContent: null,
 			isDeleting: false,
-			isEditing: false,
 			isModalMode: false,
-			isSaving: false,
 			lastUpdateTimestamp: moment(),
 			mousedownPosition: null,
 			mouseupPosition: null,
@@ -127,8 +130,7 @@ export default {
 			return `post--colored post--${ color }`;
 		},
 		formattedContent() {
-			const lineBroke = _.replace(this.post.content, /\n/g, '<br>');
-			return converter.makeHtml(lineBroke);
+			return showDownConverter.makeHtml(this.post.content);
 		},
 		hasMouseMoved() {
 			return Math.abs(this.mouseupPosition.x - this.mousedownPosition.x) > 3 ||
@@ -145,7 +147,9 @@ export default {
 				{
 					title: 'Edit',
 					iconClass: 'las la-pencil-alt',
-					onClick: this.onClickEdit,
+					onClick: () => {
+						this.onClickEdit(this.post.content);
+					},
 				},
 				{
 					title: 'White',
@@ -166,6 +170,11 @@ export default {
 					title: 'Blue',
 					iconClass: 'icon-color icon-color--blue',
 					onClick: this.onClickColor('blue'),
+				},
+				{
+					title: 'Pin',
+					iconClass: 'icon-pin las la-thumbtack',
+					onClick: this.onClickPin,
 				},
 				{
 					title: 'Delete',
@@ -210,20 +219,15 @@ export default {
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.onKeyDown);
-		document.removeEventListener('mousedown', this.onDocumentClick);
 	},
 	methods: {
 		bindEvents() {
 			// bind leaveModalMode
 			overlay.addEventListener('click', this.leaveModalMode);
 			document.addEventListener('keydown', this.onKeyDown);
-			document.addEventListener('mousedown', this.onDocumentClick);
 			setInterval(() => {
 				this.lastUpdateTimestamp = moment();
 			}, 3000);
-		},
-		cancelEdit() {
-			this.isEditing = false;
 		},
 		onClickColor(color) {
 			return () => {
@@ -237,9 +241,8 @@ export default {
 		},
 		onClickContent(e) {
 			if(e.target.matches('a')) {
-				e.preventDefault();
+				// avoid modal mode when click on <a> links
 				e.stopPropagation();
-				window.open(e.target.href);
 			}
 		},
 		async onClickDelete() {
@@ -255,40 +258,15 @@ export default {
 				this.$el.style.marginBottom = `-${ this.$el.offsetHeight }px`;
 			});
 		},
-		onClickEdit() {
-			this.editedContent = this.post.content;
-			this.isEditing = true;
-		},
-		onDocumentClick(e) {
-			if(e.target.isEqualNode(this.$refs.textarea)){
-				return;
-			}
-			if(this.isEditing) {
-				this.save();
-			}
+		async onClickPin() {
+			await this.togglePostPin(this.post.id);
 		},
 		onKeyDown(e) {
 			if(e.key === 'Escape') {
 				this.leaveModalMode();
 			}
 		},
-		onEditPressEnter(e) {
-			if(e.ctrlKey || e.shiftKey || e.altKey) {
-				// 換行
-				return;
-			}
-			e.preventDefault();
-			this.save();
-		},
 		async save() {
-			if(!this.isEditing) {
-				return;
-			}
-			if(this.post.content === this.editedContent) {
-				this.isEditing = false;
-				return;
-			}
-			this.isSaving = true;
 			await this.updatePost({
 				postId: this.post.id,
 				updateObj: {
@@ -296,8 +274,6 @@ export default {
 					lastEditTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
 				},
 			});
-			this.isSaving = false;
-			this.isEditing = false;
 		},
 		toggleLike() {
 			if(this.isGuestMode) {
@@ -403,6 +379,7 @@ export default {
 		...mapActions('board', [
 			'deletePost',
 			'updatePost',
+			'togglePostPin',
 		]),
 	},
 };

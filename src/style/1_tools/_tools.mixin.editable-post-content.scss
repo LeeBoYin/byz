@@ -1,0 +1,12 @@
+@mixin editable-post-content() {
+	&__textarea {
+		@extend .input-block;
+		padding: $padding-post-textarea;
+		&--saving {
+			opacity: 0.6;
+		}
+	}
+	.post--white &__textarea, .post--red &__textarea, .post--green &__textarea, .post--blue &__textarea {
+		background-color: $c-bright-transparent-half;
+	}
+}

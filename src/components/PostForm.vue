@@ -12,6 +12,9 @@
 			@keydown.esc="cancel"
 		>
 		</textarea>
+		<div v-if="isPosting" class="post-form__icon-loading">
+			<i class="las la-circle-notch la-spin la"></i>
+		</div>
 	</div>
 </template>
 
@@ -26,6 +29,7 @@ export default {
 	data() {
 		return {
 			content: '',
+			isPosting: false,
 		};
 	},
 	computed: {
@@ -66,13 +70,15 @@ export default {
 			if(!this.isSubmittable) {
 				return;
 			}
+			this.isPosting = true;
 			this.createPost({
 				post: {
 					content: this.content,
-					timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 					posterName: this.currentUser.name,
 				},
 				groupId: this.groupId,
+			}).then(() => {
+				this.isPosting = false;
 			});
 			this.$emit('posted');
 			this.content = '';

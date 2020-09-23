@@ -45,7 +45,10 @@ const mutations = {
 };
 const actions = {
 	async createPost({ state, dispatch }, { post, groupId }) {
-		const postId = await state.postsRef.add(post).then((postRef) => {
+		const postId = await state.postsRef.add({
+			...post,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		}).then((postRef) => {
 			return postRef.id;
 		}).catch((error) => {
 			console.error("Error adding post: ", error);
@@ -95,6 +98,27 @@ const actions = {
 			// success
 		}).catch(() => {
 			// fail
+		});
+	},
+	async togglePostPin({ getters, dispatch }, postId) {
+		const post = getters.getPostById(postId);
+		await dispatch('updatePost', {
+			postId,
+			updateObj: {
+				isPinned: !post.isPinned,
+			}
+		});
+		const groupId = getters.getPostGroupId(postId);
+		const posts = getters.getPostsByGroupId(groupId);
+		const sortedPostIdList = _.map([
+			..._.filter(posts, post => post.isPinned),
+			..._.filter(posts, post => !post.isPinned)
+		], 'id');
+		await dispatch('updateGroup', {
+			groupId: groupId,
+			updateObj: {
+				postIdList: sortedPostIdList,
+			},
 		});
 	},
 };

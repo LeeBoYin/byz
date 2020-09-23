@@ -1,5 +1,5 @@
 <template>
-	<div class="post-comment">
+	<div :class="{ 'post-comment--editing': isEditing }" class="post-comment">
 		<div class="frow justify-start nowrap">
 			<Avatar
 				v-tooltip="poster.name"
@@ -8,39 +8,67 @@
 				size="md"
 				class="post-comment__avatar"
 			/>
-			<div class="post-comment__content">
-				<span v-html="formattedContent"></span>
-				<div class="post-comment__post-time">
-					<span v-tooltip="postTimeCalendar">
-						{{ postTimeAgo }}
-					</span>
+			<div :class="{ 'grow-remain': isEditing }" class="post-comment__content-container">
+				<div v-if="!isEditing" class="post-comment__content">
+					<div v-html="formattedContent"></div>
+					<div class="post-comment__post-time">
+						<span v-tooltip="postTimeCalendar">
+							{{ postTimeAgo }}
+						</span>
+					</div>
+				</div>
+				<textarea
+					v-if="isEditing"
+					v-model.trim="editedContent"
+					ref="textarea"
+					:class="{ 'post-comment__textarea--saving': isSaving }"
+					class="post-comment__textarea"
+					rows="1"
+					v-auto-focus
+					v-auto-height
+					:disabled="isSaving"
+					@keypress.enter="onEditPressEnter"
+					@keydown.prevent.stop.esc="cancelEdit"
+				></textarea>
+				<div v-if="isSaving" class="absolute-center">
+					<i class="las la-circle-notch la-spin la"></i>
 				</div>
 			</div>
-			<OptionsDropdown :options="options" direction="left" class="post-comment__options" />
+			<OptionsDropdown v-if="!isGuestMode && !isEditing" :options="options" direction="left" class="post-comment__options" />
 		</div>
 	</div>
 </template>
 
 <script>
-import showdown from 'showdown';
 import Avatar from '@components/Avatar';
 import OptionsDropdown from '@components/OptionsDropdown';
 import constants from '@/constants';
-const converter = new showdown.Converter({
-	simplifiedAutoLink: true,
-});
+import editablePostContentMixin from '@/mixins/editablePostContent';
+import { showDownConverter } from '@/main';
+
 export default {
 	components: {
 		Avatar,
 		OptionsDropdown,
 	},
+	mixins: [
+		editablePostContentMixin,
+	],
 	props: {
 		comment: Object,
 	},
 	data() {
 		return {
+			isEditing: false,
 			lastUpdateTimestamp: moment(),
 			options: [
+				{
+					title: 'Edit',
+					iconClass: 'las la-pencil-alt',
+					onClick: () => {
+						this.onClickEdit(this.comment.content);
+					},
+				},
 				{
 					title: 'Delete comment',
 					iconClass: 'las la-trash-alt',
@@ -57,8 +85,7 @@ export default {
 	},
 	computed: {
 		formattedContent() {
-			const lineBroke = _.replace(this.comment.content, /\n/g, '<br>');
-			return converter.makeHtml(lineBroke);
+			return showDownConverter.makeHtml(this.comment.content);
 		},
 		poster() {
 			return this.getUserById(this.comment.posterId) || {};
@@ -77,16 +104,29 @@ export default {
 				sameElse: constants.dateFormat,
 			});
 		},
+		...mapState('board', [
+			'isGuestMode',
+		]),
 		...mapGetters('board', [
 			'getUserById',
 		]),
 	},
 	methods: {
+		async save() {
+			await this.updateComment({
+				commentId: this.comment.id,
+				updateObj: {
+					content: this.editedContent,
+					lastEditTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+				},
+			});
+		},
 		onClickDelete() {
 			this.deleteComment(this.comment.id);
 		},
 		...mapActions('board', [
 			'deleteComment',
+			'updateComment',
 		]),
 	},
 };

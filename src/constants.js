@@ -1,11 +1,13 @@
 export default {
 	avatarColors: [
-		'#819DDF',
-		'#EF9771',
-		'#81C3DF',
+		'#B79081',
 		'#E77979',
-		'#C081DF',
+		'#EF9771',
+		'#F9CF00',
 		'#96D788',
+		'#81C3DF',
+		'#819DDF',
+		'#C081DF',
 	],
 	dateFormat: 'YYYY/MM/DD',
 	groupNum: 5,

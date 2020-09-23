@@ -7,6 +7,15 @@ import 'firebase/firestore';
 import firebaseConfig from '../firebase.config';
 const project = firebase.initializeApp(firebaseConfig);
 
+// showdown
+import showdown from 'showdown';
+showdown.setFlavor('github');
+export const showDownConverter = new showdown.Converter({
+	openLinksInNewWindow: true,
+	simplifiedAutoLink: true,
+	simpleLineBreaks: true,
+});
+
 // vue
 import Vue from 'vue';
 import router from '@/router';

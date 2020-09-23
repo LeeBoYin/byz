@@ -8,9 +8,9 @@ const getters = {
 	groups: state => state.groups,
 	orderedGroups(state, getters, rootState) {
 		const groupIdList = _.get(rootState, ['board', 'board', 'groupIdList'], []);
-		return _.map(groupIdList, (groupId) => {
+		return _.filter(_.map(groupIdList, (groupId) => {
 			return state.groups[groupId];
-		});
+		}));
 	},
 };
 const mutations = {
@@ -27,10 +27,10 @@ const mutations = {
 };
 const actions = {
 	async createGroup({ state, dispatch }, payload = {}) {
-		const newGroup = {
+		await state.groupsRef.add({
 			name: _.get(payload, 'name', ''),
-		};
-		await state.groupsRef.add(newGroup).then((groupRef) => {
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+		}).then((groupRef) => {
 			dispatch('updateBoard', {
 				groupIdList: firebase.firestore.FieldValue.arrayUnion(groupRef.id),
 			});
