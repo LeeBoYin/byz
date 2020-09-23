@@ -63,4 +63,9 @@ $shrink-lg: 15px;
 		opacity: 0;
 		transform: translateY(75%);
 	}
+	&__avatar {
+		//  transform makes a new z-index layer,
+		//  all avatar should be one layer
+		position: relative;
+	}
 }
