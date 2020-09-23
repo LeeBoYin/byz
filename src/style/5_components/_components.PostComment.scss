@@ -1,6 +1,5 @@
 .post-comment {
 	@include editable-post-content;
-	margin-bottom: 15px;
 	&__content-container {
 		position: relative;
 	}

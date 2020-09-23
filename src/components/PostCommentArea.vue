@@ -14,7 +14,11 @@
 				class="post-comment-area__comment-list"
 				name="comment-list"
 			>
-				<PostComment v-for="comment in comments" :key="comment.id" :comment="comment" />
+				<PostComment
+					v-for="comment in comments"
+					:key="comment.id"
+					:comment="comment"
+				/>
 			</TransitionGroup>
 			<PostCommentForm
 				v-if="!isGuestMode"

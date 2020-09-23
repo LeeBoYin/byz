@@ -27,6 +27,11 @@
 	&__form {
 
 	}
+
+	.post-comment {
+		transform-origin: left center;
+		margin-bottom: 15px;
+	}
 }
 
 // Vue List Transitions
@@ -36,8 +41,12 @@
 		transition-property: transform, opacity;
 		transition-duration: .3s;
 	}
-	&-enter, &-leave-to {
+	&-enter {
 		opacity: 0;
-		transform: translateX(-50px);
+		transform: translateY(30px);
+	}
+	&-leave-to {
+		opacity: 0;
+		transform: scale(0);
 	}
 }
