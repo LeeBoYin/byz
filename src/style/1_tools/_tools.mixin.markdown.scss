@@ -25,4 +25,10 @@
 			text-decoration: underline;
 		}
 	}
+	code {
+		padding: 10px;
+		background: rgba(0, 0, 0, 0.05);
+		border-radius: $border-r-sm;
+		display: block;
+	}
 }
