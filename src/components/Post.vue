@@ -244,6 +244,11 @@ export default {
 				// avoid modal mode when click on <a> links
 				e.stopPropagation();
 			}
+			if(e.target.matches('img')) {
+				if(this.isModalMode) {
+					window.open(e.target.src, '_blank');
+				}
+			}
 		},
 		async onClickDelete() {
 			if(this.isModalMode) {

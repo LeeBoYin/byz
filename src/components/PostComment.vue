@@ -9,7 +9,7 @@
 				class="post-comment__avatar"
 			/>
 			<div :class="{ 'grow-remain': isEditing }" class="post-comment__content-container">
-				<div v-if="!isEditing" class="post-comment__content">
+				<div v-if="!isEditing" class="post-comment__content" @click="onClickContent">
 					<div v-html="formattedContent"></div>
 					<div class="post-comment__post-time">
 						<span v-tooltip="postTimeCalendar">
@@ -123,6 +123,11 @@ export default {
 		},
 		onClickDelete() {
 			this.deleteComment(this.comment.id);
+		},
+		onClickContent(e) {
+			if(e.target.matches('img')) {
+				window.open(e.target.src, '_blank');
+			}
 		},
 		...mapActions('board', [
 			'deleteComment',

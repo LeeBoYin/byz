@@ -11,6 +11,9 @@
 		.post--colored & {
 			background-color: $c-bright-transparent-half;
 		}
+		img {
+			cursor: pointer;
+		}
 	}
 	&__textarea {
 		border-radius: $border-r-lg;
