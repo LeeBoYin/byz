@@ -1,5 +1,9 @@
 .post-form {
-	position: relative;
+	display: flex;
+	&__input-wrapper {
+		flex: 1 1 auto;
+		position: relative;
+	}
 	&__input {
 		@extend .input-block;
 		border-radius: 30px;
@@ -13,11 +17,28 @@
 			width: 0;
 		}
 	}
+	&__tools {
+		flex: 0 0 auto;
+	}
+	&__tool {
+		padding: 13px 7px;
+		color: $c-gray-dark;
+		transform-origin: center center;
+		i {
+			font-size: 20px;
+		}
+		&:hover {
+			color: $c-gray-darker;
+		}
+		&:active {
+			transform: scale(0.9);
+		}
+	}
 	&__icon-loading {
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		right: 14px;
+		right: 10px;
 		font-size: 1.4rem;
 		line-height: 1;
 		height: 1.4rem;

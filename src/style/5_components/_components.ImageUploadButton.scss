@@ -1,0 +1,22 @@
+.image-upload-button {
+	position: relative;
+
+	&__input {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		opacity: 0;
+		z-index: 2;
+		&::-webkit-file-upload-button {
+			cursor: pointer;
+		}
+	}
+	&__input, &__input::-webkit-file-upload-button {
+		cursor: pointer;
+	}
+	&--loading &__input, &--loading &__input::-webkit-file-upload-button {
+		cursor: default;
+	}
+}
