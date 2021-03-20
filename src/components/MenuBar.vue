@@ -39,7 +39,7 @@
 					<i class="las la-mask"></i>
 				</a>
 			</div>
-			<AvatarList :users="users" :max="15" size="md"/>
+			<AvatarList :users="_.values(users)" :max="15" size="md"/>
 		</div>
 		<ModalShare
 			:is-open="isOpenModalShare"

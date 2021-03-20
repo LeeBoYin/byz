@@ -3,7 +3,6 @@ $shrink-md: 10px;
 $shrink-lg: 15px;
 .avatar-list {
 	display: flex;
-	flex-direction: row-reverse;
 	align-items: center;
 	&--sm {
 		padding-left: $shrink-sm;
@@ -14,9 +13,17 @@ $shrink-lg: 15px;
 	&--lg {
 		padding-left: $shrink-lg;
 	}
+	&__list {
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+	}
 	&__avatar {
 		box-sizing: content-box;
 		border-style: solid;
+	}
+	&__more {
+		cursor: default;
 	}
 }
 .avatar-list .avatar {
