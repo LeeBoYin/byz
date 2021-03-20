@@ -6,6 +6,7 @@
 	>
 		<div
 			v-if="isShowMore"
+			:key="'more'"
 			class="avatar-list__more"
 			v-tooltip="`+${ moreNum }`"
 		>
