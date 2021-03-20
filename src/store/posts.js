@@ -27,6 +27,9 @@ const getters = {
 			return _.get(post, ['timestamp', 'seconds'], Infinity);
 		});
 	},
+	postCount(state) {
+		return _.size(state.posts);
+	},
 };
 const mutations = {
 	removePost(state, postId) {

@@ -5,6 +5,9 @@
 		&--saving {
 			opacity: 0.6;
 		}
+		&:focus {
+			border-color: $c-primary;
+		}
 	}
 	.post--white &__textarea, .post--red &__textarea, .post--green &__textarea, .post--blue &__textarea {
 		background-color: $c-bright-transparent-half;

@@ -6,6 +6,9 @@ const state = {
 };
 const getters = {
 	groups: state => state.groups,
+	groupCount(state) {
+		return _.size(state.groups);
+	},
 	orderedGroups(state, getters, rootState) {
 		const groupIdList = _.get(rootState, ['board', 'board', 'groupIdList'], []);
 		return _.filter(_.map(groupIdList, (groupId) => {

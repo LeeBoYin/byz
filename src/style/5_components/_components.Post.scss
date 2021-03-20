@@ -54,6 +54,9 @@
 	&--modal-mode &__pin {
 		display: none;
 	}
+	&--modal-mode &__content img {
+		cursor: pointer;
+	}
 	&--on-transition {
 		@extend %hide-scrollbar;
 		position: fixed;

@@ -4,8 +4,10 @@ import '@style/custom.scss';
 // firebase
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/analytics';
 import firebaseConfig from '../firebase.config';
-const project = firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const analytics = firebaseApp.analytics();
 
 // showdown
 import showdown from 'showdown';

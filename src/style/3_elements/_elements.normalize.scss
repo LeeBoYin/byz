@@ -34,12 +34,7 @@ label[for] {
 }
 
 a {
-	text-decoration: none !important;
-}
-
-a[href] {
-	color: $c-link;
-	word-break: break-all;
+	text-decoration: none;
 }
 
 button {

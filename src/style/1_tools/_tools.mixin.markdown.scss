@@ -14,4 +14,21 @@
 		padding: 6px 0 6px 10px;
 		border-left: 4px solid rgba(70, 80, 106, 0.2);
 	}
+	img {
+		max-width: 100%;
+	}
+	a[href] {
+		color: $c-link;
+		text-decoration: none;
+		word-break: break-all;
+		&:hover, &:focus {
+			text-decoration: underline;
+		}
+	}
+	code {
+		padding: 10px;
+		background: rgba(0, 0, 0, 0.05);
+		border-radius: $border-r-sm;
+		display: block;
+	}
 }

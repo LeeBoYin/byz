@@ -7,8 +7,9 @@ const webpack = require('webpack');
 module.exports = {
 	entry: './src/main.js',
 	output: {
-		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		filename: '[name].[hash].js',
+		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/',
 	},
 	resolve: {
 		alias: {
@@ -61,7 +62,6 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
 			favicon: './static/favicon.ico',
-			inject: false,// for vue router mode history
 		}),
 		new CopyPlugin([
 			{ from: 'static', to: 'static' },

@@ -1,26 +1,31 @@
 <template>
-	<TransitionGroup
+	<div
 		:class="`avatar-list--${ size }`"
 		class="avatar-list"
-		name="avatar-list"
 	>
+		<TransitionGroup
+			class="avatar-list__list"
+			name="avatar-list"
+		>
+			<Avatar
+				v-for="user in _.reverse(visibleUsers)"
+				:key="user.id"
+				:name="user.name"
+				:color="user.color"
+				:size="size"
+				v-tooltip="user.name"
+				class="avatar-list__avatar"
+			/>
+		</TransitionGroup>
 		<div
 			v-if="isShowMore"
-			class="avatar-list__more"
+			:key="`more-${ moreNum }`"
 			v-tooltip="`+${ moreNum }`"
+			class="avatar-list__more"
 		>
 			<i class="las la-ellipsis-h"></i>
 		</div>
-		<Avatar
-			v-for="user in visibleUsers"
-			:key="user.id"
-			:name="user.name"
-			:color="user.color"
-			:size="size"
-			v-tooltip="user.name"
-			class="avatar-list__avatar"
-		/>
-	</TransitionGroup>
+	</div>
 </template>
 
 <script>
@@ -31,7 +36,7 @@ export default {
 	},
 	props: {
 		users: {
-			type: [Object, Array],
+			type: Array,
 			default: () => [],
 		},
 		size: {
@@ -45,16 +50,13 @@ export default {
 	},
 	computed: {
 		moreNum() {
-			return this.sortedUsers.length - this.max;
+			return this.users.length - this.max;
 		},
 		isShowMore() {
-			return this.max && this.sortedUsers.length > this.max;
-		},
-		sortedUsers() {
-			return _.reverse(_.values(this.users));
+			return this.max && this.users.length > this.max;
 		},
 		visibleUsers() {
-			return this.max ? _.take(this.sortedUsers, this.max) : this.sortedUsers;
+			return this.max ? _.take(this.users, this.max) : this.users;
 		},
 	},
 };
