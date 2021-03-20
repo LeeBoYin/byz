@@ -25,11 +25,18 @@
 							v-if="isSupportFullscreen"
 							:key="+isFullScreen"
 							class="menu-bar__tool"
-							v-tooltip="isFullScreen ? 'Leave Full Screen' : 'Full Screen'"
+							v-tooltip="isFullScreen ? 'Leave Fullscreen' : 'Fullscreen'"
 							@click="onToggleFullscreen"
 						>
 							<i v-if="isFullScreen" class="las la-compress"></i>
 							<i v-else class="las la-expand"></i>
+						</button>
+						<button
+							class="menu-bar__tool"
+							v-tooltip="'Create new board'"
+							@click="onClickCreateBoardButton"
+						>
+							<i class="las la-plus"></i>
 						</button>
 					</div>
 				</div>
@@ -53,6 +60,7 @@
 import AvatarList from '@components/AvatarList';
 import EditableTitle from '@components/EditableTitle';
 import ModalShare from '@components/ModalShare';
+import constants from '@/constants';
 import { logEvent } from '@libs/analytics';
 
 export default {
@@ -84,6 +92,10 @@ export default {
 		});
 	},
 	methods: {
+		onClickCreateBoardButton() {
+			window.open(`${ constants.baseUrl }/create`);
+			logEvent('create_board_button_clicked');
+		},
 		onClickShareButton() {
 			this.isOpenModalShare = true;
 			logEvent('share_button_clicked');

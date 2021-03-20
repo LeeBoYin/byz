@@ -11,4 +11,5 @@ export default {
 	],
 	dateFormat: 'YYYY/MM/DD',
 	groupNum: 5,
+	baseUrl: 'https://byz-post.web.app',
 };
