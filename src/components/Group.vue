@@ -45,6 +45,7 @@ import PostForm from '@components/PostForm';
 import PostList from '@components/PostList';
 import { scrollTopAnimate, transitionendOnce } from '@libs/uiUtils';
 import { EventBus } from '@/main';
+import { logEvent } from '@libs/analytics';
 export default {
 	components: {
 		EditableTitle,
@@ -140,6 +141,12 @@ export default {
 				updateObj: {
 					postIdList: sortedPostIdList,
 				},
+			});
+			this.$nextTick(() => {
+				logEvent('group_post_list_sorted', {
+					group_post_count: this.posts.length,
+					group_top_post_like_count: _.get(_.head(this.posts), 'likedUsersId', []).length,
+				});
 			});
 		},
 		onPosted() {

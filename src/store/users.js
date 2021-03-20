@@ -10,6 +10,9 @@ const getters = {
 	users(state) {
 		return state.users;
 	},
+	userCount(state) {
+		return _.size(state.users);
+	},
 	getUserById: (state) => (userId) => {
 		return _.get(state.users, userId);
 	},

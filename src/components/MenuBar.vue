@@ -17,7 +17,7 @@
 						<button
 							class="menu-bar__tool"
 							v-tooltip="'Share'"
-							@click="isOpenModalShare = true"
+							@click="onClickShareButton"
 						>
 							<i class="las la-link"></i>
 						</button>
@@ -53,6 +53,7 @@
 import AvatarList from '@components/AvatarList';
 import EditableTitle from '@components/EditableTitle';
 import ModalShare from '@components/ModalShare';
+import { logEvent } from '@libs/analytics';
 
 export default {
 	components: {
@@ -83,11 +84,16 @@ export default {
 		});
 	},
 	methods: {
+		onClickShareButton() {
+			this.isOpenModalShare = true;
+			logEvent('share_button_clicked');
+		},
 		onToggleFullscreen() {
 			if(document.fullscreenElement) {
 				document.exitFullscreen();
 			} else {
 				document.querySelector('body').requestFullscreen();
+				logEvent('fullscreen_requested');
 			}
 		},
 		updateBoardName(newName) {

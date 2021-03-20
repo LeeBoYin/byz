@@ -45,6 +45,7 @@ import Avatar from '@components/Avatar';
 import ColorSelect from '@components/ColorSelect';
 import ModalContent from '@components/ModalContent';
 import { errorShake } from '@libs/uiUtils';
+import { logEvent } from '@libs/analytics';
 export default {
 	components: {
 		AutocompleteInput,
@@ -126,6 +127,9 @@ export default {
 				});
 			}
 			this.isLoading = false;
+			logEvent('user_joined', {
+				is_existing_user: !!existingUser,
+			});
 		},
 		...mapActions('board', [
 			'createUser',

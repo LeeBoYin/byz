@@ -31,6 +31,7 @@
 import createStore from '@store/create';
 import Card from '@components/Card';
 import { errorShake } from '@libs/uiUtils';
+import { logEvent } from '@libs/analytics';
 export default {
 	components: {
 		Card,
@@ -43,6 +44,9 @@ export default {
 	},
 	beforeCreate() {
 		this.$store.registerModule('create', createStore);
+	},
+	mounted() {
+		logEvent('create_form_loaded');
 	},
 	destroyed() {
 		this.$store.unregisterModule('create');
@@ -65,6 +69,9 @@ export default {
 					action: 'join',
 				},
 			} );
+			logEvent('board_created', {
+				board_id: docRef.id,
+			});
 		},
 		...mapActions('create', [
 			'createBoard',

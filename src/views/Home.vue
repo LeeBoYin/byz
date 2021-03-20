@@ -14,9 +14,13 @@
 
 <script>
 import Card from '@components/Card';
+import { logEvent } from '@libs/analytics';
 export default {
 	components: {
 		Card,
+	},
+	mounted() {
+		logEvent('home_loaded');
 	},
 };
 </script>
