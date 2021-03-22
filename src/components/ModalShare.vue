@@ -46,6 +46,7 @@
 <script>
 import setStringToClipBoard from 'set-string-to-clipboard';
 import ModalContent from '@components/ModalContent';
+import { logEvent } from '@libs/analytics';
 export default {
 	components: {
 		ModalContent,
@@ -82,6 +83,9 @@ export default {
 			setTimeout(() => {
 				this.isCopied = false;
 			}, 1000);
+			logEvent('share_link_copied', {
+				link_type: this.linkType,
+			});
 		},
 	},
 };

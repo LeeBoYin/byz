@@ -17,7 +17,7 @@
 						<button
 							class="menu-bar__tool"
 							v-tooltip="'Share'"
-							@click="isOpenModalShare = true"
+							@click="onClickShareButton"
 						>
 							<i class="las la-link"></i>
 						</button>
@@ -25,11 +25,18 @@
 							v-if="isSupportFullscreen"
 							:key="+isFullScreen"
 							class="menu-bar__tool"
-							v-tooltip="isFullScreen ? 'Leave Full Screen' : 'Full Screen'"
+							v-tooltip="isFullScreen ? 'Leave Fullscreen' : 'Fullscreen'"
 							@click="onToggleFullscreen"
 						>
 							<i v-if="isFullScreen" class="las la-compress"></i>
 							<i v-else class="las la-expand"></i>
+						</button>
+						<button
+							class="menu-bar__tool"
+							v-tooltip="'Create new board'"
+							@click="onClickCreateBoardButton"
+						>
+							<i class="las la-plus"></i>
 						</button>
 					</div>
 				</div>
@@ -39,7 +46,7 @@
 					<i class="las la-mask"></i>
 				</a>
 			</div>
-			<AvatarList :users="users" :max="15" size="md"/>
+			<AvatarList :users="_.values(users)" :max="15" size="md"/>
 		</div>
 		<ModalShare
 			:is-open="isOpenModalShare"
@@ -53,6 +60,8 @@
 import AvatarList from '@components/AvatarList';
 import EditableTitle from '@components/EditableTitle';
 import ModalShare from '@components/ModalShare';
+import constants from '@/constants';
+import { logEvent } from '@libs/analytics';
 
 export default {
 	components: {
@@ -83,11 +92,20 @@ export default {
 		});
 	},
 	methods: {
+		onClickCreateBoardButton() {
+			window.open(`${ constants.baseUrl }/create`);
+			logEvent('create_board_button_clicked');
+		},
+		onClickShareButton() {
+			this.isOpenModalShare = true;
+			logEvent('share_button_clicked');
+		},
 		onToggleFullscreen() {
 			if(document.fullscreenElement) {
 				document.exitFullscreen();
 			} else {
 				document.querySelector('body').requestFullscreen();
+				logEvent('fullscreen_requested');
 			}
 		},
 		updateBoardName(newName) {

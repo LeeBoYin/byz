@@ -24,6 +24,7 @@ import GroupList from '@components/GroupList';
 import LoadingMsg from '@components/LoadingMsg';
 import MenuBar from '@components/MenuBar';
 import ModalUserForm from '@components/ModalUserForm';
+import { logEvent } from '@libs/analytics';
 export default {
 	props: {
 		id: { // $route.params.id
@@ -66,10 +67,14 @@ export default {
 	beforeCreate() {
 		this.$store.registerModule('board', boardStore);
 	},
-	mounted() {
-		this.init({
+	async mounted() {
+		await this.init({
 			boardId: this.id,
 			action: this.action,
+		});
+		logEvent('board_loaded', {
+			is_guest_mode: this.isGuestMode,
+			is_user_joined: !!this.currentUser,
 		});
 	},
 	destroyed() {
