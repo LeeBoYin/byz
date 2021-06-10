@@ -46,7 +46,7 @@
 					<i class="las la-mask"></i>
 				</a>
 			</div>
-			<AvatarList :users="_.values(users)" :max="15" size="md"/>
+			<AvatarList :users="formattedUserList" :max="15" size="md"/>
 		</div>
 		<ModalShare
 			:is-open="isOpenModalShare"
@@ -71,6 +71,8 @@ export default {
 	},
 	data() {
 		return {
+			formattedUserList: [],
+			updateUserListInterval: null,
 			isSupportFullscreen: document.fullscreenEnabled,
 			isOpenModalShare: false,
 			isFullScreen: false,
@@ -86,10 +88,25 @@ export default {
 			'users',
 		]),
 	},
+	watch: {
+		currentUser() {
+			if(this.currentUser.lastActiveTimestamp) {
+				// update as soon as current user is active
+				this.updateFormattedUserList();
+			}
+		},
+	},
+	created() {
+		this.updateFormattedUserList();
+		this.updateUserListInterval = setInterval(this.updateFormattedUserList, 10 * 1000);
+	},
 	mounted() {
 		document.addEventListener('fullscreenchange', () => {
 			this.isFullScreen = !!document.fullscreenElement;
 		});
+	},
+	beforeDestroy() {
+		clearInterval(this.updateUserListInterval);
 	},
 	methods: {
 		onClickCreateBoardButton() {
@@ -112,6 +129,27 @@ export default {
 			this.updateBoard({
 				name: newName,
 			});
+		},
+		updateFormattedUserList() {
+			this.formattedUserList = _(_.values(this.users))
+				.map(user => {
+					const inactiveMinutes = user.lastActiveTimestamp ? moment().diff(moment(user.lastActiveTimestamp.toDate()), 'seconds') : Infinity;
+					const inactive = inactiveMinutes >= constants.inactiveThresholdSecond;
+					return {
+						inactive,
+						inactiveMinutes,
+						...user,
+					};
+				})
+				.sortBy(user => {
+					// sort all active users to the front
+					if(!user.inactive) {
+						return 0;
+					}
+					// sort inactive users by inactive time
+					return user.inactiveMinutes;
+				})
+				.value();
 		},
 		...mapActions('board', [
 			'leaveGuestMode',

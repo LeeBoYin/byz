@@ -1,10 +1,19 @@
 <template>
 	<div
-		:class="`avatar--${ size }`"
+		:class="[
+			`avatar--${ size }`,
+			{
+				'avatar--inactive': inactive,
+			}
+		]"
 		class="avatar"
-		:style="{ 'background-color': color || randomColor }"
 	>
-		{{ abbr }}
+		<div
+			class="avatar__inner"
+			:style="{ 'background-color': color || randomColor }"
+		>
+			{{ abbr }}
+		</div>
 	</div>
 </template>
 
@@ -23,7 +32,11 @@ export default {
 		size: {
 			type: String,
 			default: 'md',
-		}
+		},
+    inactive: {
+		  type: Boolean,
+      default: false,
+    },
 	},
 	data() {
 		return {

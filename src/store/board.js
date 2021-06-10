@@ -51,7 +51,10 @@ const actions = {
 			dispatch('getPosts'),
 			dispatch('getUsers'),
 		]);
-		commit('setCurrentUserId', getters.localData('userId') || null);
+		const existingUserId = getters.localData('userId');
+		if(existingUserId) {
+			dispatch('setUserId', existingUserId);
+		}
 		if(!state.usersStore.currentUserId && action !== 'join') {
 			dispatch('viewAsGuest');
 		}

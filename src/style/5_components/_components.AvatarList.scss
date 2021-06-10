@@ -43,6 +43,10 @@ $shrink-lg: 15px;
 
 .menu-bar .avatar-list .avatar {
 	border-color: $c-background;
+	&--inactive {
+		transform-origin: bottom center;
+		transform: scale(0.95);
+	}
 }
 .post {
 	.avatar-list .avatar {
