@@ -13,6 +13,7 @@
 				:name="user.name"
 				:color="user.color"
 				:size="size"
+				:inactive="user.inactive"
 				v-tooltip="user.name"
 				class="avatar-list__avatar"
 			/>

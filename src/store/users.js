@@ -1,3 +1,5 @@
+import constants from '@/constants';
+
 const state = {
 	currentUserId: null,
 	users: {},
@@ -68,10 +70,35 @@ const actions = {
 		});
 	},
 	setUserId({ commit, dispatch }, userId) {
+		if(!userId) {
+			return;
+		}
 		commit('setCurrentUserId', userId);
 		dispatch('board/setLocalData', {
 			userId: userId,
 		}, { root: true });
+		dispatch('watchUserActivity');
+	},
+	watchUserActivity({ state, dispatch }) {
+		const USER_ACTION_EVENTS = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+		const WINDOW_EVENTS = ['scroll', 'focus'];
+		const onUserActive = _.throttle(() => {
+			dispatch('updateUser', {
+				userId: state.currentUserId,
+				updateObj: {
+					lastActiveTimestamp: firebase.firestore.FieldValue.serverTimestamp(),
+				},
+			});
+		}, constants.userActivityWatchIntervalSecond * 1000, {
+			leading: true,
+			trailing: false,
+		});
+		_.forEach(USER_ACTION_EVENTS, name => {
+			document.addEventListener(name, onUserActive);
+		});
+		_.forEach(WINDOW_EVENTS, name => {
+			window.addEventListener(name, onUserActive);
+		})
 	},
 };
 
