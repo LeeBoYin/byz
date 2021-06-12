@@ -1,9 +1,4 @@
 .post-form {
-	display: flex;
-	&__input-wrapper {
-		flex: 1 1 auto;
-		position: relative;
-	}
 	&__input {
 		@extend .input-block;
 		border-radius: 30px;
@@ -17,16 +12,12 @@
 			width: 0;
 		}
 	}
-	&__tools {
-		flex: 0 0 auto;
-	}
 	&__tool {
-		padding: 13px 7px;
+		font-size: 20px;
+		// custom padding-y to make tool same height as input
+		padding: 13px $spacing-1;
 		color: $c-gray-dark;
 		transform-origin: center center;
-		i {
-			font-size: 20px;
-		}
 		&:hover {
 			color: $c-gray-darker;
 		}
@@ -35,14 +26,9 @@
 		}
 	}
 	&__icon-loading {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		right: 10px;
 		font-size: 1.4rem;
 		line-height: 1;
 		height: 1.4rem;
-		margin: auto;
 		color: $c-gray-light;
 	}
 }

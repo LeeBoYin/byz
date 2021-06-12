@@ -3,14 +3,15 @@
 	@include custom-scrollbar(#dcd6c9, transparent, $scrollbar-size);
 	display: flex;
 	flex-direction: column;
-	padding: 10px 7px 60px (7px + $scrollbar-size);
-	margin: 0 5px;
+	padding: $spacing-2 7px $spacing-9 (7px + $scrollbar-size);
+	margin: 0 $spacing-1;
 	min-height: 10px;
 	overflow-x: hidden;
+	// set scroll instead of auto to always keep scroll space
 	overflow-y: scroll;
 	.post {
 		flex-shrink: 0;
-		margin-bottom: 15px;
+		margin-bottom: $spacing-3;
 	}
 }
 

@@ -1,6 +1,6 @@
 <template>
 	<div class="menu-bar">
-		<LayoutFlexRow vertical-align="center">
+		<LayoutFlexRow vertical-align="center" padding="2">
 			<template #left>
 				<LayoutList gap="1" horizontal-align="left">
 					<LayoutListInline gap="2" vertical-align="center">

@@ -1,12 +1,13 @@
 // 0. settings
-@import "0_settings/settings.border-radius.scss";
-@import "0_settings/settings.colors.scss";
-@import "0_settings/settings.fonts.scss";
+@import "0_settings/settings.border-radius";
+@import "0_settings/settings.colors";
+@import "0_settings/settings.fonts";
 @import "0_settings/settings.padding";
-@import "0_settings/settings.shadow.scss";
-@import "0_settings/settings.transition.scss";
-@import "0_settings/settings.width.scss";
-@import "0_settings/settings.z-index.scss";
+@import "0_settings/settings.shadow";
+@import "0_settings/settings.spacing";
+@import "0_settings/settings.transition";
+@import "0_settings/settings.width";
+@import "0_settings/settings.z-index";
 
 // 1. tools
 @import "1_tools/tools.mixin.cutom-scrollbar";
@@ -26,6 +27,7 @@
 @import "4_objects/objects.btn";
 @import "4_objects/objects.hint";
 @import "4_objects/objects.input-block";
+@import "4_objects/objects.link";
 @import "4_objects/objects.sortable";
 
 // 5. components

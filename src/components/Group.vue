@@ -12,7 +12,7 @@
 		<LayoutFlexColumn>
 			<template #top>
 				<div class="group__header">
-					<LayoutFlexRow>
+					<LayoutFlexRow vertical-align="center">
 						<template #left>
 							<i class="group__handle las la-grip-lines"></i>
 						</template>

@@ -1,15 +1,16 @@
 // vue layout system
+@import "0_settings/settings.spacing";
 $layout-spacing-map: (
-	0: 0px,
-	1: 5px,
-	2: 10px,
-	3: 15px,
-	4: 20px,
-	5: 25px,
-	6: 30px,
-	7: 40px,
-	8: 50px,
-	9: 60px,
-	10: 80px,
+	0: $spacing-0,
+	1: $spacing-1,
+	2: $spacing-2,
+	3: $spacing-3,
+	4: $spacing-4,
+	5: $spacing-5,
+	6: $spacing-6,
+	7: $spacing-7,
+	8: $spacing-8,
+	9: $spacing-9,
+	10: $spacing-10,
 );
 @import 'node_modules/vue-layout-system/src/scss/main.scss';

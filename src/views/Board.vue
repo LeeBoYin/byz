@@ -1,23 +1,29 @@
 <template>
-	<div>
-		<LoadingMsg v-if="!isInitialized" />
+	<div
+		class="board"
+		:class="{
+			'layout-u-content-fill-height': isInitialized,
+			'layout-u-position-relative': !isInitialized,
+		}"
+	>
+		<LayoutAbsolute v-if="!isInitialized">
+			<template #center>
+				<LoadingMsg />
+			</template>
+		</LayoutAbsolute>
 		<template v-else>
-			<div :class="{ 'board--expand': !isShowPostArea }" class="board layout-u-content-fill-height">
-				<LayoutFlexColumn>
-					<template #top>
-						<div class="board__header">
-							<MenuBar />
-						</div>
-					</template>
-					<template #remain>
-						<div class="board__body layout-u-content-fill-height">
-							<div class="board__group-list-container">
-								<GroupList class="" />
-							</div>
-						</div>
-					</template>
-				</LayoutFlexColumn>
-			</div>
+			<LayoutFlexColumn>
+				<template #top>
+					<div class="board__header">
+						<MenuBar />
+					</div>
+				</template>
+				<template #remain>
+					<div class="board__body layout-u-content-fill-height">
+						<GroupList class="" />
+					</div>
+				</template>
+			</LayoutFlexColumn>
 			<ModalUserForm :is-open="!currentUser && !isGuestMode" />
 		</template>
 	</div>
@@ -56,7 +62,6 @@ export default {
 		...mapState('board', [
 			'isInitialized',
 			'isGuestMode',
-			'isShowPostArea',
 		]),
 		...mapGetters('board', [
 			'currentUser',
@@ -65,9 +70,6 @@ export default {
 	watch: {
 		id() {
 			window.location.reload();
-		},
-		isShowPostArea() {
-			this.setPostAreaMargin();
 		},
 	},
 	beforeCreate() {
@@ -87,13 +89,6 @@ export default {
 		this.$store.unregisterModule('board');
 	},
 	methods: {
-		setPostAreaMargin() {
-			if(this.isShowPostArea) { // show
-				this.$refs.postAreaContainer.style.marginLeft = '';
-			} else { // hide
-				this.$refs.postAreaContainer.style.marginLeft = `-${ this.$refs.postAreaContainer.offsetWidth }px`;
-			}
-		},
 		...mapActions('board', [
 			'init',
 			'renameBoard',

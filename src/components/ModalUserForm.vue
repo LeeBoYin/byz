@@ -25,7 +25,7 @@
 				/>
 				<LayoutFlexRow vertical-align="center">
 					<template #left>
-						<a class="hint text-underline" @click="viewAsGuest">view as a guest</a>
+						<a class="hint link" @click="viewAsGuest">view as a guest</a>
 					</template>
 					<template #right>
 						<button class="btn btn--primary" :disabled="isLoading" @click="submit">

@@ -1,57 +1,10 @@
 .board {
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	margin: 0 auto;
-	padding: 10px 5px 5px;
-	&__header {
-		padding: 0 10px;
-		margin-bottom: 10px;
-	}
-	&__body {}
-	&__group-list-container {
+	padding: 0 $spacing-1 $spacing-1;
+	&__header {}
+	&__body {
 		@include custom-scrollbar(#dcd6c9, transparent, 5px);
-		display: flex;
 		overflow-x: auto;
 		overflow-y: hidden;
-		padding-bottom: 5px;
-	}
-	&__post-area-container {
-		display: flex;
-		position: relative;
-		bottom: 0;
-		right: 0;
-		margin-left: 0;
-		border-radius: 0;
-		transform-origin: bottom right;
-		transition: .3s ease-out .2s;
-	}
-	&--expand &__post-area-container {
-		border-radius: 50%;
-		bottom: 30px;
-		right: 30px;
-		opacity: 0.3;
-		transform: scale(0);
-		transition: .3s ease-out;
-	}
-	&__btn-post-area {
-		visibility: hidden;
-		opacity: 0;
-		transform: scale(0);
-		transition:
-			opacity .3s ease-out,
-			transform .3s ease-out,
-			visibility 0s ease .3s;
-		/*display: none;*/
-	}
-	&--expand &__btn-post-area {
-		visibility: visible;
-		opacity: 1;
-		transform: scale(1);
-		transition:
-			opacity .2s ease-out .2s,
-			transform .2s ease-out .2s,
-			visibility 0s ease 0s;
-		/*display: block;*/
+		padding-bottom: $spacing-1;
 	}
 }

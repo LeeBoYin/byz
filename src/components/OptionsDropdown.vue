@@ -18,12 +18,14 @@
 						'options-dropdown__option--disabled': option.isDisabled,
 						'options-dropdown__option--danger': option.isDanger,
 					}"
-					class="options-dropdown__option"
+					class="options-dropdown__option layout-u-content-fill-height"
 					:style="getOptionStyle(idx)"
 					@mousedown.stop
 					@click="onOptionClick(idx)"
 				>
-					<i :class="option.iconClass"></i>
+					<LayoutAlign vertical-align="center" horizontal-align="center">
+						<i :class="option.iconClass"></i>
+					</LayoutAlign>
 				</div>
 			</div>
 		</div>
@@ -128,31 +130,26 @@ export default {
 				});
 			}
 
-			const margin = '10px';
 			const translate = '1em';
 			switch (this.direction) {
 				case 'top':
 					_.assign(style, {
-						'margin-bottom': margin,
 						'top': this.isOpen ? 0 : translate,
 					});
 					break;
 				case 'left':
 					_.assign(style, {
-						'margin-right': margin,
 						'left': this.isOpen ? 0 : translate,
 					});
 					break;
 				case 'right':
 					_.assign(style, {
-						'margin-left': margin,
 						'right': this.isOpen ? 0 : translate,
 					});
 					break;
 				case 'bottom':
 				default:
 					_.assign(style, {
-						'margin-top': margin,
 						'bottom': this.isOpen ? 0 : translate,
 					});
 			}

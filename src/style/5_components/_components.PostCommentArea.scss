@@ -6,8 +6,8 @@
 	}
 	&__inner {
 		border-top: 1px solid rgba(0, 0, 0, 0.2);
-		padding-top: 20px;
-		margin-top: 10px;
+		padding-top: $spacing-4;
+		margin-top: $spacing-2;
 		opacity: 0;
 		transition:
 			opacity $transition-duration-post-modal-mode ease-out;

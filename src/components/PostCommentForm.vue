@@ -15,7 +15,6 @@
 					v-auto-height
 					ref="input"
 					class="post-comment-form__textarea"
-					type="text"
 					rows="1"
 					placeholder="Any comment?"
 					@keypress.enter="submit"

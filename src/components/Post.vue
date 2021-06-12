@@ -28,7 +28,7 @@
 				</div>
 			</template>
 			<template #remain>
-				<LayoutFlexRow>
+				<LayoutFlexRow vertical-align="top">
 					<template #remain>
 						<div class="layout-u-position-relative layout-u-mt-2">
 							<div v-if="!isEditing" class="post__content" v-html="formattedContent" @click="onClickContent"></div>
@@ -59,7 +59,7 @@
 				<div class="post__footer">
 					<LayoutFlexRow vertical-align="bottom" padding="2 2 2 0">
 						<template #remain>
-							<LayoutList horizontal-align="left">
+							<LayoutList gap="1" horizontal-align="left">
 								<div v-if="post.posterName" class="post__poster">
 									- {{ post.posterName }}
 								</div>

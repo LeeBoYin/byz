@@ -28,9 +28,13 @@
 		cursor: pointer;
 		color: $c-gray-dark;
 		background-color: $c-bright;
-		padding: 8px;
+		font-size: 20px;
+		width: 36px;
+		height: 36px;
+		text-align: center;
 		border-radius: 50%;
 		box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+		margin: $spacing-2 / 2;
 		opacity: 0;
 		transform-origin: center center;
 		transition-property: opacity, top, left, right, bottom;

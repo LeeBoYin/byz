@@ -21,8 +21,8 @@
 	}
 	&__options {
 		visibility: hidden;
-		margin-top: 8px;
-		padding: 4px 0 4px 4px;
+		margin-top: $spacing-1;
+		padding: $spacing-1 0 $spacing-1 $spacing-1;
 	}
 	&:hover &__options, &__options.options-dropdown--open {
 		visibility: visible;
