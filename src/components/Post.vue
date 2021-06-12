@@ -16,68 +16,84 @@
 		@mousedown="mousedownPosition = { x: $event.x, y: $event.y }"
 		@mouseup="mouseupPosition = { x: $event.x, y: $event.y }"
 	>
-		<div class="frow nowrap">
-			<div v-if="post.isPinned" class="post__pin">
-				<i class="las la-thumbtack"></i>
-			</div>
-			<div v-else class="post__handle" @click.stop>
-				<i class="las la-grip-lines-vertical"></i>
-			</div>
-			<div class="grow-remain">
-				<div class="frow nowrap items-start">
-					<div class="post__content-container grow-remain mt-10">
-						<div v-if="!isEditing" class="post__content" v-html="formattedContent" @click="onClickContent"></div>
-						<textarea
-							v-if="isEditing"
-							v-model.trim="editedContent"
-							ref="textarea"
-							:class="{ 'post__textarea--saving': isSaving }"
-							class="post__textarea"
-							rows="1"
-							v-auto-focus
-							v-auto-height
-							:disabled="isSaving"
-							@keypress.enter="onEditPressEnter"
-							@keydown.prevent.stop.esc="cancelEdit"
-						></textarea>
-						<div v-if="isSaving" class="absolute-center">
-							<i class="las la-circle-notch la-spin la"></i>
-						</div>
-					</div>
-					<OptionsDropdown :options="options" direction="left" class="post__options" />
+		<LayoutFlexRow>
+			<template #left>
+				<div v-if="post.isPinned" class="post__pin">
+					<i class="las la-thumbtack"></i>
 				</div>
-				<div class="post__footer my-10 mr-10">
-					<div class="grow-remain">
-						<div v-if="post.posterName" class="post__poster">
-							- {{ post.posterName }}
-						</div>
-						<div v-if="isModalMode" class="post__post-time">
-							<span v-tooltip="postTimeCalendar">
-								{{ postTimeAgo }}
-							</span>
-						</div>
-						<div v-if="!isModalMode && post.commentCount" class="post__comment-count">
-							{{`${ post.commentCount } comment${ post.commentCount > 1 ? 's' : '' }` }}
-						</div>
-					</div>
-					<div class="frow row-center shrink-0">
-						<AvatarList
-							:users="likedUsers"
-							:max="10"
-							size="sm"
-						/>
-						<button
-							v-if="!isGuestMode"
-							ref="btnLike"
-							:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
-							class="post__btn-like shrink-0 ml-10"
-							@click.stop="toggleLike">
-							<i class="las la-heart"></i>
-						</button>
-					</div>
+				<div v-else class="post__handle layout-u-content-fill-height" @click.stop>
+					<LayoutAlign vertical-align="center">
+						<i class="las la-grip-lines-vertical"></i>
+					</LayoutAlign>
 				</div>
-			</div>
-		</div>
+			</template>
+			<template #remain>
+				<LayoutFlexRow vertical-align="top">
+					<template #remain>
+						<div class="layout-u-position-relative layout-u-mt-2">
+							<div v-if="!isEditing" class="post__content" v-html="formattedContent" @click="onClickContent"></div>
+							<textarea
+								v-if="isEditing"
+								v-model.trim="editedContent"
+								ref="textarea"
+								:class="{ 'post__textarea--saving': isSaving }"
+								class="post__textarea"
+								rows="1"
+								v-auto-focus
+								v-auto-height
+								:disabled="isSaving"
+								@keypress.enter="onEditPressEnter"
+								@keydown.prevent.stop.esc="cancelEdit"
+							></textarea>
+							<LayoutAbsolute v-if="isSaving">
+								<template #center>
+									<i class="las la-circle-notch la-spin la"></i>
+								</template>
+							</LayoutAbsolute>
+						</div>
+					</template>
+					<template #right>
+						<OptionsDropdown :options="options" direction="left" class="post__options" />
+					</template>
+				</LayoutFlexRow>
+				<div class="post__footer">
+					<LayoutFlexRow vertical-align="bottom" padding="2 2 2 0">
+						<template #remain>
+							<LayoutList gap="1" horizontal-align="left">
+								<div v-if="post.posterName" class="post__poster">
+									- {{ post.posterName }}
+								</div>
+								<div v-if="isModalMode" class="post__post-time">
+								<span v-tooltip="postTimeCalendar">
+									{{ postTimeAgo }}
+								</span>
+								</div>
+								<div v-if="!isModalMode && post.commentCount" class="post__comment-count">
+									{{`${ post.commentCount } comment${ post.commentCount > 1 ? 's' : '' }` }}
+								</div>
+							</LayoutList>
+						</template>
+						<template #right>
+							<LayoutListInline vertical-align="center" gap="2">
+								<AvatarList
+									:users="likedUsers"
+									:max="10"
+									size="sm"
+								/>
+								<button
+									v-if="!isGuestMode"
+									ref="btnLike"
+									:class="{ 'post__btn-like--liked': isLikedByCurrentUser }"
+									class="post__btn-like"
+									@click.stop="toggleLike">
+									<i class="las la-heart"></i>
+								</button>
+							</LayoutListInline>
+						</template>
+					</LayoutFlexRow>
+				</div>
+			</template>
+		</LayoutFlexRow>
 		<PostCommentArea
 			ref="commentArea"
 			:post-id="this.post.id"

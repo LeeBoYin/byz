@@ -1,7 +1,7 @@
 %markdown-content {
 	p, ul, ol, h1, h2, h3, h4, h5, code {
-		margin-top: 20px;
-		margin-bottom: 20px;
+		margin-top: $spacing-4;
+		margin-bottom: $spacing-4;
 		&:first-child {
 			margin-top: 0;
 		}
@@ -11,7 +11,7 @@
 	}
 	blockquote {
 		margin: 0;
-		padding: 6px 0 6px 10px;
+		padding: $spacing-1 0 $spacing-1 $spacing-2;
 		border-left: 4px solid rgba(70, 80, 106, 0.2);
 	}
 	img {
@@ -26,7 +26,7 @@
 		}
 	}
 	code {
-		padding: 10px;
+		padding: $spacing-2;
 		background: rgba(0, 0, 0, 0.05);
 		border-radius: $border-r-sm;
 		display: block;

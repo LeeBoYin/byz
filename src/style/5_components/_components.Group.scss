@@ -1,13 +1,11 @@
 %tool-group {
 	font-size: 20px;
+	// custom padding
 	padding: 8px 5px;
 }
 .group {
 	position: relative;
 	background-color: rgba(0, 0, 0, 0.03);
-	display: flex;
-	flex-direction: column;
-	padding-bottom: 6px;
 	margin-right: 2px;
 	width: $w-group;
 	transform-origin: top left;
@@ -24,13 +22,9 @@
 		@extend %grabbable;
 	}
 	&__title {
-		@extend %grow-remain;
 		font-size: 16px;
-		padding: 6px 0;
 	}
-	&__post-list {
-		@extend %grow-remain;
-	}
+	&__post-list {}
 	&__options {
 		@extend %tool;
 		@extend %tool-group;
@@ -41,17 +35,19 @@
 		@extend %grabbable;
 	}
 	&__post-form-area {
-		padding: 10px;
+		padding: $spacing-2;
 		background-color: #f2ebda;
 	}
 	&__btn-post {
 		@extend .btn;
 		@extend .btn--primary;
 		position: absolute;
-		bottom: 15px;
-		right: 15px;
+		bottom: $spacing-3;
+		right: $spacing-3;
 		font-size: 24px;
-		padding: 13px;
+		width: 50px;
+		height: 50px;
+		padding: 0;
 		border-radius: 50%;
 		box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
 		visibility: hidden;

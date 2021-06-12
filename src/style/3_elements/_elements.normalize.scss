@@ -35,6 +35,7 @@ label[for] {
 
 a {
 	text-decoration: none;
+	cursor: pointer;
 }
 
 button {
@@ -48,11 +49,11 @@ button {
 hr {
 	border: 0 solid $c-primary-dark;
 	border-top-width: 1px;
-	margin: 30px 0;
+	margin: $spacing-6 0;
 }
 
 ul, ol {
-	padding-left: 25px;
+	padding-left: $spacing-5;
 }
 
 p, ul, ol {

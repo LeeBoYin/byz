@@ -41,6 +41,12 @@ import confirm from '@plugins/confirm';
 Vue.use(alert);
 Vue.use(confirm);
 
+// register layout components
+import vueLayoutComponents from 'vue-layout-system';
+for(let name of Object.keys(vueLayoutComponents)) {
+	Vue.component(name, vueLayoutComponents[name]);
+}
+
 new Vue({
 	el: '#app',
 	store,

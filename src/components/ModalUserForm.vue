@@ -5,13 +5,13 @@
 		@close="$emit('close')"
 	>
 		<div slot="body" class="user-form">
-			<div class="mb-30">
-				<div class="frow justify-start row-center mb-25">
+			<LayoutList gap="5" padding-x="8" padding-y="6">
+				<LayoutListInline gap="4" vertical-align="center">
 					<Avatar
 						:name="userName"
 						:color="userColor" />
 					<ColorSelect v-model="userColor" />
-				</div>
+				</LayoutListInline>
 				<AutocompleteInput
 					ref="autocompleteInput"
 					v-model="userName"
@@ -23,17 +23,21 @@
 					placeholder="Your name"
 					@keypress.enter="submit"
 				/>
-			</div>
-			<div class="frow row-between">
-				<a class="hint text-underline" @click="viewAsGuest">view as a guest</a>
-				<button class="btn btn--primary" :disabled="isLoading" @click="submit">
-					<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
-					<template v-else>
-						{{ isNameExisting ? 'ENTER' : 'JOIN' }}
-						<i class="las la-arrow-right"></i>
+				<LayoutFlexRow vertical-align="center">
+					<template #left>
+						<a class="hint link" @click="viewAsGuest">view as a guest</a>
 					</template>
-				</button>
-			</div>
+					<template #right>
+						<button class="btn btn--primary" :disabled="isLoading" @click="submit">
+							<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
+							<template v-else>
+								{{ isNameExisting ? 'ENTER' : 'JOIN' }}
+								<i class="las la-arrow-right"></i>
+							</template>
+						</button>
+					</template>
+				</LayoutFlexRow>
+			</LayoutList>
 		</div>
 	</ModalContent>
 </template>

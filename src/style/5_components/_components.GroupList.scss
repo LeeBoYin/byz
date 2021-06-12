@@ -1,6 +1,9 @@
 .group-list {
 	display: flex;
 	flex-wrap: nowrap;
+	&__group {
+		flex: 0 0 auto;
+	}
 	&__btn-add {
 		width: $w-group;
 		flex-shrink: 0;

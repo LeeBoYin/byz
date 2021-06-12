@@ -1,15 +1,15 @@
 <template>
-	<div class="frow centered-column">
+	<LayoutAlign vertical-align="center">
 		<Card>
-			<div class="text-center">
-				<h1 class="mb-25">Welcome to BYZ</h1>
+			<LayoutList gap="5" horizontal-align="center">
+				<h1>Welcome to BYZ</h1>
 				<button class="btn btn--primary" @click="$router.push({ name: 'CreateBoard' })">
 					Create a Board
 					<i class="las la-arrow-right"></i>
 				</button>
-			</div>
+			</LayoutList>
 		</Card>
-	</div>
+	</LayoutAlign>
 </template>
 
 <script>

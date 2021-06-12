@@ -7,7 +7,6 @@ const state = {
 	board: null,
 	boardRef: null,
 	isInitialized: false,
-	isShowPostArea: false,
 	isGuestMode: false,
 };
 const getters = {
@@ -30,9 +29,6 @@ const mutations = {
 	},
 	setIsGuestMode(state, isGuestMode) {
 		state.isGuestMode = isGuestMode;
-	},
-	setIsShowPostArea(state, isShowPostArea) {
-		state.isShowPostArea = isShowPostArea;
 	},
 	updateBoard(state, board) {
 		state.board = board;
@@ -94,12 +90,6 @@ const actions = {
 	setLocalData({ getters }, data) {
 		_.forEach(data, (value, key) => {
 			window.localStorage.setItem(`${ getters.boardId }:${ key }`, value);
-		});
-	},
-	setIsShowPostArea({ getters, dispatch, commit }, value) {
-		commit('setIsShowPostArea', value);
-		dispatch('setLocalData', {
-			isShowPostArea: value,
 		});
 	},
 	viewAsGuest({ commit }) {

@@ -6,39 +6,56 @@
 			'group--draggable': !isDeleting && !isGuestMode,
 			'group--posting': isPosting,
 		}"
-		class="group"
+		class="group layout-u-content-fill-height"
 		:data-group-id="group.id"
 	>
-		<div class="group__header frow nowrap">
-			<i class="group__handle las la-grip-lines"></i>
-			<EditableTitle
-				ref="editableTitle"
-				:title="group.name"
-				:disabled="isGuestMode"
-				:double-clickable="true"
-				element="h2"
-				placeholder="Group Name"
-				align="center"
-				class="group__title"
-				@update="updateGroupName"
-			/>
-			<OptionsDropdown :options="options" direction="bottom" class="group__options" />
-		</div>
-		<PostList ref="postList" :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
+		<LayoutFlexColumn>
+			<template #top>
+				<div class="group__header">
+					<LayoutFlexRow vertical-align="center">
+						<template #left>
+							<i class="group__handle las la-grip-lines"></i>
+						</template>
+						<template #remain>
+							<EditableTitle
+								ref="editableTitle"
+								:title="group.name"
+								:disabled="isGuestMode"
+								:double-clickable="true"
+								element="h2"
+								placeholder="Group Name"
+								align="center"
+								class="group__title"
+								@update="updateGroupName"
+							/>
+						</template>
+						<template #right>
+							<OptionsDropdown :options="options" direction="bottom" class="group__options" />
+						</template>
+					</LayoutFlexRow>
+				</div>
+			</template>
+			<template #remain>
+				<PostList ref="postList" :data-group-id="group.id" :group-id="group.id" :posts="posts" class="group__post-list" />
+			</template>
+			<template v-if="isPosting" #bottom>
+				<div class="group__post-form-area">
+					<PostForm
+						:group-id="group.id"
+						@posted="onPosted"
+						@cancel="isPosting = false"
+					/>
+				</div>
+			</template>
+		</LayoutFlexColumn>
 		<button v-if="!isGuestMode && !isPosting" class="group__btn-post" @click="onClickCreatePost">
 			<i class="las la-plus"></i>
 		</button>
-		<div v-if="isPosting" class="group__post-form-area">
-			<PostForm
-				:group-id="group.id"
-				@posted="onPosted"
-				@cancel="isPosting = false"
-			/>
-		</div>
 	</div>
 </template>
 
 <script>
+// import vueLayoutSystem from 'vue-layout-system';
 import EditableTitle from '@components/EditableTitle';
 import OptionsDropdown from '@components/OptionsDropdown';
 import PostForm from '@components/PostForm';
@@ -52,6 +69,7 @@ export default {
 		OptionsDropdown,
 		PostForm,
 		PostList,
+		// ...vueLayoutSystem,
 	},
 	props: {
 		group: Object,

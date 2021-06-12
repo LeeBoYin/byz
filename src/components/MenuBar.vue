@@ -1,53 +1,57 @@
 <template>
 	<div class="menu-bar">
-		<div class="frow row-between">
-			<div class="frow column-start">
-				<div class="frow row-center mb-5">
-					<EditableTitle
-						:title="boardName"
-						:disabled="isGuestMode"
-						:required="true"
-						:clickable="true"
-						element="h1"
-						placeholder="Board Name"
-						class="menu-bar__title"
-						@update="updateBoardName"
-					/>
-					<div class="menu-bar__tools ml-5">
-						<button
-							class="menu-bar__tool"
-							v-tooltip="'Share'"
-							@click="onClickShareButton"
-						>
-							<i class="las la-link"></i>
-						</button>
-						<button
-							v-if="isSupportFullscreen"
-							:key="+isFullScreen"
-							class="menu-bar__tool"
-							v-tooltip="isFullScreen ? 'Leave Fullscreen' : 'Fullscreen'"
-							@click="onToggleFullscreen"
-						>
-							<i v-if="isFullScreen" class="las la-compress"></i>
-							<i v-else class="las la-expand"></i>
-						</button>
-						<button
-							class="menu-bar__tool"
-							v-tooltip="'Create new board'"
-							@click="onClickCreateBoardButton"
-						>
-							<i class="las la-plus"></i>
-						</button>
-					</div>
-				</div>
-				<div v-if="currentUser" class="menu-bar__user-name">Your name: {{ currentUser.name }}</div>
-				<a v-if="isGuestMode" class="menu-bar__user-name" @click="leaveGuestMode">
-					Guest Mode
-					<i class="las la-mask"></i>
-				</a>
-			</div>
-			<AvatarList :users="formattedUserList" :max="15" size="md"/>
-		</div>
+		<LayoutFlexRow vertical-align="center" padding="2">
+			<template #left>
+				<LayoutList gap="1" horizontal-align="left">
+					<LayoutListInline gap="2" vertical-align="center">
+						<EditableTitle
+							:title="boardName"
+							:disabled="isGuestMode"
+							:required="true"
+							:clickable="true"
+							element="h1"
+							placeholder="Board Name"
+							class="menu-bar__title"
+							@update="updateBoardName"
+						/>
+						<LayoutListInline gap="1" vertical-align="center">
+							<button
+								class="menu-bar__tool"
+								v-tooltip="'Share'"
+								@click="onClickShareButton"
+							>
+								<i class="las la-link"></i>
+							</button>
+							<button
+								v-if="isSupportFullscreen"
+								:key="+isFullScreen"
+								class="menu-bar__tool"
+								v-tooltip="isFullScreen ? 'Leave Fullscreen' : 'Fullscreen'"
+								@click="onToggleFullscreen"
+							>
+								<i v-if="isFullScreen" class="las la-compress"></i>
+								<i v-else class="las la-expand"></i>
+							</button>
+							<button
+								class="menu-bar__tool"
+								v-tooltip="'Create new board'"
+								@click="onClickCreateBoardButton"
+							>
+								<i class="las la-plus"></i>
+							</button>
+						</LayoutListInline>
+					</LayoutListInline>
+					<div v-if="currentUser" class="menu-bar__user-name">Your name: {{ currentUser.name }}</div>
+					<a v-if="isGuestMode" class="menu-bar__user-name" @click="leaveGuestMode">
+						Guest Mode
+						<i class="las la-mask"></i>
+					</a>
+				</LayoutList>
+			</template>
+			<template #right>
+				<AvatarList :users="formattedUserList" :max="15" size="md"/>
+			</template>
+		</LayoutFlexRow>
 		<ModalShare
 			:is-open="isOpenModalShare"
 			class="modal-sm"

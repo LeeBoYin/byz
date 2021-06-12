@@ -1,7 +1,7 @@
 .post-comment-form {
 	position: sticky;
 	bottom: 0;
-	padding-top: 10px;
+	padding-top: $spacing-2;
 	background-color: $c-bright;
 	transition: $transition-post-background-color;
 	.post--red & {

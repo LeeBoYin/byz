@@ -1,7 +1,7 @@
 .input-block {
 	display: block;
 	width: 100%;
-	padding: 10px 30px;
+	padding: $spacing-2 $spacing-6;
 	border: 2px solid transparent;
 	border-radius: $border-r-md;
 	transition-property: color, border, background-color;

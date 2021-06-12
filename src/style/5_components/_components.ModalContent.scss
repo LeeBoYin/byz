@@ -1,7 +1,7 @@
 .modal-content {
 	@include modal;
 	$header-font-size: 24px;
-	$header-padding: 15px;
+	$header-padding: $spacing-3;
 	&__content {
 		padding: 0;
 	}

@@ -1,32 +1,44 @@
 <template>
 	<div class="post-form">
-		<div class="post-form__input-wrapper">
-			<textarea
-				ref="input"
-				v-model.trim="content"
-				v-auto-focus
-				v-auto-height
-				rows="1"
-				class="post-form__input"
-				placeholder="Type something..."
-				@keypress.enter="submit"
-				@keydown.esc="cancel"
-			>
-			</textarea>
-			<div v-if="isPosting" class="post-form__icon-loading">
-				<i class="las la-circle-notch la-spin la"></i>
-			</div>
-		</div>
-		<div class="post-form__tools">
-			<ImageUploadButton
-				class="post-form__tool"
-				:path="`board/${ boardId }/image`"
-				:maxHeight="1920"
-				:maxWidth="1920"
-				@uploading="isUploadingImage = true"
-				@uploaded="onImageUploaded"
-			/>
-		</div>
+		<LayoutFlexRow vertical-align="top" gap="1">
+			<template #remain>
+				<div class="layout-u-position-relative">
+					<textarea
+						ref="input"
+						v-model.trim="content"
+						v-auto-focus
+						v-auto-height
+						rows="1"
+						class="post-form__input"
+						placeholder="Type something..."
+						:disabled="isPosting"
+						@keypress.enter="submit"
+						@keydown.esc="cancel"
+					>
+					</textarea>
+					<LayoutAbsolute
+						v-if="isPosting"
+						padding-x="2"
+					>
+						<template #right>
+							<div class="post-form__icon-loading">
+								<i class="las la-circle-notch la-spin la"></i>
+							</div>
+						</template>
+					</LayoutAbsolute>
+				</div>
+			</template>
+			<template #right>
+				<ImageUploadButton
+					class="post-form__tool"
+					:path="`board/${ boardId }/image`"
+					:maxHeight="1920"
+					:maxWidth="1920"
+					@uploading="isUploadingImage = true"
+					@uploaded="onImageUploaded"
+				/>
+			</template>
+		</LayoutFlexRow>
 	</div>
 </template>
 
@@ -53,21 +65,10 @@ export default {
 		isSubmittable() {
 			return this.content.length > 0 && !this.isUploadingImage;
 		},
-		...mapState('board', [
-			'isShowPostArea',
-		]),
 		...mapGetters('board', [
 			'currentUser',
 			'boardId',
 		]),
-	},
-	watch: {
-		isShowPostArea() {
-			if(this.isShowPostArea) {
-				// auto focus input when open post area
-				this.$refs.input.focus();
-			}
-		},
 	},
 	mounted() {
 		this.bindEvents();
@@ -89,7 +90,7 @@ export default {
 				return;
 			}
 			this.isPosting = true;
-			this.createPost({
+			await this.createPost({
 				post: {
 					content: this.content,
 					posterName: this.currentUser.name,

@@ -14,12 +14,12 @@
 		overflow: hidden;
 		box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.2);
 		margin-top: 2px;
-		overflow-y: scroll;
+		overflow-y: auto;
 	}
 	&__option {
 		@extend %text-ellipsis;
 		position: relative;
-		padding: 10px 30px;
+		padding: $spacing-2 $spacing-6;
 		border-bottom: 1px solid $c-gray-lighter;
 		&:last-child {
 			border-bottom: none;

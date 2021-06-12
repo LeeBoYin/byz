@@ -4,6 +4,7 @@
 			v-for="group in orderedGroups"
 			:key="group.id"
 			:group="group"
+			class="group-list__group"
 		/>
 		<button v-if="!isGuestMode" class="group-list__btn-add" @click="onClickCreate">
 			<i class="las la-plus"></i>
