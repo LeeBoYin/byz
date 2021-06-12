@@ -2,15 +2,21 @@
 	<div>
 		<LoadingMsg v-if="!isInitialized" />
 		<template v-else>
-			<div :class="{ 'board--expand': !isShowPostArea }" class="board">
-				<div class="board__header">
-					<MenuBar />
-				</div>
-				<div class="board__body">
-					<div class="board__group-list-container">
-						<GroupList class="" />
-					</div>
-				</div>
+			<div :class="{ 'board--expand': !isShowPostArea }" class="board layout-u-content-fill-height">
+				<LayoutFlexColumn>
+					<template #top>
+						<div class="board__header">
+							<MenuBar />
+						</div>
+					</template>
+					<template #remain>
+						<div class="board__body layout-u-content-fill-height">
+							<div class="board__group-list-container">
+								<GroupList class="" />
+							</div>
+						</div>
+					</template>
+				</LayoutFlexColumn>
 			</div>
 			<ModalUserForm :is-open="!currentUser && !isGuestMode" />
 		</template>

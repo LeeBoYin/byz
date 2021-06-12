@@ -15,3 +15,9 @@ body {
 	color: $c-dark;
 	overflow: hidden;
 }
+
+#app {
+	&, & > div {
+		height: 100%;
+	}
+}

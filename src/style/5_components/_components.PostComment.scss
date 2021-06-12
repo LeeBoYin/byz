@@ -1,8 +1,5 @@
 .post-comment {
 	@include editable-post-content;
-	&__content-container {
-		position: relative;
-	}
 	&__content {
 		@extend %markdown-content;
 		background-color: rgba(0, 0, 0, 0.05);
@@ -18,17 +15,11 @@
 	&__textarea {
 		border-radius: $border-r-lg;
 	}
-	&__avatar {
-		flex-shrink: 0;
-		margin-right: 10px;
-	}
 	&__post-time {
-		margin-top: 5px;
 		font-size: 12px;
 		color: $c-gray;
 	}
 	&__options {
-		align-self: flex-start;
 		visibility: hidden;
 		margin-top: 8px;
 		padding: 4px 0 4px 4px;

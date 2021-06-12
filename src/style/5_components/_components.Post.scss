@@ -4,8 +4,6 @@
 	border-radius: $border-r-md;
 	box-shadow: 3px 3px 0 rgba(0, 0, 0, .02);
 	cursor: pointer;
-	display: flex;
-	flex-direction: column;
 	transition: $transition-post-background-color;
 	transform-origin: top center;
 	&:hover {
@@ -77,9 +75,6 @@
 	&__handle {
 		@extend %tool;
 		@extend %grabbable;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
 		padding: 0 4px;
 	}
 	&--editing &__handle {
@@ -99,9 +94,6 @@
 		@extend %markdown-content;
 	}
 	&__footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
 		font-size: 0.7rem;
 	}
 	&__poster {
@@ -121,8 +113,6 @@
 		visibility: hidden;
 	}
 	&__btn-like {
-		display: flex;
-		align-items: center;
 		i {
 			font-size: 16px;
 			color: $c-bright;
@@ -143,9 +133,7 @@
 		display: inline-block;
 		margin-left: 5px;
 	}
-	&__content-container {
-		position: relative;
-	}
+
 	// guest mode style
 	&--guest &__btn-like {
 		cursor: default;

@@ -1,30 +1,32 @@
 <template>
-	<div class="frow centered-column">
+	<LayoutAlign vertical-align="center">
 		<Card>
-			<div class="frow direction-column mb-30">
-				<label class="mb-15">Board Name</label>
-				<input
-					ref="input"
-					v-model="boardName"
-					v-auto-focus
-					type="text"
-					class="input-block"
-					:disabled="isLoading"
-					placeholder="Board name"
-					@keypress.enter="submit"
-				>
-			</div>
-			<div class="text-right">
-				<button class="btn btn--primary" :disabled="isLoading" @click="submit">
-					<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
-					<template v-else>
-						Create
-						<i class="las la-arrow-right"></i>
-					</template>
-				</button>
-			</div>
+			<LayoutList gap="6">
+				<LayoutList gap="3">
+					<label>Board Name</label>
+					<input
+						ref="input"
+						v-model="boardName"
+						v-auto-focus
+						type="text"
+						class="input-block"
+						:disabled="isLoading"
+						placeholder="Board name"
+						@keypress.enter="submit"
+					>
+				</LayoutList>
+				<LayoutAlign horizontal-align="right">
+					<button class="btn btn--primary" :disabled="isLoading" @click="submit">
+						<i v-if="isLoading" class="las la-circle-notch la-spin la"></i>
+						<template v-else>
+							Create
+							<i class="las la-arrow-right"></i>
+						</template>
+					</button>
+				</LayoutAlign>
+			</LayoutList>
 		</Card>
-	</div>
+	</LayoutAlign>
 </template>
 
 <script>

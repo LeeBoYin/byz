@@ -1,13 +1,15 @@
 <template>
 	<div class="color-select">
-		<div
-			v-for="color in colors" @click="onClickColor(color)"
-			:class="{ 'color-select__option--selected': value === color }"
-			class="color-select__option"
-			:style="{ 'background-color': color }"
-		>
-			<div class="color-select__option-shadow" :style="{ 'background-color': color }"></div>
-		</div>
+		<LayoutListInline gap="4">
+			<div
+				v-for="color in colors" @click="onClickColor(color)"
+				:class="{ 'color-select__option--selected': value === color }"
+				class="color-select__option"
+				:style="{ 'background-color': color }"
+			>
+				<div class="color-select__option-shadow" :style="{ 'background-color': color }"></div>
+			</div>
+		</LayoutListInline>
 	</div>
 </template>
 

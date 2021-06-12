@@ -1,23 +1,27 @@
 <template>
 	<div class="post-comment-form">
-		<div class="frow nowrap justify-start items-start">
-			<Avatar
-				:name="currentUser.name"
-				:color="currentUser.color"
-				size="md"
-				class="shrink-0 mr-10"
-			/>
-			<textarea
-				v-model.trim="content"
-				v-auto-height
-				ref="input"
-				class="post-comment-form__textarea grow-remain"
-				type="text"
-				rows="1"
-				placeholder="Any comment?"
-				@keypress.enter="submit"
-			></textarea>
-		</div>
+		<LayoutFlexRow vertical-align="top">
+			<template #left>
+				<Avatar
+					:name="currentUser.name"
+					:color="currentUser.color"
+					size="md"
+					class="layout-u-mr-2"
+				/>
+			</template>
+			<template #remain>
+				<textarea
+					v-model.trim="content"
+					v-auto-height
+					ref="input"
+					class="post-comment-form__textarea"
+					type="text"
+					rows="1"
+					placeholder="Any comment?"
+					@keypress.enter="submit"
+				></textarea>
+			</template>
+		</LayoutFlexRow>
 	</div>
 </template>
 

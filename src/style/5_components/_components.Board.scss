@@ -8,14 +8,9 @@
 		padding: 0 10px;
 		margin-bottom: 10px;
 	}
-	&__body {
-		@extend %grow-remain;
-		display: flex;
-		min-height: 0;
-	}
+	&__body {}
 	&__group-list-container {
 		@include custom-scrollbar(#dcd6c9, transparent, 5px);
-		@extend %grow-remain;
 		display: flex;
 		overflow-x: auto;
 		overflow-y: hidden;
