@@ -1,20 +1,22 @@
 <template>
 	<div :class="{ 'modal-confirm--open': isOpen }" class="modal-confirm" @click.self="!buttonCloseOnly && $emit('cancel')">
 		<div class="modal-confirm__content">
-			<div v-if="title" class="modal-confirm__title">
-				{{ title }}
-			</div>
-			<div class="modal-confirm__msg">
-				{{ msg }}
-			</div>
-			<div class="modal-confirm__btn-container">
-				<button class="modal-confirm__btn-cancel" @click="$emit('cancel')">
-					Cancel
-				</button>
-				<button class="modal-confirm__btn-confirm" @click="$emit('confirm')">
-					{{ buttonText }}
-				</button>
-			</div>
+			<LayoutList gap="4" padding-x="8" padding-y="6" horizontal-align="center">
+				<div v-if="title" class="modal-confirm__title">
+					{{ title }}
+				</div>
+				<div class="modal-confirm__msg">
+					{{ msg }}
+				</div>
+				<LayoutListInline gap="3">
+					<button class="modal-confirm__btn-cancel" @click="$emit('cancel')">
+						Cancel
+					</button>
+					<button class="modal-confirm__btn-confirm" @click="$emit('confirm')">
+						{{ buttonText }}
+					</button>
+				</LayoutListInline>
+			</LayoutList>
 		</div>
 	</div>
 </template>

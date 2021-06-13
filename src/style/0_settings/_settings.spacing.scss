@@ -1,11 +1,39 @@
-$spacing-0: 0px;
-$spacing-1: 5px;
-$spacing-2: 10px;
-$spacing-3: 15px;
-$spacing-4: 20px;
-$spacing-5: 25px;
-$spacing-6: 30px;
-$spacing-7: 40px;
-$spacing-8: 50px;
-$spacing-9: 60px;
-$spacing-10: 80px;
+@import "settings.breakpoint";
+:root {
+	--spacing-0: 0px;
+	--spacing-1: 5px;
+	--spacing-2: 10px;
+	--spacing-3: 15px;
+	--spacing-4: 20px;
+	--spacing-5: 25px;
+	--spacing-6: 30px;
+	--spacing-7: 40px;
+	--spacing-8: 50px;
+	--spacing-9: 60px;
+	--spacing-10: 80px;
+	@media (max-width: $breakpoint-md) {
+		--spacing-0: 0px;
+		--spacing-1: 4px;
+		--spacing-2: 8px;
+		--spacing-3: 12px;
+		--spacing-4: 16px;
+		--spacing-5: 20px;
+		--spacing-6: 24px;
+		--spacing-7: 32px;
+		--spacing-8: 40px;
+		--spacing-9: 48px;
+		--spacing-10: 60px;
+	}
+}
+
+$spacing-0: var(--spacing-0);
+$spacing-1: var(--spacing-1);
+$spacing-2: var(--spacing-2);
+$spacing-3: var(--spacing-3);
+$spacing-4: var(--spacing-4);
+$spacing-5: var(--spacing-5);
+$spacing-6: var(--spacing-6);
+$spacing-7: var(--spacing-7);
+$spacing-8: var(--spacing-8);
+$spacing-9: var(--spacing-9);
+$spacing-10: var(--spacing-10);

@@ -2,19 +2,14 @@
 	@include modal;
 	$header-font-size: 24px;
 	$header-padding: $spacing-3;
-	&__content {
-		padding: 0;
-	}
+	&__content {}
 	&--lg &__content {
-		width: 100%;
 		max-width: $w-block-lg;
 	}
 	&--md &__content {
-		width: 100%;
 		max-width: $w-block-md;
 	}
 	&--sm &__content {
-		width: 100%;
 		max-width: $w-block-sm;
 	}
 	&__header {

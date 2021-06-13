@@ -13,6 +13,11 @@
 		flex-shrink: 0;
 		margin-bottom: $spacing-3;
 	}
+	// mobile
+	@media (max-width: $breakpoint-md) {
+		padding-left: $spacing-1;
+		padding-right: $spacing-1;
+	}
 }
 
 // Vue List Transitions

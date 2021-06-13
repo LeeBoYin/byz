@@ -25,7 +25,7 @@
 		scroll-snap-type: x mandatory;
 		padding: 0 $spacing-2;
 		&__group {
-			width: calc(100vw - #{ $spacing-2 * 2 });
+			width: calc(100vw - calc(#{ $spacing-2 } * 2));
 			scroll-snap-align: center;
 		}
 		&__btn-add {

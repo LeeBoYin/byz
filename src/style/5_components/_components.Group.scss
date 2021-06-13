@@ -33,6 +33,10 @@
 		@extend %tool;
 		@extend %tool-group;
 		@extend %grabbable;
+		@media (max-width: $breakpoint-md) {
+			// disable sort on mobile until sortable is supported
+			visibility: hidden;
+		}
 	}
 	&__post-form-area {
 		padding: $spacing-2;
@@ -59,5 +63,12 @@
 	&--guest &__options,
 	&--guest &__handle {
 		visibility: hidden;
+	}
+
+	// mobile portrait
+	@media (max-width: $breakpoint-sm) {
+		&__btn-post {
+			visibility: visible;
+		}
 	}
 }
