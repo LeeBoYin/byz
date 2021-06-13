@@ -1,6 +1,10 @@
 .group-list {
+	@include custom-scrollbar(#dcd6c9, transparent, 5px);
 	display: flex;
 	flex-wrap: nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding-bottom: $spacing-1;
 	&__group {
 		flex: 0 0 auto;
 	}
@@ -14,6 +18,18 @@
 		transition: opacity .1s;
 		&:hover {
 			opacity: 0.5;
+		}
+	}
+	// mobile portrait
+	@media (max-width: $breakpoint-sm) {
+		scroll-snap-type: x mandatory;
+		padding: 0 $spacing-2;
+		&__group {
+			width: calc(100vw - calc(#{ $spacing-2 } * 2));
+			scroll-snap-align: center;
+		}
+		&__btn-add {
+			display: none;
 		}
 	}
 }

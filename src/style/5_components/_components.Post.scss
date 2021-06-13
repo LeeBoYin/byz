@@ -32,9 +32,9 @@
 		cursor: initial;
 		position: fixed;
 		top: $spacing-9;
-		width: 80%;
+		width: calc(100% - #{ $spacing-4 });
 		max-width: 500px;
-		max-height: calc(100vh - 120px);
+		max-height: calc(100% - #{ $spacing-9 } * 2);
 		z-index: $z-index-post-modal-mode;
 		overflow-y: auto;
 		// border space for scrollbar
@@ -43,7 +43,7 @@
 			$spacing-1 // space for tool options
 			$spacing-1
 			0
-			($spacing-1 + $scrollbar-size);
+			calc(#{ $spacing-1 } + #{ $scrollbar-size });
 		&, &:hover {
 			box-shadow: $shadow-modal;
 		}
@@ -75,6 +75,11 @@
 		@extend %tool;
 		@extend %grabbable;
 		padding: 0 $spacing-1;
+		// mobile
+		@media (max-width: $breakpoint-md) {
+			// disable sort on mobile until sortable is supported
+			visibility: hidden;
+		}
 	}
 	&--editing &__handle {
 		visibility: hidden;

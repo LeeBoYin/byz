@@ -2,14 +2,11 @@
 	@include modal;
 	&__content {
 		max-width: $w-block-sm;
-		text-align: center;
 	}
 	&__title {
-
+		font-weight: bold;
 	}
-	&__msg {
-		margin-bottom: 20px;
-	}
+	&__msg {}
 	&__btn {
 		@extend .btn;
 		@extend .btn--primary;

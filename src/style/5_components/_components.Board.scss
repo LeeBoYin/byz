@@ -1,10 +1,9 @@
 .board {
 	padding: 0 $spacing-1 $spacing-1;
 	&__header {}
-	&__body {
-		@include custom-scrollbar(#dcd6c9, transparent, 5px);
-		overflow-x: auto;
-		overflow-y: hidden;
-		padding-bottom: $spacing-1;
+	&__body {}
+	// mobile portrait
+	@media (max-width: $breakpoint-sm) {
+		padding: 0;
 	}
 }

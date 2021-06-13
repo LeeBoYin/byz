@@ -2,12 +2,10 @@
 	<div
 		:class="{ 'options-dropdown--open': isOpen }"
 		class="options-dropdown"
-		:data-uid="_.uniqueId()"
 		@click.stop="toggleOptions">
 		<div class="options-dropdown__container">
 			<i
 				ref="toggle"
-				:data-uid="_.uniqueId()"
 				class="options-dropdown__toggle las la-ellipsis-v"
 			></i>
 			<div class="options-dropdown__dropdown" :style="dropDownStyle">

@@ -1,15 +1,17 @@
 <template>
 	<div :class="{ 'modal-alert--open': isOpen }" class="modal-alert" @click.self="!buttonCloseOnly && $emit('close')">
 		<div class="modal-alert__content">
-			<div v-if="title" class="modal-alert__title">
-				{{ title }}
-			</div>
-			<div class="modal-alert__msg">
-				{{ msg }}
-			</div>
-			<button class="modal-alert__btn" @click="$emit('close')">
-				{{ buttonText }}
-			</button>
+			<LayoutList gap="4" padding-x="8" padding-y="6" horizontal-align="center">
+				<div v-if="title" class="modal-alert__title">
+					{{ title }}
+				</div>
+				<div class="modal-alert__msg">
+					{{ msg }}
+				</div>
+				<button class="modal-alert__btn" @click="$emit('close')">
+					{{ buttonText }}
+				</button>
+			</LayoutList>
 		</div>
 	</div>
 </template>

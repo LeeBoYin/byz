@@ -10,4 +10,20 @@
 		font-size: 16px;
 		padding: $spacing-1;
 	}
+
+	// mobile
+	@media (max-width: $breakpoint-md) {
+		&__user-name {
+			display: none;
+		}
+		&__avatar-list {
+			display: none;
+		}
+	}
+	// desktop
+	@media (min-width: $breakpoint-md + 1) {
+		&__avatar {
+			display: none;
+		}
+	}
 }

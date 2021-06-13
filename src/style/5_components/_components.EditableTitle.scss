@@ -2,51 +2,43 @@
 	* {
 		line-height: 1.5;
 	}
+
+	// display
+	$shadow-bottom: 0 1px 0 0 $c-gray-light;
 	&__display {
-		display: flex;
-		align-items: center;
-		* {
-			pointer-events: none;
-		}
+		@extend %text-ellipsis;
 	}
 	&--clickable &__display {
 		cursor: pointer;
 	}
-	&__text {
-		@extend %text-ellipsis;
+	&--clickable:hover &__display {
+		box-shadow: $shadow-bottom;
 	}
-	&__icon-edit {
-		margin-left: 5px;
-		font-size: 0.8em;
-		color: $c-gray;
-		display: none;
-	}
-	&__display:hover &__icon-edit {
-		display: block;
-	}
+
+	// input
 	&__input {
 		display: block;
 		width: 100%;
 		background-color: transparent;
 		border-radius: 0;
 		border: 0;
-		box-shadow: 0 1px 0 0 $c-gray-light;
+		box-shadow: $shadow-bottom;
 		padding: 0;
 		font-size: inherit;
 	}
-	// align
-	&--center &__display {
-		justify-content: center;
+	&--auto-width &__input {
+		min-width: 200px;
+		max-width: 100%;
 	}
-	&--center &__input {
+
+	// align
+	&--center, &--center &__input {
 		text-align: center;
 	}
-	&--right &__display {
-		justify-content: flex-end;
-	}
-	&--right &__input {
+	&--right, &--right &__input {
 		text-align: right;
 	}
+
 	// disabled style
 	&--disabled &__display {
 		cursor: default;

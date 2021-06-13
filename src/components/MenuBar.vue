@@ -1,55 +1,74 @@
 <template>
 	<div class="menu-bar">
-		<LayoutFlexRow vertical-align="center" padding="2">
-			<template #left>
-				<LayoutList gap="1" horizontal-align="left">
-					<LayoutListInline gap="2" vertical-align="center">
-						<EditableTitle
-							:title="boardName"
-							:disabled="isGuestMode"
-							:required="true"
-							:clickable="true"
-							element="h1"
-							placeholder="Board Name"
-							class="menu-bar__title"
-							@update="updateBoardName"
-						/>
-						<LayoutListInline gap="1" vertical-align="center">
-							<button
-								class="menu-bar__tool"
-								v-tooltip="'Share'"
-								@click="onClickShareButton"
-							>
-								<i class="las la-link"></i>
-							</button>
-							<button
-								v-if="isSupportFullscreen"
-								:key="+isFullScreen"
-								class="menu-bar__tool"
-								v-tooltip="isFullScreen ? 'Leave Fullscreen' : 'Fullscreen'"
-								@click="onToggleFullscreen"
-							>
-								<i v-if="isFullScreen" class="las la-compress"></i>
-								<i v-else class="las la-expand"></i>
-							</button>
-							<button
-								class="menu-bar__tool"
-								v-tooltip="'Create new board'"
-								@click="onClickCreateBoardButton"
-							>
-								<i class="las la-plus"></i>
-							</button>
-						</LayoutListInline>
-					</LayoutListInline>
-					<div v-if="currentUser" class="menu-bar__user-name">Your name: {{ currentUser.name }}</div>
-					<a v-if="isGuestMode" class="menu-bar__user-name" @click="leaveGuestMode">
-						Guest Mode
-						<i class="las la-mask"></i>
-					</a>
-				</LayoutList>
+		<LayoutFlexRow vertical-align="center" gap="2" padding="2">
+			<template #remain>
+				<LayoutAlign horizontal-align="left">
+					<LayoutList gap="1" horizontal-align="">
+						<LayoutFlexRow gap="2" vertical-align="center">
+							<template #remain>
+								<EditableTitle
+									:title="boardName"
+									:disabled="isGuestMode"
+									:required="true"
+									:clickable="!!currentUser"
+									element="h1"
+									placeholder="Board Name"
+									class="menu-bar__title"
+									auto-width
+									@update="updateBoardName"
+								/>
+							</template>
+							<template #right>
+								<LayoutListInline gap="1" vertical-align="center">
+									<button
+										class="menu-bar__tool"
+										v-tooltip="'Share'"
+										@click="onClickShareButton"
+									>
+										<i class="las la-link"></i>
+									</button>
+									<button
+										v-if="isSupportFullscreen"
+										:key="+isFullScreen"
+										class="menu-bar__tool"
+										v-tooltip="isFullScreen ? 'Leave Fullscreen' : 'Fullscreen'"
+										@click="onToggleFullscreen"
+									>
+										<i v-if="isFullScreen" class="las la-compress"></i>
+										<i v-else class="las la-expand"></i>
+									</button>
+									<button
+										class="menu-bar__tool"
+										v-tooltip="'Create new board'"
+										@click="onClickCreateBoardButton"
+									>
+										<i class="las la-plus"></i>
+									</button>
+								</LayoutListInline>
+							</template>
+						</LayoutFlexRow>
+						<div v-if="currentUser" class="menu-bar__user-name">Your name: {{ currentUser.name }}</div>
+						<a v-if="isGuestMode" class="menu-bar__user-name" @click="leaveGuestMode">
+							Guest Mode
+							<i class="las la-mask"></i>
+						</a>
+					</LayoutList>
+				</LayoutAlign>
 			</template>
 			<template #right>
-				<AvatarList :users="formattedUserList" :max="15" size="md"/>
+				<AvatarList
+					:users="formattedUserList"
+					:max="15"
+					size="md"
+					class="menu-bar__avatar-list"
+				/>
+				<Avatar
+					v-if="currentUser"
+					:color="currentUser.color"
+					:name="currentUser.name"
+					size="md"
+					class="menu-bar__avatar"
+				/>
 			</template>
 		</LayoutFlexRow>
 		<ModalShare
@@ -61,6 +80,7 @@
 </template>
 
 <script>
+import Avatar from '@components/Avatar';
 import AvatarList from '@components/AvatarList';
 import EditableTitle from '@components/EditableTitle';
 import ModalShare from '@components/ModalShare';
@@ -69,6 +89,7 @@ import { logEvent } from '@libs/analytics';
 
 export default {
 	components: {
+		Avatar,
 		AvatarList,
 		EditableTitle,
 		ModalShare,
