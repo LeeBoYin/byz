@@ -30,9 +30,11 @@ Object.defineProperty(Vue.prototype, '_', { value: _ });
 // directives
 import autoFocus from '@directives/autoFocus';
 import autoHeight from '@directives/autoHeight';
+import autoWidth from '@directives/autoWidth';
 import tooltip from '@directives/tooltip';
 Vue.directive('auto-focus', autoFocus);
 Vue.directive('auto-height', autoHeight);
+Vue.directive('auto-width', autoWidth);
 Vue.directive('tooltip', tooltip);
 
 // plugins
