@@ -2,7 +2,7 @@
 	<ModalContent
 		:is-open="isOpen"
 		size="lg"
-		class="modal-share layout-u-debug"
+		class="modal-share"
 		@close="$emit('close')">
 		<div slot="body" class="modal-share__body">
 			<LayoutFlexRow gap="3" padding="3">

@@ -56,7 +56,19 @@
 				</LayoutAlign>
 			</template>
 			<template #right>
-				<AvatarList :users="formattedUserList" :max="15" size="md"/>
+				<AvatarList
+					:users="formattedUserList"
+					:max="15"
+					size="md"
+					class="menu-bar__avatar-list"
+				/>
+				<Avatar
+					v-if="currentUser"
+					:color="currentUser.color"
+					:name="currentUser.name"
+					size="md"
+					class="menu-bar__avatar"
+				/>
 			</template>
 		</LayoutFlexRow>
 		<ModalShare
@@ -68,6 +80,7 @@
 </template>
 
 <script>
+import Avatar from '@components/Avatar';
 import AvatarList from '@components/AvatarList';
 import EditableTitle from '@components/EditableTitle';
 import ModalShare from '@components/ModalShare';
@@ -76,6 +89,7 @@ import { logEvent } from '@libs/analytics';
 
 export default {
 	components: {
+		Avatar,
 		AvatarList,
 		EditableTitle,
 		ModalShare,
