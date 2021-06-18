@@ -9,7 +9,7 @@
 	height: 100%;
 	opacity: 0;
 	visibility: hidden;
-	background-color: $c-overlay;
+	background-color: var(--c-overlay);
 	transition: $transition-modal-overlay-hide;
 	z-index: $z-index-modal;
 	&--open {
@@ -22,7 +22,7 @@
 		margin: $spacing-4;
 		border-radius: 6px;
 		box-shadow: $shadow-modal;
-		background-color: $c-bright;
+		background-color: var(--c-surface-1);
 		position: relative;
 		transform: translateY(-50px);
 		transition: transform $transition-duration-modal;

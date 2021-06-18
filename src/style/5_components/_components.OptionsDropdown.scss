@@ -2,7 +2,7 @@
 	display: inline-block;
 	cursor: pointer;
 	&--open {
-		color: $c-gray-darker !important;
+		color: var(--c-gray-stronger) !important;
 		visibility: visible !important;
 	}
 	&__container {
@@ -26,14 +26,14 @@
 	&__option {
 		position: relative;
 		cursor: pointer;
-		color: $c-gray-dark;
-		background-color: $c-bright;
+		color: var(--c-gray-strong);
+		background-color: var(--c-surface-2);
 		font-size: 20px;
 		width: 36px;
 		height: 36px;
 		text-align: center;
 		border-radius: 50%;
-		box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+		box-shadow: 0 5px 10px 0 var(--c-shadow-30);
 		margin: calc(#{ $spacing-2 } / 2);
 		opacity: 0;
 		transform-origin: center center;
@@ -41,19 +41,19 @@
 		transition-timing-function: ease-out;
 		&:hover {
 			transform: scale(1.1);
-			color: $c-gray-darker;
+			color: var(--c-gray-stronger);
 		}
 		&:active {
 			transform: scale(0.9);
 		}
 		&--danger:hover {
-			color: $c-danger;
+			color: var(--c-danger);
 		}
 		&--disabled {
 			cursor: default;
-			color: $c-gray-light;
+			color: var(--c-gray-weak);
 			&:hover, &:active {
-				color: $c-gray-light;
+				color: var(--c-gray-weak);
 				transform: scale(1);
 			}
 		}

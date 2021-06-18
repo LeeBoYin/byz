@@ -5,7 +5,7 @@
 }
 .group {
 	position: relative;
-	background-color: rgba(0, 0, 0, 0.03);
+	background-color: var(--c-elevate-3);
 	margin-right: 2px;
 	width: $w-group;
 	transform-origin: top left;
@@ -16,7 +16,7 @@
 	}
 	&__header {
 		font-size: 12px;
-		background-color: rgba(0, 0, 0, 0.02);
+		background-color: var(--c-elevate-2);
 	}
 	&--draggable &__header {
 		@extend %grabbable;
@@ -40,7 +40,7 @@
 	}
 	&__post-form-area {
 		padding: $spacing-2;
-		background-color: #f2ebda;
+		background-color: var(--c-elevate-3);
 	}
 	&__btn-post {
 		@extend .btn;
@@ -53,7 +53,7 @@
 		height: 50px;
 		padding: 0;
 		border-radius: 50%;
-		box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+		box-shadow: 0 3px 5px 0 var(--c-shadow-30);
 		visibility: hidden;
 	}
 	&:hover &__btn-post {

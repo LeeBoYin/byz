@@ -2,11 +2,11 @@
 	&__input {
 		@extend .input-block;
 		border-radius: 30px;
-		background-color: $c-bright;
+		background-color: var(--c-surface-1);
 		max-height: 150px;
 		&:hover,
 		&:focus {
-			border-color: $c-primary;
+			border-color: var(--c-primary);
 		}
 		&::-webkit-scrollbar {
 			width: 0;
@@ -16,10 +16,10 @@
 		font-size: 20px;
 		// custom padding-y to make tool same height as input
 		padding: 13px $spacing-1;
-		color: $c-gray-dark;
+		color: var(--c-gray-strong);
 		transform-origin: center center;
 		&:hover {
-			color: $c-gray-darker;
+			color: var(--c-gray-stronger);
 		}
 		&:active {
 			transform: scale(0.9);
@@ -29,6 +29,6 @@
 		font-size: 1.4rem;
 		line-height: 1;
 		height: 1.4rem;
-		color: $c-gray-light;
+		color: var(--c-gray-weak);
 	}
 }

@@ -1,28 +1,140 @@
-$c-primary: #ffa100;
-$c-primary-dark: #d88a04;
+body {
+	--c-bright: hsla(0, 0%, 100%, 1);
+	--c-dark: hsla(0, 0%, 0%, 1);
+	$alpha-map: (2, 3, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90);
 
-$c-secondary: #52CBD9;
+	// shadow
+	--c-shadow-alpha-base: 0.01;
+	@each $alpha in $alpha-map {
+		--c-shadow-#{ $alpha }: hsla(0, 0%, 0%, calc(var(--c-shadow-alpha-base) * #{ $alpha }));
+	}
 
-$c-danger: #ff6b6a;
+	// elevate
+	--c-elevate-lightness: 0%;
+	@each $alpha in $alpha-map {
+		--c-elevate-#{ $alpha }: hsla(0, 0%, var(--c-elevate-lightness), #{ 0.01 * $alpha });
+	}
 
-$c-dark: #46506A;
-$c-bright: #FFFFFF;
-$c-bright-transparent-half: rgba(255, 255, 255, 0.5);
-$c-dark-transparent-half: rgba(70, 80, 106, 0.5);
+	// degrade
+	--c-degrade-lightness: 100%;
+	@each $alpha in $alpha-map {
+		--c-degrade-#{ $alpha }: hsla(0, 0%, var(--c-degrade-lightness), #{ 0.01 * $alpha });
+	}
 
-$c-gray-darker: #333333;
-$c-gray-dark: #666666;
-$c-gray: #999999;
-$c-gray-light: #CCCCCC;
-$c-gray-lighter: #F4F4F4;
+	// gray
+	--c-gray-stronger: hsla(0, 0%, 10%, 1);
+	--c-gray-strong: hsla(0, 0%, 30%, 1);
+	--c-gray: hsla(0, 0%, 50%, 1);
+	--c-gray-weak: hsla(0, 0%, 70%, 1);
+	--c-gray-weaker: hsla(0, 0%, 90%, 1);
 
-$c-background: #FFF8E6;
-$c-background-dark: #FEEFC4;
+	// primary
+	--c-primary-hue: 38;
+	--c-primary-saturation: 100%;
+	--c-primary-lightness: 50%;
+	--c-primary: hsla(var(--c-primary-hue), var(--c-primary-saturation), var(--c-primary-lightness), 1);
+	--c-primary-transparent-20: hsla(var(--c-primary-hue), var(--c-primary-saturation), var(--c-primary-lightness), 0.2);
+	--c-primary-strong: hsla(var(--c-primary-hue), var(--c-primary-saturation), calc(var(--c-primary-lightness) - 5%), 1);
+	--c-on-primary: var(--c-bright);
 
-$c-post-red: #fbe2e2;
-$c-post-green: #d8ecd8;
-$c-post-blue: #dee8f1;
+	// danger
+	--c-danger-hue: 0;
+	--c-danger-saturation: 100%;
+	--c-danger-lightness: 70%;
+	--c-danger: hsla(var(--c-danger-hue), var(--c-danger-saturation), var(--c-danger-lightness), 1);
+	--c-on-danger: var(--c-bright);
 
-$c-overlay: rgba(0,0,0,0.3);
+	// link
+	--c-link-hue: 222;
+	--c-link-saturation: 100%;
+	--c-link-lightness: 60%;
+	--c-link: hsla(var(--c-link-hue), var(--c-link-saturation), var(--c-link-lightness), 1);
 
-$c-link: #336fff;
+	// background
+	--c-background-hue: 43;
+	--c-background-saturation: 100%;
+	--c-background-lightness: 95%;
+	--c-background: hsla(var(--c-background-hue), var(--c-background-saturation), var(--c-background-lightness), 1);
+	--c-on-background: hsla(223, 20%, 35%, 1);
+
+	// surface
+	--c-surface-1: var(--c-bright);
+	--c-surface-2: var(--c-bright);
+	--c-surface-high: hsla(0, 0%, 40%, 1);
+	--c-on-surface: hsla(223, 20%, 35%, 1);
+	--c-on-surface-high: var(--c-bright);
+
+	// colored surface
+	--c-surface-red-hue: 0;
+	--c-surface-red-saturation: 76%;
+	--c-surface-red-lightness: 94%;
+	--c-surface-red: hsla(var(--c-surface-red-hue), var(--c-surface-red-saturation), var(--c-surface-red-lightness), 1);
+	--c-surface-green-hue: 120;
+	--c-surface-green-saturation: 34%;
+	--c-surface-green-lightness: 89%;
+	--c-surface-green: hsla(var(--c-surface-green-hue), var(--c-surface-green-saturation), var(--c-surface-green-lightness), 1);
+	--c-surface-blue-hue: 208;
+	--c-surface-blue-saturation: 40%;
+	--c-surface-blue-lightness: 91%;
+	--c-surface-blue: hsla(var(--c-surface-blue-hue), var(--c-surface-blue-saturation), var(--c-surface-blue-lightness), 1);
+
+	// others
+	--c-overlay: hsla(0, 0%, 0%, 0.3);
+}
+
+body.dark-mode {
+	--c-bright: hsla(0, 0%, 95%, 1);
+	--c-dark: hsla(0, 0%, 7%, 1);
+
+	// shadow
+	--c-shadow-alpha-base: 0;
+
+	// elevate
+	--c-elevate-lightness: 100%;
+
+	// degrade
+	--c-degrade-lightness: 0%;
+
+	// gray
+	--c-gray-stronger: hsla(0, 0%, 95%, 1);
+	--c-gray-strong: hsla(0, 0%, 80%, 1);
+	--c-gray: hsla(0, 0%, 70%, 1);
+	--c-gray-weak: hsla(0, 0%, 50%, 1);
+	--c-gray-weaker: hsla(0, 0%, 30%, 1);
+
+	// primary
+	--c-primary-saturation: 80%;
+	//--c-primary-lightness: 50%;
+	--c-on-primary: var(--c-dark);
+
+	// danger
+	--c-danger-saturation: 80%;
+	//--c-danger-lightness: 70%;
+	--c-on-danger: var(--c-dark);
+
+	// link
+	--c-link-saturation: 80%;
+	//--c-link-lightness: 60%;
+
+	// background
+	--c-background: var(--c-dark);
+	--c-on-background: var(--c-bright);
+
+	// surface
+	--c-surface-1: hsla(0, 0%, 20%, 1);
+	--c-surface-2: hsla(0, 0%, 40%, 1);
+	--c-surface-high: hsla(0, 0%, 70%, 1);
+	--c-on-surface: var(--c-bright);
+	--c-on-surface-high: var(--c-dark);
+
+	// colored surface
+	--c-surface-red-saturation: 30%;
+	--c-surface-red-lightness: 30%;
+	--c-surface-green-saturation: 20%;
+	--c-surface-green-lightness: 30%;
+	--c-surface-blue-saturation: 30%;
+	--c-surface-blue-lightness: 30%;
+
+	// others
+	--c-overlay: hsla(0, 0%, 0%, 0.7);
+}

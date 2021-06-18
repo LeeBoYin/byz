@@ -44,6 +44,13 @@
 									>
 										<i class="las la-plus"></i>
 									</button>
+									<button
+										class="menu-bar__tool"
+										v-tooltip="'Bright/Dark'"
+										@click="onClickToggleTheme"
+									>
+										<i class="las la-sun"></i>
+									</button>
 								</LayoutListInline>
 							</template>
 						</LayoutFlexRow>
@@ -141,6 +148,10 @@ export default {
 		onClickShareButton() {
 			this.isOpenModalShare = true;
 			logEvent('share_button_clicked');
+		},
+		onClickToggleTheme() {
+			const body = document.querySelector('body');
+			body.classList.toggle('dark-mode')
 		},
 		onToggleFullscreen() {
 			if(document.fullscreenElement) {

@@ -55,7 +55,6 @@
 </template>
 
 <script>
-// import vueLayoutSystem from 'vue-layout-system';
 import EditableTitle from '@components/EditableTitle';
 import OptionsDropdown from '@components/OptionsDropdown';
 import PostForm from '@components/PostForm';
@@ -69,7 +68,6 @@ export default {
 		OptionsDropdown,
 		PostForm,
 		PostList,
-		// ...vueLayoutSystem,
 	},
 	props: {
 		group: Object,

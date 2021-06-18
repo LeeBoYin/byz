@@ -1,6 +1,6 @@
 .post-list {
 	$scrollbar-size: 5px;
-	@include custom-scrollbar(#dcd6c9, transparent, $scrollbar-size);
+	@include custom-scrollbar($scrollbar-size);
 	display: flex;
 	flex-direction: column;
 	padding: $spacing-2 7px $spacing-9 (7px + $scrollbar-size);

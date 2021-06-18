@@ -4,14 +4,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 input[type="text"], textarea {
-	color: $c-dark;
-	background-color: rgba(0, 0, 0, 0.05);
-	font-size: $font-size-base;
+	color: var(--c-on-background);
+	background-color: var(--c-elevate-5);
+	font-size: var(--font-size-base);
 	outline: none;
 	font-family: inherit;
 	letter-spacing: inherit;
 	&::placeholder {
-		color: rgba(0, 0, 0, 0.2);
+		color: var(--c-elevate-20);
 	}
 }
 
@@ -43,12 +43,7 @@ button {
 	background: none;
 	border: none;
 	padding: 0;
-}
-
-hr {
-	border: 0 solid $c-primary-dark;
-	border-top-width: 1px;
-	margin: $spacing-6 0;
+	color: var(--c-on-background);
 }
 
 ul, ol {

@@ -5,7 +5,7 @@
 		height: initial;
 	}
 	&__inner {
-		border-top: 1px solid rgba(0, 0, 0, 0.2);
+		border-top: 1px solid var(--c-elevate-20);
 		padding-top: $spacing-4;
 		margin-top: $spacing-2;
 		opacity: 0;
@@ -17,7 +17,7 @@
 		transition-delay: $transition-duration-post-modal-mode / 2;
 	}
 	&__title {
-		font-weight: $font-weight-bold;
+		font-weight: var(--font-weight-bold);
 		font-size: 12px;
 		margin-bottom: 20px;
 	}

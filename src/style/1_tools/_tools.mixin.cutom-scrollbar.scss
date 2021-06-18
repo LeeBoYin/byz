@@ -1,6 +1,8 @@
 // https://css-tricks.com/almanac/properties/s/scrollbar/
 // https://css-tricks.com/custom-scrollbars-in-webkit/
-@mixin custom-scrollbar($foreground-color: $c-gray, $background-color: rgba(0, 0, 0, 0.03), $size: 8px) {
+@mixin custom-scrollbar($size: 5px) {
+	$foreground-color: var(--c-elevate-10);
+	$background-color: transparent;
 	&::-webkit-scrollbar {
 		width:  $size;
 		height: $size;
@@ -10,10 +12,10 @@
 		background: $foreground-color;
 		border-radius: 5px;
 		&:hover {
-			box-shadow: 0 0 0 $size rgba(0, 0, 0, 0.05) inset;
+			box-shadow: 0 0 0 $size var(--c-elevate-5) inset;
 		}
 		&:active {
-			box-shadow: 0 0 0 $size rgba(0, 0, 0, 0.1) inset;
+			box-shadow: 0 0 0 $size var(--c-elevate-10) inset;
 		}
 	}
 

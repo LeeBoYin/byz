@@ -2,28 +2,28 @@
 	position: sticky;
 	bottom: 0;
 	padding-top: $spacing-2;
-	background-color: $c-bright;
+	background-color: var(--c-surface-1);
 	transition: $transition-post-background-color;
 	.post--red & {
-		background-color: $c-post-red;
+		background-color: var(--c-surface-red);
 	}
 	.post--green & {
-		background-color: $c-post-green;
+		background-color: var(--c-surface-green);
 	}
 	.post--blue & {
-		background-color: $c-post-blue;
+		background-color: var(--c-surface-blue);
 	}
 	&__textarea {
 		@extend .input-block;
 		padding: $padding-post-textarea;
 		border-radius: 20px;
-		border-color: rgba(0, 0, 0, 0.1);
-		background-color: $c-bright;
+		border-color: var(--c-shadow-10);
+		background-color: var(--c-surface-1);
 		&:focus {
-			border-color: $c-primary;
+			border-color: var(--c-primary);
 		}
 		.post--colored & {
-			border-color: $c-bright;
+			border-color: var(--c-surface-1);
 		}
 	}
 }

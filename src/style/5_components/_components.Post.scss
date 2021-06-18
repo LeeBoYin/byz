@@ -1,22 +1,22 @@
 .post {
 	@include editable-post-content;
-	background-color: $c-bright;
+	background-color: var(--c-surface-1);
 	border-radius: $border-r-md;
-	box-shadow: 3px 3px 0 rgba(0, 0, 0, .02);
+	box-shadow: 3px 3px 0 var(--c-shadow-2);
 	cursor: pointer;
 	transition: $transition-post-background-color;
 	transform-origin: top center;
 	&:hover {
-		box-shadow: 3px 3px 0 rgba(0, 0, 0, .05);
+		box-shadow: 3px 3px 0 var(--c-shadow-5);
 	}
 	&--red {
-		background-color: $c-post-red;
+		background-color: var(--c-surface-red);
 	}
 	&--green {
-		background-color: $c-post-green;
+		background-color: var(--c-surface-green);
 	}
 	&--blue {
-		background-color: $c-post-blue;
+		background-color: var(--c-surface-blue);
 	}
 	&--editing {
 		cursor: initial;
@@ -28,7 +28,7 @@
 	}
 	&--modal-mode {
 		$scrollbar-size: 5px;
-		@include custom-scrollbar(rgba(0, 0, 0, 0.2), transparent, $scrollbar-size);
+		@include custom-scrollbar($scrollbar-size);
 		cursor: initial;
 		position: fixed;
 		top: $spacing-9;
@@ -85,7 +85,7 @@
 		visibility: hidden;
 	}
 	&__pin {
-		color: $c-danger;
+		color: var(--c-danger);
 		// custom padding
 		padding: 5px 2px 0 6px;
 		i {
@@ -93,7 +93,7 @@
 		}
 	}
 	&--pinned .icon-pin {
-		color: $c-danger;
+		color: var(--c-danger);
 	}
 	&__content {
 		@extend %markdown-content;
@@ -103,7 +103,7 @@
 	}
 	&__poster {
 		@extend %text-ellipsis;
-		color: $c-gray-dark;
+		color: var(--c-gray-strong);
 	}
 	&__post-time, &__comment-count {
 		@extend %text-ellipsis;
@@ -120,20 +120,20 @@
 	&__btn-like {
 		i {
 			font-size: 16px;
-			color: $c-bright;
+			color: var(--c-surface-1);
 			opacity: 0.8;
-			text-shadow: 0 0 1px $c-dark, 0 0 1px $c-dark, 0 0 1px $c-dark, 0 0 1px $c-dark;
+			text-shadow: 0 0 1px var(--c-on-surface), 0 0 1px var(--c-on-surface), 0 0 1px var(--c-on-surface), 0 0 1px var(--c-on-surface);
 		}
 		&--liked {
 			i {
-				color: $c-danger;
+				color: var(--c-danger);
 				opacity: 1;
 				text-shadow: none;
 			}
 		}
 	}
 	&__edited-hint {
-		color: $c-gray;
+		color: var(--c-gray);
 		font-size: 12px;
 		display: inline-block;
 		margin-left: 5px;
@@ -155,19 +155,19 @@
 	display: block;
 	height: 1em;
 	width: 1em;
-	border: 1px solid $c-gray-light;
+	border: 1px solid var(--c-elevate-20);
 	border-radius: 50%;
 	&--white {
-		background-color: white;
+		background-color: var(--c-surface-1);
 	}
 	&--red {
-		background-color: $c-post-red;
+		background-color: var(--c-surface-red);
 	}
 	&--green {
-		background-color: $c-post-green;
+		background-color: var(--c-surface-green);
 	}
 	&--blue {
-		background-color: $c-post-blue;
+		background-color: var(--c-surface-blue);
 	}
 }
 .post-modal-overlay {
@@ -177,7 +177,7 @@
 	width: 100%;
 	height: 100%;
 	z-index: $z-index-post-modal-overlay;
-	background-color: $c-overlay;
+	background-color: var(--c-overlay);
 	opacity: 0;
 	visibility: hidden;
 	transition: $transition-modal-overlay-hide;
