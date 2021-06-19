@@ -17,8 +17,8 @@
 		@extend .input-block;
 		padding: $padding-post-textarea;
 		border-radius: 20px;
-		border-color: var(--c-shadow-10);
-		background-color: var(--c-surface-1);
+		border-color: var(--c-elevate-10);
+		background-color: var(--c-degrade-60);
 		&:focus {
 			border-color: var(--c-primary);
 		}

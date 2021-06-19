@@ -2,7 +2,7 @@
 	&__input {
 		@extend .input-block;
 		border-radius: 30px;
-		background-color: var(--c-surface-1);
+		background-color: var(--c-degrade-60);
 		max-height: 150px;
 		&:hover,
 		&:focus {
