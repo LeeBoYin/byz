@@ -9,6 +9,24 @@
 	&__tool {
 		font-size: 16px;
 		padding: $spacing-1;
+		border-radius: 50%;
+		&:hover {
+			background-color: var(--c-elevate-5);
+		}
+		&:active {
+			background-color: var(--c-elevate-10);
+		}
+	}
+	&__tool-icon {
+		&--light-mode {
+			display: none;
+		}
+		.dark-mode &--light-mode {
+			display: inline;
+		}
+		.dark-mode &--dark-mode {
+			display: none;
+		}
 	}
 
 	// mobile

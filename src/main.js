@@ -59,3 +59,12 @@ new Vue({
 });
 
 export const EventBus = new Vue();
+
+// color scheme
+import {
+	getUserPreferredColorScheme,
+	setColorScheme,
+	watchUserPreferredColorScheme,
+} from '@libs/colorScheme';
+setColorScheme(getUserPreferredColorScheme());
+watchUserPreferredColorScheme();

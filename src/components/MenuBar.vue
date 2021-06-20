@@ -39,17 +39,18 @@
 									</button>
 									<button
 										class="menu-bar__tool"
-										v-tooltip="'Create new board'"
+										v-tooltip="'Create a new board'"
 										@click="onClickCreateBoardButton"
 									>
 										<i class="las la-plus"></i>
 									</button>
 									<button
 										class="menu-bar__tool"
-										v-tooltip="'Bright/Dark'"
+										v-tooltip="'Switch theme'"
 										@click="onClickToggleTheme"
 									>
-										<i class="las la-sun"></i>
+										<i class="las la-sun menu-bar__tool-icon--light-mode"></i>
+										<i class="las la-moon menu-bar__tool-icon--dark-mode"></i>
 									</button>
 								</LayoutListInline>
 							</template>
@@ -93,6 +94,10 @@ import EditableTitle from '@components/EditableTitle';
 import ModalShare from '@components/ModalShare';
 import constants from '@/constants';
 import { logEvent } from '@libs/analytics';
+import {
+	toggleColorScheme,
+	storeUserPreferredColorScheme,
+} from '@libs/colorScheme';
 
 export default {
 	components: {
@@ -150,8 +155,8 @@ export default {
 			logEvent('share_button_clicked');
 		},
 		onClickToggleTheme() {
-			const body = document.querySelector('body');
-			body.classList.toggle('dark-mode')
+			const colorScheme = toggleColorScheme();
+			storeUserPreferredColorScheme(colorScheme);
 		},
 		onToggleFullscreen() {
 			if(document.fullscreenElement) {
