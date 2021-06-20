@@ -65,16 +65,16 @@ body {
 	--c-on-surface-high: var(--c-bright);
 
 	// colored surface
-	--c-surface-red-hue: 0;
-	--c-surface-red-saturation: 76%;
-	--c-surface-red-lightness: 94%;
+	--c-surface-red-hue: 2;
+	--c-surface-red-saturation: 79%;
+	--c-surface-red-lightness: 93%;
 	--c-surface-red: hsla(var(--c-surface-red-hue), var(--c-surface-red-saturation), var(--c-surface-red-lightness), 1);
-	--c-surface-green-hue: 120;
+	--c-surface-green-hue: 147;
 	--c-surface-green-saturation: 34%;
-	--c-surface-green-lightness: 89%;
+	--c-surface-green-lightness: 88%;
 	--c-surface-green: hsla(var(--c-surface-green-hue), var(--c-surface-green-saturation), var(--c-surface-green-lightness), 1);
-	--c-surface-blue-hue: 208;
-	--c-surface-blue-saturation: 40%;
+	--c-surface-blue-hue: 217;
+	--c-surface-blue-saturation: 33%;
 	--c-surface-blue-lightness: 91%;
 	--c-surface-blue: hsla(var(--c-surface-blue-hue), var(--c-surface-blue-saturation), var(--c-surface-blue-lightness), 1);
 
@@ -87,7 +87,7 @@ body.dark-mode {
 	--c-dark: hsla(0, 0%, 7%, 1);
 
 	// shadow
-	--c-shadow-alpha-base: 0;
+	--c-shadow-alpha-base: 0.007;
 
 	// elevate
 	--c-elevate-lightness: 100%;
@@ -122,18 +122,21 @@ body.dark-mode {
 
 	// surface
 	--c-surface-1: hsla(0, 0%, 20%, 1);
-	--c-surface-2: hsla(0, 0%, 40%, 1);
+	--c-surface-2: hsla(0, 0%, 37%, 1);
 	--c-surface-high: hsla(0, 0%, 70%, 1);
 	--c-on-surface: var(--c-bright);
 	--c-on-surface-high: var(--c-dark);
 
 	// colored surface
-	--c-surface-red-saturation: 30%;
-	--c-surface-red-lightness: 30%;
-	--c-surface-green-saturation: 20%;
-	--c-surface-green-lightness: 30%;
-	--c-surface-blue-saturation: 30%;
-	--c-surface-blue-lightness: 30%;
+	--c-surface-red-hue: 2;
+	--c-surface-red-saturation: 16%;
+	--c-surface-red-lightness: 29%;
+	--c-surface-green-hue: 147;
+	--c-surface-green-saturation: 12%;
+	--c-surface-green-lightness: 26%;
+	--c-surface-blue-hue: 217;
+	--c-surface-blue-saturation: 18%;
+	--c-surface-blue-lightness: 29%;
 
 	// others
 	--c-overlay: hsla(0, 0%, 0%, 0.7);
