@@ -3,14 +3,18 @@
 	border-radius: 50%;
 	text-transform: uppercase;
 	text-align: center;
-	color: $c-bright;
-	background: $c-bright;
-	transition: .2s;
+	color: var(--c-bright);
+	background: var(--c-surface-1);
 	overflow: hidden;
 	&__inner {
 		width: 100%;
 		height: 100%;
 		line-height: inherit;
+		transition-property: background-color;
+		transition-duration: .2s;
+	}
+	.dark-mode &__inner {
+		box-shadow: 0 0 0 100px var(--c-degrade-30) inset;
 	}
 	&--sm {
 		font-size: 0;

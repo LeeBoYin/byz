@@ -6,10 +6,10 @@
 			opacity: 0.6;
 		}
 		&:focus {
-			border-color: $c-primary;
+			border-color: var(--c-primary);
 		}
 	}
 	.post--white &__textarea, .post--red &__textarea, .post--green &__textarea, .post--blue &__textarea {
-		background-color: $c-bright-transparent-half;
+		background-color: var(--c-degrade-50);
 	}
 }

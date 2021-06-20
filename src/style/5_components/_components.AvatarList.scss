@@ -42,7 +42,7 @@ $shrink-lg: 15px;
 }
 
 .menu-bar .avatar-list .avatar {
-	border-color: $c-background;
+	border-color: var(--c-background);
 	&--inactive {
 		transform-origin: bottom center;
 		transform: scale(0.95);
@@ -50,16 +50,16 @@ $shrink-lg: 15px;
 }
 .post {
 	.avatar-list .avatar {
-		border-color: $c-bright;
+		border-color: var(--c-surface-1);
 	}
 	&--red .avatar-list .avatar {
-		border-color: $c-post-red;
+		border-color: var(--c-surface-red);
 	}
 	&--green .avatar-list .avatar {
-		border-color: $c-post-green;
+		border-color: var(--c-surface-green);
 	}
 	&--blue .avatar-list .avatar {
-		border-color: $c-post-blue;
+		border-color: var(--c-surface-blue);
 	}
 }
 

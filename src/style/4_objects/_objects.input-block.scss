@@ -7,6 +7,6 @@
 	transition-property: color, border, background-color;
 	transition-duration: .2s;
 	&::placeholder {
-		color: rgba(0, 0, 0, 0.2);
+		color: var(--c-elevate-20);
 	}
 }

@@ -9,10 +9,10 @@
 		left: 0;
 		width: 100%;
 		z-index: 1;
-		background-color: #FFFFFF;
+		background-color: var(--c-surface-2);
 		border-radius: 10px;
 		overflow: hidden;
-		box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.2);
+		box-shadow: 0 6px 15px 0 var(--c-shadow-20);
 		margin-top: 2px;
 		overflow-y: auto;
 	}
@@ -20,15 +20,15 @@
 		@extend %text-ellipsis;
 		position: relative;
 		padding: $spacing-2 $spacing-6;
-		border-bottom: 1px solid $c-gray-lighter;
+		border-bottom: 1px solid var(--c-gray-weaker);
 		&:last-child {
 			border-bottom: none;
 		}
 		&:hover {
-			background-color: $c-background;
+			background-color: var(--c-background);
 		}
 		&--focused, &--focused:hover {
-			background-color: $c-background-dark;
+			background-color: var(--c-primary-transparent-20);
 		}
 	}
 	&__color {

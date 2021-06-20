@@ -1,8 +1,8 @@
 .btn {
 	border-radius: $border-r-md;
 	border: 0;
-	background-color: $c-gray-dark;
-	color: $c-bright;
+	background-color: var(--c-gray-strong);
+	color: var(--c-surface-1);
 	cursor: pointer;
 	display: inline-block;
 	font-size: 16px;
@@ -12,23 +12,21 @@
 	transition: background-color .2s;
 	user-select: none;
 	&:active {
-		background-color: $c-gray-darker;
+		background-color: var(--c-gray-stronger);
 	}
 	&--primary {
-		background-color: $c-primary;
+		color: var(--c-on-primary);
+		background-color: var(--c-primary);
 		&:active {
-			background-color: $c-primary-dark;
+			background-color: var(--c-primary-strong);
 		}
 	}
-	&--secondary {
-		background-color: $c-secondary;
-	}
 	&--default {
-		color: $c-dark;
-		border: 1px solid $c-gray-light;
-		background-color: $c-bright;
+		color: var(--c-on-surface);
+		border: 1px solid var(--c-gray-weak);
+		background-color: var(--c-surface-1);
 		&:active {
-			background-color: $c-gray-lighter;
+			background-color: var(--c-gray-weaker);
 		}
 	}
 }

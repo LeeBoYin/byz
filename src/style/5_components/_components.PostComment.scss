@@ -2,11 +2,11 @@
 	@include editable-post-content;
 	&__content {
 		@extend %markdown-content;
-		background-color: rgba(0, 0, 0, 0.05);
+		background-color: var(--c-elevate-5);
 		border-radius: $border-r-lg;
 		padding: $padding-post-textarea;
 		.post--colored & {
-			background-color: $c-bright-transparent-half;
+			background-color: var(--c-degrade-50);
 		}
 		img {
 			cursor: pointer;
@@ -17,7 +17,7 @@
 	}
 	&__post-time {
 		font-size: 12px;
-		color: $c-gray;
+		color: var(--c-gray);
 	}
 	&__options {
 		visibility: hidden;

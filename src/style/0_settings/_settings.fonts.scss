@@ -1,2 +1,10 @@
-$font-size-base: 16px;
-$font-weight-bold: 700;
+body {
+	--font-size-base: 16px;
+	--font-weight-regular: 400;
+	--font-weight-bold: 700;
+}
+
+body.dark-mode {
+	--font-weight-regular: 300;
+	--font-weight-bold: 600;
+}

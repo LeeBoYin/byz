@@ -3,16 +3,17 @@
 }
 
 html, body {
-	background-color: $c-background;
+	background-color: var(--c-background);
 }
 
 body {
 	// https://fonts.google.com/specimen/Montserrat?query=mon&sidebar.open&selection.family=Montserrat:wght@400;700
 	font-family: 'Montserrat', sans-serif;
-	font-size: $font-size-base;
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-regular);
 	letter-spacing: 0.5px;
 	margin: 0;
-	color: $c-dark;
+	color: var(--c-on-background);
 	overflow: hidden;
 }
 

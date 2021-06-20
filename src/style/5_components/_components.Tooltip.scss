@@ -1,14 +1,13 @@
-$c-tooltip-bg: rgba(0, 0, 0, 0.5);
 .tooltip {
 	position: fixed;
 	z-index: $z-index-tooltip;
 	transform: translate(-50%, 8px);
 	padding: $spacing-1 $spacing-2;
 	white-space: nowrap;
-	color: $c-bright;
+	color: var(--c-on-surface-high);
 	font-size: 12px;
 	text-align: center;
-	background-color: $c-tooltip-bg;
+	background-color: var(--c-surface-high);
 	border-radius: 5px;
 	&:before {
 		content: '';
@@ -16,7 +15,7 @@ $c-tooltip-bg: rgba(0, 0, 0, 0.5);
 		bottom: 100%;
 		left: 50%;
 		transform: translateX(-50%);
-		border: 5px solid $c-tooltip-bg;
+		border: 5px solid var(--c-surface-high);
 		border-top-color: transparent;
 		border-left-color: transparent;
 		border-right-color: transparent;

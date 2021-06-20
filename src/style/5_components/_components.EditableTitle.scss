@@ -4,7 +4,7 @@
 	}
 
 	// display
-	$shadow-bottom: 0 1px 0 0 $c-gray-light;
+	$shadow-bottom: 0 1px 0 0 var(--c-gray-weak);
 	&__display {
 		@extend %text-ellipsis;
 	}

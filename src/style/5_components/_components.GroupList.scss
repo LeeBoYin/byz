@@ -1,5 +1,5 @@
 .group-list {
-	@include custom-scrollbar(#dcd6c9, transparent, 5px);
+	@include custom-scrollbar(5px);
 	display: flex;
 	flex-wrap: nowrap;
 	overflow-x: auto;
@@ -11,8 +11,8 @@
 	&__btn-add {
 		width: $w-group;
 		flex-shrink: 0;
-		border: 2px dashed $c-dark;
-		color: $c-dark;
+		border: 2px dashed var(--c-on-background);
+		color: var(--c-on-background);
 		font-size: 30px;
 		opacity: 0.2;
 		transition: opacity .1s;

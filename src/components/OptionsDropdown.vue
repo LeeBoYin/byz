@@ -2,10 +2,12 @@
 	<div
 		:class="{ 'options-dropdown--open': isOpen }"
 		class="options-dropdown"
+		:data-uid="_.uniqueId()"
 		@click.stop="toggleOptions">
 		<div class="options-dropdown__container">
 			<i
 				ref="toggle"
+				:data-uid="_.uniqueId()"
 				class="options-dropdown__toggle las la-ellipsis-v"
 			></i>
 			<div class="options-dropdown__dropdown" :style="dropDownStyle">
@@ -109,6 +111,7 @@ export default {
 		bindEvents() {
 			document.addEventListener('mousedown', (e) => {
 				if(e.target.isEqualNode(this.$el) || e.target.isEqualNode(this.$refs.toggle)){
+					// use data-uid to verify identical node
 					return;
 				}
 				this.isOpen = false;

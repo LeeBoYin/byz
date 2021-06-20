@@ -12,8 +12,8 @@
 }
 
 %tool {
-	color: $c-gray;
+	color: var(--c-gray);
 	&:hover {
-		color: $c-gray-darker;
+		color: var(--c-gray-stronger);
 	}
 }

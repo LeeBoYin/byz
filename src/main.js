@@ -59,3 +59,18 @@ new Vue({
 });
 
 export const EventBus = new Vue();
+
+// init color scheme
+import {
+	getUserPreferredColorScheme,
+	setColorScheme,
+	watchUserPreferredColorScheme,
+} from '@libs/colorScheme';
+const colorScheme = getUserPreferredColorScheme();
+setColorScheme(colorScheme);
+watchUserPreferredColorScheme();
+
+import { logEvent } from '@libs/analytics';
+logEvent('init_app', {
+	theme: colorScheme,
+})
