@@ -157,6 +157,9 @@ export default {
 		onClickToggleTheme() {
 			const colorScheme = toggleColorScheme();
 			storeUserPreferredColorScheme(colorScheme);
+			logEvent('switch_theme', {
+				theme: colorScheme,
+			})
 		},
 		onToggleFullscreen() {
 			if(document.fullscreenElement) {
