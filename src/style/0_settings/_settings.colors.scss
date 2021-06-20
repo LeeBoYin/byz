@@ -104,17 +104,14 @@ body.dark-mode {
 
 	// primary
 	--c-primary-saturation: 80%;
-	//--c-primary-lightness: 50%;
 	--c-on-primary: var(--c-dark);
 
 	// danger
 	--c-danger-saturation: 80%;
-	//--c-danger-lightness: 70%;
 	--c-on-danger: var(--c-dark);
 
 	// link
 	--c-link-saturation: 80%;
-	//--c-link-lightness: 60%;
 
 	// background
 	--c-background: var(--c-dark);
@@ -128,13 +125,10 @@ body.dark-mode {
 	--c-on-surface-high: var(--c-dark);
 
 	// colored surface
-	--c-surface-red-hue: 2;
 	--c-surface-red-saturation: 16%;
 	--c-surface-red-lightness: 29%;
-	--c-surface-green-hue: 147;
 	--c-surface-green-saturation: 12%;
 	--c-surface-green-lightness: 26%;
-	--c-surface-blue-hue: 217;
 	--c-surface-blue-saturation: 18%;
 	--c-surface-blue-lightness: 29%;
 
