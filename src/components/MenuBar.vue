@@ -54,10 +54,10 @@
 									</button>
 									<button
 										class="menu-bar__tool"
-										v-tooltip="'Buy me a coffee'"
+										v-tooltip="'About'"
 										@click="onClickAboutButton"
 									>
-										<i class="las la-coffee"></i>
+										<i class="las la-info-circle"></i>
 									</button>
 								</LayoutListInline>
 							</template>

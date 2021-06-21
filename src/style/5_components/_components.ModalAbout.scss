@@ -1,15 +1,13 @@
 .modal-about {
 	line-height: 1.6;
-	&__buy-me-a-coffee-button {
-		display: inline-block;
-		max-width: 240px;
-		transition: transform .1s;
-		&:hover, &:focus {
-			transform: scale(1.04);
-		}
-		&:active {
-			transform: scale(0.96);
-		}
+	&__creator-photo {
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		border: 4px solid var(--c-elevate-10);
+	}
+	.la-heart {
+		color: var(--c-danger);
 	}
 	&__link {
 		@extend .link;
