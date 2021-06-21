@@ -65,8 +65,7 @@
 			opacity $transition-duration-post-modal-mode ease-out;
 	}
 	&--ghost {
-		opacity: 0.5;
-		filter: brightness(200);
+		opacity: 0.4;
 		* {
 			visibility: hidden;
 		}

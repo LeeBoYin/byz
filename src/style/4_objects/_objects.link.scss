@@ -1,4 +1,7 @@
 .link {
-	text-decoration: underline;
+	color: var(--c-link);
 	cursor: pointer;
+	&:hover, &:focus {
+		text-decoration: underline;
+	}
 }

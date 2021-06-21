@@ -15,15 +15,13 @@
 		border-left: 4px solid var(--c-elevate-10);
 	}
 	img {
-		max-width: 100%;
+		.dark-mode & {
+			filter: brightness(0.8);
+		}
 	}
 	a[href] {
-		color: var(--c-link);
-		text-decoration: none;
+		@extend .link;
 		word-break: break-all;
-		&:hover, &:focus {
-			text-decoration: underline;
-		}
 	}
 	code {
 		padding: $spacing-2;

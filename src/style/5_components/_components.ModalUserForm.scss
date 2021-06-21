@@ -2,4 +2,9 @@
 	&__autocomplete-input .autocomplete-input__select {
 		max-height: 10em;
 	}
+	&__guest-link {
+		text-decoration: underline;
+		font-size: 12px;
+		color: var(--c-gray);
+	}
 }

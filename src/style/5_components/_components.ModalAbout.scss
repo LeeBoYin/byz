@@ -1,0 +1,17 @@
+.modal-about {
+	line-height: 1.6;
+	&__buy-me-a-coffee-button {
+		display: inline-block;
+		max-width: 240px;
+		transition: transform .1s;
+		&:hover, &:focus {
+			transform: scale(1.04);
+		}
+		&:active {
+			transform: scale(0.96);
+		}
+	}
+	&__link {
+		@extend .link;
+	}
+}
