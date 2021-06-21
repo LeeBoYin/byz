@@ -20,12 +20,8 @@
 		}
 	}
 	a[href] {
-		color: var(--c-link);
-		text-decoration: none;
+		@extend .link;
 		word-break: break-all;
-		&:hover, &:focus {
-			text-decoration: underline;
-		}
 	}
 	code {
 		padding: $spacing-2;

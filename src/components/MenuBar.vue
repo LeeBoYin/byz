@@ -39,6 +39,14 @@
 									</button>
 									<button
 										class="menu-bar__tool"
+										v-tooltip="'Switch theme'"
+										@click="onClickToggleTheme"
+									>
+										<i class="las la-sun menu-bar__tool-icon--light-mode"></i>
+										<i class="las la-moon menu-bar__tool-icon--dark-mode"></i>
+									</button>
+									<button
+										class="menu-bar__tool"
 										v-tooltip="'Create a new board'"
 										@click="onClickCreateBoardButton"
 									>
@@ -46,11 +54,10 @@
 									</button>
 									<button
 										class="menu-bar__tool"
-										v-tooltip="'Switch theme'"
-										@click="onClickToggleTheme"
+										v-tooltip="'Buy me a coffee'"
+										@click="onClickAboutButton"
 									>
-										<i class="las la-sun menu-bar__tool-icon--light-mode"></i>
-										<i class="las la-moon menu-bar__tool-icon--dark-mode"></i>
+										<i class="las la-coffee"></i>
 									</button>
 								</LayoutListInline>
 							</template>
@@ -79,9 +86,12 @@
 				/>
 			</template>
 		</LayoutFlexRow>
+		<ModalAbout
+			:is-open="isOpenModalAbout"
+			@close="isOpenModalAbout = false"
+		/>
 		<ModalShare
 			:is-open="isOpenModalShare"
-			class="modal-sm"
 			@close="isOpenModalShare = false"
 		/>
 	</div>
@@ -91,6 +101,7 @@
 import Avatar from '@components/Avatar';
 import AvatarList from '@components/AvatarList';
 import EditableTitle from '@components/EditableTitle';
+import ModalAbout from '@components/ModalAbout';
 import ModalShare from '@components/ModalShare';
 import constants from '@/constants';
 import { logEvent } from '@libs/analytics';
@@ -104,6 +115,7 @@ export default {
 		Avatar,
 		AvatarList,
 		EditableTitle,
+		ModalAbout,
 		ModalShare,
 	},
 	data() {
@@ -111,6 +123,7 @@ export default {
 			formattedUserList: [],
 			updateUserListInterval: null,
 			isSupportFullscreen: document.fullscreenEnabled,
+			isOpenModalAbout: false,
 			isOpenModalShare: false,
 			isFullScreen: false,
 		};
@@ -146,6 +159,10 @@ export default {
 		clearInterval(this.updateUserListInterval);
 	},
 	methods: {
+		onClickAboutButton() {
+			this.isOpenModalAbout = true;
+			logEvent('about_button_clicked');
+		},
 		onClickCreateBoardButton() {
 			window.open(`${ constants.baseUrl }/create`);
 			logEvent('create_board_button_clicked');
