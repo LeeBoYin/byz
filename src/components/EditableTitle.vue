@@ -2,7 +2,7 @@
 	<component
 		:is="element"
 		:class="[
-			`editable-title--${ align }`,
+			`editable-title--${ textAlign }`,
 			{
 				'editable-title--disabled': disabled,
 				'editable-title--clickable': clickable,
@@ -15,6 +15,7 @@
 	>
 		<div
 			v-show="!isEditing"
+			:data-uid="_.uniqueId()"
 			ref="display"
 			class="editable-title__display"
 		>
@@ -64,7 +65,7 @@ export default {
 			type: Boolean,
 			default: false,
 		},
-		align: {
+		textAlign: {
 			type: String,
 			default: 'left',
 		},
@@ -85,7 +86,7 @@ export default {
 	mounted() {
 		this.bindEvents();
 		if(this.required && !this.title) {
-			this.onEdit();
+			this.edit();
 		}
 	},
 	beforeDestroy() {
@@ -101,6 +102,13 @@ export default {
 				return;
 			}
 			this.isEditing = false;
+		},
+		edit() {
+			if(this.disabled || this.isEditing) {
+				return;
+			}
+			this.newTitle = this.title;
+			this.isEditing = true;
 		},
 		endEdit() {
 			if(this.required && !this.newTitle.length) {
@@ -120,32 +128,28 @@ export default {
 			}
 			this.$emit('update', this.newTitle);
 		},
-		onClickEdit() {
+		onClickEdit(e) {
 			if(!this.clickable) {
 				return;
 			}
-			this.onEdit();
-		},
-		onDoubleClickEdit() {
-			if(!this.doubleClickable) {
-				return;
-			}
-			this.onEdit();
+			e.stopPropagation();
+			this.edit();
 		},
 		onDocumentClick(e) {
 			if(e.target.isEqualNode(this.$refs.input)){
+				// use data-uid to verify identical node
 				return;
 			}
 			if(this.isEditing) {
 				this.endEdit();
 			}
 		},
-		onEdit() {
-			if(this.disabled || this.isEditing) {
+		onDoubleClickEdit(e) {
+			if(!this.doubleClickable) {
 				return;
 			}
-			this.newTitle = this.title;
-			this.isEditing = true;
+			e.stopPropagation();
+			this.edit();
 		},
 	},
 }

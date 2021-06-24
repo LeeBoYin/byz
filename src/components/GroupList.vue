@@ -2,6 +2,7 @@
 	<div class="group-list">
 		<Group
 			v-for="group in orderedGroups"
+			ref="groups"
 			:key="group.id"
 			:group="group"
 			class="group-list__group"
@@ -66,8 +67,11 @@ export default {
 	},
 	methods: {
 		async onClickCreate() {
-			this.createGroup({
+			await this.createGroup({
 				name: '',
+			});
+			this.$nextTick(() => {
+				_.last(this.$refs.groups).editTitle();
 			});
 		},
 		...mapActions('board', [

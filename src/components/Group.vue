@@ -11,7 +11,10 @@
 	>
 		<LayoutFlexColumn>
 			<template #top>
-				<div class="group__header">
+				<div
+					class="group__header"
+					@dblclick.stop="editTitle"
+				>
 					<LayoutFlexRow vertical-align="center">
 						<template #left>
 							<i class="group__handle las la-grip-lines"></i>
@@ -21,10 +24,9 @@
 								ref="editableTitle"
 								:title="group.name"
 								:disabled="isGuestMode"
-								:double-clickable="true"
 								element="h2"
 								placeholder="Group Name"
-								align="center"
+								text-align="center"
 								class="group__title"
 								@update="updateGroupName"
 							/>
@@ -60,7 +62,6 @@ import OptionsDropdown from '@components/OptionsDropdown';
 import PostForm from '@components/PostForm';
 import PostList from '@components/PostList';
 import { scrollTopAnimate, transitionendOnce } from '@libs/uiUtils';
-import { EventBus } from '@/main';
 import { logEvent } from '@libs/analytics';
 export default {
 	components: {
@@ -115,6 +116,9 @@ export default {
 		]),
 	},
 	methods: {
+		editTitle() {
+			this.$refs.editableTitle.edit();
+		},
 		executeDelete() {
 			transitionendOnce(this.$el, () => {
 				this.deleteGroup( this.group.id );
@@ -142,7 +146,7 @@ export default {
 		},
 		onClickEditTitle() {
 			setTimeout(() => {
-				this.$refs.editableTitle.onEdit();
+				this.$refs.editableTitle.edit();
 			}, 10);
 		},
 		onClickSortPosts() {
@@ -166,11 +170,10 @@ export default {
 			});
 		},
 		onPosted() {
-			EventBus.$once('modified.group', () => {
-				this.$nextTick(() => {
-					const postListElement = this.$refs.postList.$el;
-					scrollTopAnimate(postListElement, postListElement.scrollHeight - postListElement.clientHeight);
-				});
+			this.$nextTick(() => {
+				// scroll to latest post
+				const postListElement = this.$refs.postList.$el;
+				scrollTopAnimate(postListElement, postListElement.scrollHeight - postListElement.clientHeight);
 			});
 		},
 		updateGroupName(newName) {

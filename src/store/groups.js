@@ -30,16 +30,16 @@ const mutations = {
 };
 const actions = {
 	async createGroup({ state, dispatch }, payload = {}) {
-		await state.groupsRef.add({
+		const groupId = await state.groupsRef.add({
 			name: _.get(payload, 'name', ''),
 			timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 		}).then((groupRef) => {
-			dispatch('updateBoard', {
-				groupIdList: firebase.firestore.FieldValue.arrayUnion(groupRef.id),
-			});
-			return groupRef;
+			return groupRef.id;
 		}).catch((error) => {
 			console.error("Error adding group: ", error);
+		});
+		await dispatch('updateBoard', {
+			groupIdList: firebase.firestore.FieldValue.arrayUnion(groupId),
 		});
 	},
 	getGroups({ state, commit }) {
@@ -49,9 +49,6 @@ const actions = {
 				groupsSnapshot.docChanges().forEach( ( change ) => {
 					if ( change.type === 'added' || change.type === 'modified' ) {
 						commit( 'setGroup', change.doc );
-					}
-					if (change.type === 'modified') {
-						EventBus.$emit('modified.group');
 					}
 				} );
 				resolve();
