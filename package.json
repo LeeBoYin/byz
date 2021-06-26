@@ -41,7 +41,7 @@
 		"set-string-to-clipboard": "^1.0.1",
 		"showdown": "^1.9.1",
 		"sortablejs": "^1.13.0",
-		"vue-layout-system": "^1.0.1"
+		"vue-layout-system": "^1.0.2"
 	},
 	"description": ""
 }
