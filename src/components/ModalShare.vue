@@ -24,7 +24,7 @@
 			</LayoutFlexRow>
 		</div>
 		<div v-if="!isGuestMode" slot="footer" class="modal-share__footer">
-			<LayoutListInline gap="3" padding="3">
+			<LayoutListInline gap="3" padding="3" vertical-align="center">
 				<div>
 					Invite people to
 				</div>

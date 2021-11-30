@@ -8,7 +8,7 @@
 				<div class="modal-confirm__msg">
 					{{ msg }}
 				</div>
-				<LayoutListInline gap="3">
+				<LayoutListInline gap="3" vertical-align="center">
 					<button class="modal-confirm__btn-cancel" @click="$emit('cancel')">
 						Cancel
 					</button>

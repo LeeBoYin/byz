@@ -1,6 +1,6 @@
 <template>
 	<div class="color-select">
-		<LayoutListInline gap="4">
+		<LayoutListInline gap="4" vertical-align="center">
 			<div
 				v-for="color in colors" @click="onClickColor(color)"
 				:class="{ 'color-select__option--selected': value === color }"
