@@ -19,7 +19,11 @@
 								/>
 							</template>
 							<template #right>
-								<LayoutListInline gap="1" vertical-align="center">
+								<LayoutListInline
+									gap="1"
+									vertical-align="center"
+									:wrap="false"
+								>
 									<button
 										class="menu-bar__tool"
 										v-tooltip="'Share'"

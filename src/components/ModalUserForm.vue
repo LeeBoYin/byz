@@ -6,7 +6,11 @@
 	>
 		<div slot="body" class="user-form">
 			<LayoutList gap="5" padding-x="8" padding-y="6">
-				<LayoutListInline gap="4" vertical-align="center">
+				<LayoutListInline
+					gap="4"
+					vertical-align="center"
+					:wrap="false"
+				>
 					<Avatar
 						:name="userName"
 						:color="userColor" />
